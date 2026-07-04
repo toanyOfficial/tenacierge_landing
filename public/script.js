@@ -1,47 +1,28 @@
-const landingImages = {
-  heroMainImage: {
-    label: "Hero 대표 이미지",
-    alt: "Tenacierge 랜딩페이지 대표 그래픽",
-  },
-};
-
-const productItems = [
-  {
-    title: "정적 랜딩 섹션",
-    body: "HTML, CSS, 브라우저 스크립트만으로 주요 콘텐츠를 빠르게 노출합니다.",
-    price: "빌드 도구 없음",
-  },
-  {
-    title: "얇은 조회 API",
-    body: "필요한 데이터만 MySQL SELECT 쿼리로 읽어 별도 페이지에 표시합니다.",
-    price: "/api/* 라우트",
-  },
-  {
-    title: "Caddy 배포 흐름",
-    body: "앱은 내부 포트에서 실행하고 외부 도메인 라우팅은 Caddy가 담당합니다.",
-    price: "reverse proxy",
-  },
+const resultItems = [
+  { value: "120+", label: "누적 프로젝트" },
+  { value: "98%", label: "고객 만족도" },
+  { value: "24h", label: "초기 응답 기준" },
 ];
 
-const caseItems = [
+const strengthItems = [
   {
-    title: "서비스 소개 페이지",
-    body: "대부분의 콘텐츠가 고정된 브랜드/상품 소개 페이지에 적합합니다.",
+    title: "고급스러운 첫인상",
+    body: "블랙골드 컬러와 넓은 여백으로 신뢰감 있는 브랜드 분위기를 만듭니다.",
   },
   {
-    title: "간단한 목록 조회",
-    body: "메뉴, 지점, 공지처럼 복잡한 백엔드 없이 읽기만 필요한 화면에 적합합니다.",
+    title: "빠른 수정 구조",
+    body: "반복 콘텐츠를 배열로 분리해 담당자가 문구와 수치를 쉽게 교체할 수 있습니다.",
   },
   {
-    title: "빠른 서버 이관",
-    body: "Bun 런타임과 Express 서버만 준비하면 동일한 구조로 복제할 수 있습니다.",
+    title: "얇은 운영 구조",
+    body: "정적 페이지 중심에 필요한 조회 API만 더하는 가벼운 Express 구성을 유지합니다.",
   },
 ];
 
 const faqItems = [
-  ["별도 프론트엔드 빌드가 필요한가요?", "아니요. public 디렉터리의 정적 파일을 Express가 그대로 제공합니다."],
-  ["데이터 연동은 어떻게 하나요?", "mysql2/promise connection pool을 사용해 /api/data 같은 단순 조회 API로 제공합니다."],
-  ["도메인 연결은 어디서 처리하나요?", "앱 코드가 아니라 Caddy reverse proxy 설정에서 처리합니다."],
+  ["지금 문구는 확정본인가요?", "아니요. 첫 커밋용 기본 문구이며 담당자가 이후 상세하게 교체할 수 있습니다."],
+  ["이미지는 꼭 필요한가요?", "현재는 별도 이미지 없이 CSS 임시 비주얼을 사용해 빠르게 커밋할 수 있게 구성했습니다."],
+  ["데이터 연동도 가능한가요?", "가능합니다. 기존 구조처럼 /api/data와 별도 data 페이지를 유지했습니다."],
 ];
 
 const escapeHtml = (value) =>
@@ -52,38 +33,27 @@ const escapeHtml = (value) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-const heroImageSlot = document.querySelector("#hero-image-slot");
-if (heroImageSlot) {
-  heroImageSlot.innerHTML = `
-    <div class="hero-visual-card" role="img" aria-label="${escapeHtml(landingImages.heroMainImage.alt)}">
-      <span>${escapeHtml(landingImages.heroMainImage.label)}</span>
-      <strong>90% Static</strong>
-      <small>10% SELECT API</small>
-    </div>
-  `;
-}
-
-const productList = document.querySelector("#product-list");
-if (productList) {
-  productList.innerHTML = productItems
+const resultList = document.querySelector("#result-list");
+if (resultList) {
+  resultList.innerHTML = resultItems
     .map(
       (item) => `
-        <article class="product-card">
-          <span class="card-kicker">${escapeHtml(item.price)}</span>
-          <h3>${escapeHtml(item.title)}</h3>
-          <p>${escapeHtml(item.body)}</p>
+        <article class="result-card">
+          <strong>${escapeHtml(item.value)}</strong>
+          <span>${escapeHtml(item.label)}</span>
         </article>
       `,
     )
     .join("");
 }
 
-const caseList = document.querySelector("#case-list");
-if (caseList) {
-  caseList.innerHTML = caseItems
+const strengthList = document.querySelector("#strength-list");
+if (strengthList) {
+  strengthList.innerHTML = strengthItems
     .map(
-      (item) => `
-        <article class="case-card">
+      (item, index) => `
+        <article class="strength-card">
+          <span class="card-number">${String(index + 1).padStart(2, "0")}</span>
           <h3>${escapeHtml(item.title)}</h3>
           <p>${escapeHtml(item.body)}</p>
         </article>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tenacierge Landing</title>
-    <meta name="description" content="Tenacierge의 핵심 가치와 서비스 구성을 소개하는 정적 랜딩페이지입니다." />
+    <meta name="description" content="블랙골드 톤의 기본 랜딩페이지입니다." />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -17,11 +17,10 @@
 
       <nav class="desktop-nav" aria-label="주요 섹션 이동">
         <a class="nav-link is-active" href="#hero" data-section="hero">홈</a>
-        <a class="nav-link" href="#products" data-section="products">서비스</a>
-        <a class="nav-link" href="#cases" data-section="cases">사례</a>
+        <a class="nav-link" href="#results" data-section="results">실적</a>
+        <a class="nav-link" href="#strengths" data-section="strengths">강점</a>
         <a class="nav-link" href="#faq" data-section="faq">FAQ</a>
-        <a class="nav-link" href="#contact" data-section="contact">문의</a>
-        <a class="nav-link" href="/data">데이터</a>
+        <a class="nav-link nav-cta" href="#quote" data-section="quote">견적문의</a>
       </nav>
     </header>
 
@@ -29,36 +28,45 @@
       <section id="hero" class="landing-section hero-section" data-observe-section>
         <div class="section-inner hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">STATIC LANDING + THIN API</p>
-            <h1 class="hero-title">빠르게 공개하고 안정적으로 운영하는 랜딩페이지</h1>
-            <p class="lead hero-lead">Tenacierge Landing은 정적 콘텐츠 중심의 소개 화면과 필요한 만큼만 얇게 연결한 조회 API로 구성됩니다.</p>
+            <p class="eyebrow">PREMIUM LANDING PAGE</p>
+            <h1 class="hero-title">첫인상을 만드는 블랙골드 랜딩페이지</h1>
+            <p class="lead hero-lead">브랜드의 신뢰감과 고급스러운 분위기를 빠르게 보여주는 가장 기본적인 랜딩페이지 레이아웃입니다.</p>
             <div class="button-row hero-actions">
-              <a class="btn btn-primary" href="#contact">문의하기</a>
-              <a class="btn btn-secondary" href="#products">구성 보기</a>
+              <a class="btn btn-primary" href="#quote">견적 문의하기</a>
+              <a class="btn btn-secondary" href="#results">실적 보기</a>
             </div>
           </div>
-          <div id="hero-image-slot" class="hero-image-slot" aria-label="서비스 구성 요약"></div>
+          <div class="hero-visual" aria-label="블랙골드 랜딩페이지 임시 비주얼">
+            <div class="visual-orbit visual-orbit-one"></div>
+            <div class="visual-orbit visual-orbit-two"></div>
+            <div class="visual-card">
+              <span>BLACK · GOLD</span>
+              <strong>Premium</strong>
+              <small>Landing Layout</small>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="products" class="landing-section" data-observe-section>
+      <section id="results" class="landing-section" data-observe-section>
         <div class="section-inner">
           <div class="section-heading">
-            <p class="eyebrow">SERVICES</p>
-            <h2>랜딩페이지 운영에 필요한 최소 구성</h2>
-            <p>반복 콘텐츠는 브라우저 스크립트의 정적 배열에서 렌더링합니다.</p>
+            <p class="eyebrow">RESULTS</p>
+            <h2>한눈에 보여주는 실적</h2>
+            <p>담당자가 실제 수치와 문구를 교체하기 전까지 사용할 수 있는 기본 실적 카드입니다.</p>
           </div>
-          <div id="product-list" class="product-grid"></div>
+          <div id="result-list" class="result-grid"></div>
         </div>
       </section>
 
-      <section id="cases" class="landing-section" data-observe-section>
+      <section id="strengths" class="landing-section" data-observe-section>
         <div class="section-inner">
           <div class="section-heading">
-            <p class="eyebrow">CASES</p>
-            <h2>활용 사례</h2>
+            <p class="eyebrow">STRENGTHS</p>
+            <h2>선택해야 하는 이유</h2>
+            <p>서비스 강점은 정적 배열로 관리되어 추후 간단히 수정할 수 있습니다.</p>
           </div>
-          <div id="case-list" class="case-grid"></div>
+          <div id="strength-list" class="strength-grid"></div>
         </div>
       </section>
 
@@ -72,14 +80,17 @@
         </div>
       </section>
 
-      <section id="contact" class="landing-section contact-section" data-observe-section>
-        <div class="section-inner contact-panel">
+      <section id="quote" class="landing-section quote-section" data-observe-section>
+        <div class="section-inner quote-panel">
           <div class="section-heading">
-            <p class="eyebrow">CONTACT</p>
-            <h2>운영 환경에 맞춰 바로 배포하세요</h2>
-            <p>Bun + Express 앱을 내부 포트에서 실행하고 Caddy reverse proxy로 연결하는 구조입니다.</p>
+            <p class="eyebrow">QUOTE</p>
+            <h2>프로젝트 견적을 문의하세요</h2>
+            <p>현재는 담당자가 상세 내용을 바꾸기 전 첫 커밋용 기본 문의 영역입니다.</p>
           </div>
-          <a class="btn btn-primary" href="mailto:hello@example.com">hello@example.com</a>
+          <div class="quote-actions">
+            <a class="btn btn-primary" href="mailto:hello@example.com">메일로 문의하기</a>
+            <a class="btn btn-secondary" href="tel:010-0000-0000">전화 문의하기</a>
+          </div>
         </div>
       </section>
     </main>
