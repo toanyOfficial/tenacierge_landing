@@ -97,8 +97,13 @@ app.get("/data", (_req, res) => {
   res.sendFile(path.join(publicDir, "data.html"));
 });
 
-app.get(/^\/(?!api(?:\/|$)).*/, (_req, res) => {
+app.get("/", (_req, res) => {
   res.sendFile(path.join(publicDir, "index.html"));
+});
+
+app.get(/^\/(?!api(?:\/|$)).*/, (req, res) => {
+  console.info(`Redirecting unknown route to index: ${req.originalUrl}`);
+  res.redirect(302, "/");
 });
 
 app.listen(port, () => {
