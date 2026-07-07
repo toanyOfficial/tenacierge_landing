@@ -1,3 +1,37 @@
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+const formatResultsSummary = (totalCount, date = new Date()) =>
+  `${formatDate(date)} 현재까지 총 ${Number(totalCount).toLocaleString("ko-KR")}건의 업무를 수행하였습니다.`;
+
+const resultsSummaryHeading = document.querySelector("#results-summary-heading");
+if (resultsSummaryHeading) {
+  fetch("/api/results-summary")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load results summary");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      if (!data.ok || !Number.isFinite(Number(data.totalCount))) {
+        throw new Error("Invalid results summary response");
+      }
+
+      resultsSummaryHeading.textContent = formatResultsSummary(data.totalCount);
+    })
+    .catch((error) => {
+      console.error(error);
+      resultsSummaryHeading.textContent = "실적을 불러오지 못했습니다.";
+    });
+}
+
 const resultItems = [
   { value: "120+", label: "누적 프로젝트" },
   { value: "98%", label: "고객 만족도" },

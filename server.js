@@ -41,6 +41,51 @@ app.get("/api/db-health", async (_req, res) => {
   }
 });
 
+app.get("/api/results-summary", async (_req, res) => {
+  try {
+    const [rows] = await getPool().query(
+      `SELECT COUNT(*) AS totalCount
+       FROM tenaCierge.order_header`,
+    );
+
+    res.json({
+      ok: true,
+      totalCount: Number(rows[0]?.totalCount ?? 0),
+    });
+  } catch (error) {
+    if (error instanceof MissingDatabaseEnvironmentError) {
+      res.status(500).json({
+        ok: false,
+        message: "DB environment variables are missing",
+      });
+      return;
+    }
+
+    console.error("Results summary query failed", {
+      code: error.code,
+      errno: error.errno,
+      sqlState: error.sqlState,
+      sqlMessage: error.sqlMessage,
+      message: error.message,
+    });
+
+    res.status(500).json({
+      ok: false,
+      message: "Results summary query failed",
+      ...(process.env.DATA_API_DEBUG === "true" || process.env.NODE_ENV !== "production"
+        ? {
+            error: {
+              code: error.code,
+              errno: error.errno,
+              sqlState: error.sqlState,
+              sqlMessage: error.sqlMessage || error.message,
+            },
+          }
+        : {}),
+    });
+  }
+});
+
 app.get("/api/data", async (req, res) => {
   const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20));
 
