@@ -23,21 +23,21 @@ const IMAGE_SOURCES = {
 };
 
 const resultMetrics = [
-  { value: "120+", label: "누적 운영 숙소", body: "여러 채널 예약이 겹치는 환경에서도 숙소별 일정 확인 부담을 절감합니다." },
-  { value: "98%", label: "완료 보고 확인율", body: "사진과 체크리스트 기반 보고로 현장 부재 상황의 확인 공백을 줄입니다." },
-  { value: "24h", label: "긴급 일정 대응 기준", body: "체크아웃-체크인 간격이 짧은 일정에도 배정 흐름을 신속하게 조율합니다." },
+  { value: "120+", label: "누적 운영 숙소", body: "예약이 겹쳐도 숙소별 일정을 빠르게 확인합니다." },
+  { value: "98%", label: "완료 보고 확인율", body: "사진과 체크리스트로 현장 확인의 공백을 줄입니다." },
+  { value: "24h", label: "긴급 일정 대응 기준", body: "체크인까지 시간이 짧아도 배정 흐름을 빠르게 맞춥니다." },
 ];
 
 const laundryHighlight = {
-  title: "자체 세탁공장 기반 후공정",
-  body: "자체 세탁공장을 운영하여 일반 객실 청소는 물론 세탁, 수거, 특수오염처리까지 원스톱으로 처리합니다.",
+  title: "직영 세탁공장으로 후공정까지",
+  body: "세탁, 수거, 특수오염처리까지 한 번에 이어집니다.",
 };
 
 const showcaseItems = [
   {
     key: "dashboard",
     title: "실시간 청소 현황 대시보드",
-    caption: "숙소에 없어도 청소 진행 상황을 실시간으로 확인합니다.",
+    caption: "숙소에 없어도 청소 진행 상황이 바로 보입니다.",
     instruction: "이 자리에 실시간 청소 현황 대시보드 캡처 이미지를 넣으세요",
     tooltip: "권장 비율 16:9 · 다수 숙소 상태가 보이는 화면 권장 · IMAGE_SOURCES.dashboard 경로만 교체하면 반영됩니다",
     bullets: ["진행 단계별 실시간 표시", "다수 숙소 동시 모니터링", "완료 알림으로 체크인 전 확인"],
@@ -45,7 +45,7 @@ const showcaseItems = [
   {
     key: "settlement",
     title: "호스트 정산 화면",
-    caption: "숙소별 청소 건수와 비용을 투명하게 정산합니다.",
+    caption: "숙소별 청소 건수와 비용을 투명하게 보여줍니다.",
     instruction: "이 자리에 정산 화면 캡처 이미지를 넣으세요 (호스트명·빌딩명 마스킹 필수, 가장 비용 높은 케이스 기준)",
     tooltip: "권장 비율 4:3 · 호스트명·빌딩명 마스킹 필수 · IMAGE_SOURCES.settlement 경로만 교체하면 반영됩니다",
     bullets: ["항목별 단가 공개", "실시간 정산 내역 열람", "개인정보 마스킹 처리"],
@@ -53,7 +53,7 @@ const showcaseItems = [
   {
     key: "cleanerReport",
     title: "클리너 보고 화면",
-    caption: "체크리스트와 사진으로 청소 완료 상태를 직접 확인합니다.",
+    caption: "체크리스트와 사진으로 완료 상태를 직접 확인합니다.",
     instruction: "이 자리에 클리너 보고 화면 캡처 이미지를 넣으세요 (체크리스트와 사진이 함께 보이는 화면 권장)",
     tooltip: "권장 비율 4:3 · 체크리스트와 사진 동시 노출 권장 · IMAGE_SOURCES.cleanerReport 경로만 교체하면 반영됩니다",
     bullets: ["항목별 체크리스트", "완료 사진 첨부", "이상 발견 시 즉시 보고"],
@@ -61,8 +61,8 @@ const showcaseItems = [
   {
     key: "butlerTasks",
     title: "버틀러 과업지시서 목록 화면",
-    caption: "여러 숙소를 운영해도 배정부터 검수까지 한 화면에서 확인합니다.",
-    description: "호스트 역시 업무 진행 상황을 실시간으로 파악합니다.",
+    caption: "여러 숙소도 배정부터 검수까지 한 화면에 모입니다.",
+    description: "호스트도 업무 흐름을 실시간으로 볼 수 있습니다.",
     instruction: "이 자리에 버틀러 과업지시서 목록 캡처 이미지를 넣으세요 (배정·담당·청소·검수 단계가 섞인 화면 권장)",
     tooltip: "권장 비율 16:9 · 배정·담당·청소·검수 단계 혼합 화면 권장 · IMAGE_SOURCES.butlerTasks 경로만 교체하면 반영됩니다",
     bullets: ["배정-담당-청소-검수 단계 표시", "다건 동시 관리", "실시간 상태 업데이트"],
@@ -70,34 +70,45 @@ const showcaseItems = [
 ];
 
 const strengthItems = [
-  { title: "조직 운영 구조", proof: "데스크 · 배달팀 · 배급팀 · 세탁팀 · 클리너 · 관리감독 · 수거팀, 7개 파트가 유기적으로 움직입니다.", effect: "여러 협력사를 개별 조율하는 부담 없이 단일 운영 창구를 통해 일관된 관리를 받을 수 있습니다." },
-  { title: "크로스체크 검수 체계", proof: "배급 → 클리닝 → 검수까지 3단계 크로스체크로 누락을 방지합니다.", effect: "체크인 전 누락 가능성을 낮추어 게스트 컴플레인 리스크를 체계적으로 관리합니다." },
-  { title: "대규모 클리너 풀", proof: "60여 명 규모의 클리너 풀을 상시 운영합니다.", effect: "긴급 예약 및 다수 숙소 일정이 중첩되는 상황에서도 안정적인 배정 기반을 확보합니다." },
+  { title: "조직 운영 구조", proof: "데스크 · 배달팀 · 배급팀 · 세탁팀 · 클리너 · 관리감독 · 수거팀, 7개 파트가 유기적으로 움직입니다.", effect: "여러 업체를 따로 맞출 필요 없이 하나의 창구로 관리합니다." },
+  { title: "크로스체크 검수 체계", proof: "배급 → 클리닝 → 검수까지 3단계 크로스체크로 누락을 방지합니다.", effect: "체크인 전 누락 가능성을 낮추고 게스트 컴플레인 리스크를 줄입니다." },
+  { title: "대규모 클리너 풀", proof: "60여 명 규모의 클리너 풀을 상시 운영합니다.", effect: "긴급 예약이나 여러 숙소 일정이 겹쳐도 배정 여력을 확보합니다." },
 ];
 
 const processSteps = ["사전 상담", "업무 범위 논의", "현장 조율 (약 2개월 소요)", "최종 확정 및 계약"];
 
 const faqItems = [
   ["어떤 숙소 운영자에게 적합한가요?", "에어비앤비, 부킹닷컴 등에서 단기 숙박을 운영하며 체크아웃-체크인 사이 청소 일정 확인이 중요한 호스트에게 적합합니다."],
-  ["청소 완료 여부는 어떻게 확인하나요?", "대시보드에서 진행 상태를 확인하고, 완료 시 클리너가 남긴 사진과 체크리스트로 최종 상태를 확인합니다."],
-  ["여러 숙소를 동시에 맡길 수 있나요?", "가능합니다. 숙소별 일정과 진행 상태를 한 화면에서 관리하여 다수 숙소 운영 부담을 줄입니다."],
-  ["요금은 어떻게 책정되나요?", "정액제와 건별제 중 선택 가능하며, 거리·물량·방 크기 등 조건에 따라 달라집니다. 정확한 견적은 상담을 통해 안내드립니다."],
+  ["청소 완료 여부는 어떻게 확인하나요?", "대시보드에서 진행 상태를 보고, 완료 후 사진과 체크리스트로 최종 상태를 확인합니다."],
+  ["여러 숙소를 동시에 맡길 수 있나요?", "가능합니다. 숙소별 일정과 진행 상태를 한 화면에서 관리해 운영 부담을 줄입니다."],
+  ["요금은 어떻게 책정되나요?", "정액제와 건별제 중 선택 가능하며, 거리·물량·방 크기 등에 따라 달라집니다. 정확한 견적은 상담으로 안내드립니다."],
 ];
 
 const resultList = document.querySelector("#result-list");
 if (resultList) {
   resultList.innerHTML = `
     <section class="result-counter-panel" aria-labelledby="result-count-summary">
-      <p id="result-count-summary" class="result-count-summary">${todayText} 현재까지 총 <span id="result-count-inline">0</span>건의 업무를 수행하였습니다.</p>
+      <p id="result-count-summary" class="result-count-summary">${todayText} 현재까지 총 <span id="result-count-inline">0</span>건의 업무를 완료했습니다.</p>
       <strong id="live-cleaning-count" class="result-count-number" data-target="0">0</strong>
       <div class="result-badge-row">
         ${resultMetrics.map((item) => `<article class="result-badge"><strong>${escapeHtml(item.value)}</strong><span>${escapeHtml(item.label)}</span><p>${escapeHtml(item.body)}</p></article>`).join("")}
       </div>
     </section>
     <article class="laundry-highlight">
-      <span>후공정 운영</span>
-      <h3>${escapeHtml(laundryHighlight.title)}</h3>
-      <p>${escapeHtml(laundryHighlight.body)}</p>
+      <div class="laundry-icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" focusable="false">
+          <rect x="10" y="6" width="28" height="36" rx="5"></rect>
+          <path d="M16 14h10"></path>
+          <circle cx="31" cy="14" r="2"></circle>
+          <circle cx="24" cy="28" r="9"></circle>
+          <path d="M17 29c4 3 9 3 14 0"></path>
+        </svg>
+      </div>
+      <div class="laundry-copy">
+        <span>후공정 운영</span>
+        <h3>${escapeHtml(laundryHighlight.title)}</h3>
+        <p>${escapeHtml(laundryHighlight.body)}</p>
+      </div>
     </article>`;
 }
 
