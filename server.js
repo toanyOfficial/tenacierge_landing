@@ -51,6 +51,7 @@ app.get("/api/results-summary", async (_req, res) => {
     res.json({
       ok: true,
       totalCount: Number(rows[0]?.totalCount ?? 0),
+      items: [],
     });
   } catch (error) {
     if (error instanceof MissingDatabaseEnvironmentError) {
@@ -86,23 +87,17 @@ app.get("/api/results-summary", async (_req, res) => {
   }
 });
 
-app.get("/api/data", async (req, res) => {
-  const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20));
-
+app.get("/api/data", async (_req, res) => {
   try {
-    const [items] = await getPool().query(
-      `SELECT
-         id,
-         name
-       FROM some_table
-       ORDER BY id ASC
-       LIMIT ?`,
-      [limit],
+    const [rows] = await getPool().query(
+      `SELECT COUNT(*) AS totalCount
+       FROM tenaCierge.order_header`,
     );
 
     res.json({
       ok: true,
-      items,
+      totalCount: Number(rows[0]?.totalCount ?? 0),
+      items: [],
     });
   } catch (error) {
     if (error instanceof MissingDatabaseEnvironmentError) {
