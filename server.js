@@ -91,7 +91,7 @@ app.get("/api/data", async (_req, res) => {
   try {
     const [rows] = await getPool().query(
       `SELECT COUNT(*) AS totalCount
-       FROM tenaCierge.work_header`,
+       FROM tenaCierge.order_header`,
     );
 
     res.json({
