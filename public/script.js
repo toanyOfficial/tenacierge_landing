@@ -132,7 +132,7 @@ if (showcaseList) {
 
 const strengthList = document.querySelector("#strength-list");
 if (strengthList) {
-  strengthList.innerHTML = strengthItems.map((item, index) => `<article class="strength-card"><div class="strength-card-head"><span class="strength-icon" aria-hidden="true">${strengthIcons[item.icon] ?? ""}</span><span class="card-number">${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(item.title)}</h3></div><div class="strength-card-body"><p><b>운영 체계</b>${escapeHtml(item.proof)}</p><p><b>운영 효과</b>${escapeHtml(item.effect)}</p></div></article>`).join("");
+  strengthList.innerHTML = strengthItems.map((item, index) => `<article class="strength-card"><div class="strength-card-head"><span class="strength-icon" aria-hidden="true">${strengthIcons[item.icon] ?? ""}</span><h3>${escapeHtml(item.title)}</h3></div><div class="strength-card-body"><p><b>운영 체계</b>${escapeHtml(item.proof)}</p><p><b>운영 효과</b>${escapeHtml(item.effect)}</p></div></article>`).join("");
 }
 
 const processTimeline = document.querySelector("#process-timeline");
