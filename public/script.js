@@ -48,7 +48,7 @@ const showcaseItems = [
     caption: "숙소별 청소 건수와 비용을 투명하게 보여줍니다.",
     instruction: "이 자리에 정산 화면 캡처 이미지를 넣으세요 (호스트명·빌딩명 마스킹 필수, 가장 비용 높은 케이스 기준)",
     tooltip: "권장 비율 4:3 · 호스트명·빌딩명 마스킹 필수 · IMAGE_SOURCES.settlement 경로만 교체하면 반영됩니다",
-    bullets: ["항목별 단가 공개", "실시간 정산 내역 열람", "개인정보 마스킹 처리"],
+    bullets: ["항목별 단가 공개", "실시간 정산 내역 열람"],
   },
   {
     key: "cleanerReport",
@@ -70,10 +70,17 @@ const showcaseItems = [
 ];
 
 const strengthItems = [
-  { title: "조직 운영 구조", proof: "데스크 · 배달팀 · 배급팀 · 세탁팀 · 클리너 · 관리감독 · 수거팀, 7개 파트가 유기적으로 움직입니다.", effect: "여러 업체를 따로 맞출 필요 없이 하나의 창구로 관리합니다." },
-  { title: "크로스체크 검수 체계", proof: "배급 → 클리닝 → 검수까지 3단계 크로스체크로 누락을 방지합니다.", effect: "체크인 전 누락 가능성을 낮추고 게스트 컴플레인 리스크를 줄입니다." },
-  { title: "대규모 클리너 풀", proof: "60여 명 규모의 클리너 풀을 상시 운영합니다.", effect: "긴급 예약이나 여러 숙소 일정이 겹쳐도 배정 여력을 확보합니다." },
+  { icon: "network", title: "조직 운영 구조", proof: "데스크 · 배달팀 · 배급팀 · 세탁팀 · 클리너 · 관리감독 · 수거팀, 7개 파트가 유기적으로 움직입니다.", effect: "여러 업체를 따로 맞출 필요 없이 하나의 창구로 관리합니다." },
+  { icon: "check", title: "크로스체크 검수 체계", proof: "배급 → 클리닝 → 검수까지 3단계 크로스체크로 누락을 방지합니다.", effect: "체크인 전 누락 가능성을 낮추고 게스트 컴플레인 리스크를 줄입니다." },
+  { icon: "people", title: "대규모 클리너 풀", proof: "60여 명 규모의 클리너 풀을 상시 운영합니다.", effect: "긴급 예약이나 여러 숙소 일정이 겹쳐도 배정 여력을 확보합니다." },
 ];
+
+
+const strengthIcons = {
+  network: `<svg viewBox="0 0 48 48" focusable="false"><circle cx="14" cy="16" r="5"></circle><circle cx="34" cy="16" r="5"></circle><circle cx="24" cy="33" r="5"></circle><path d="M18.5 18.5 21.5 29"></path><path d="M29.5 18.5 26.5 29"></path><path d="M19 16h10"></path></svg>`,
+  check: `<svg viewBox="0 0 48 48" focusable="false"><path d="M14 25 21 32 35 16"></path><rect x="9" y="9" width="30" height="30" rx="7"></rect></svg>`,
+  people: `<svg viewBox="0 0 48 48" focusable="false"><circle cx="18" cy="17" r="5"></circle><circle cx="31" cy="18" r="4"></circle><path d="M9 37c1.8-7 15.2-7 18 0"></path><path d="M26 34c2.7-3.8 10.9-3.2 13 2"></path></svg>`,
+};
 
 const processSteps = ["사전 상담", "업무 범위 논의", "현장 조율 (약 2개월 소요)", "최종 확정 및 계약"];
 
@@ -125,7 +132,7 @@ if (showcaseList) {
 
 const strengthList = document.querySelector("#strength-list");
 if (strengthList) {
-  strengthList.innerHTML = strengthItems.map((item, index) => `<article class="strength-card"><span class="card-number">${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(item.title)}</h3><p><b>운영 체계</b>${escapeHtml(item.proof)}</p><p><b>운영 효과</b>${escapeHtml(item.effect)}</p></article>`).join("");
+  strengthList.innerHTML = strengthItems.map((item, index) => `<article class="strength-card"><div class="strength-card-head"><span class="strength-icon" aria-hidden="true">${strengthIcons[item.icon] ?? ""}</span><span class="card-number">${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(item.title)}</h3></div><div class="strength-card-body"><p><b>운영 체계</b>${escapeHtml(item.proof)}</p><p><b>운영 효과</b>${escapeHtml(item.effect)}</p></div></article>`).join("");
 }
 
 const processTimeline = document.querySelector("#process-timeline");
