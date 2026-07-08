@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tenacierge Landing</title>
-    <meta name="description" content="블랙골드 톤의 기본 랜딩페이지입니다." />
+    <meta name="description" content="에어비앤비·부킹닷컴 호스트를 위한 시스템형 청소 관리 서비스입니다." />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -18,9 +18,11 @@
       <nav class="desktop-nav" aria-label="주요 섹션 이동">
         <a class="nav-link is-active" href="#hero" data-section="hero">홈</a>
         <a class="nav-link" href="#results" data-section="results">실적</a>
+        <a class="nav-link" href="#showcase" data-section="showcase">화면</a>
         <a class="nav-link" href="#strengths" data-section="strengths">강점</a>
+        <a class="nav-link" href="#process" data-section="process">절차</a>
         <a class="nav-link" href="#faq" data-section="faq">FAQ</a>
-        <a class="nav-link nav-cta" href="#quote" data-section="quote">견적문의</a>
+        <a class="nav-link nav-cta" href="#quote" data-section="quote">문의하기</a>
       </nav>
     </header>
 
@@ -28,21 +30,22 @@
       <section id="hero" class="landing-section hero-section" data-observe-section>
         <div class="section-inner hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">PREMIUM LANDING PAGE</p>
-            <h1 class="hero-title">안녕하세요 컨시어지강남입니다</h1>
-            <p class="lead hero-lead">단순청소가 아닌 시스템으로 관리합니다.</p>
+            <p class="eyebrow">AIRBNB · BOOKING.COM HOST를 위한 케어 솔루션</p>
+            <h1 class="hero-title">숙소에 없어도, 확인됩니다</h1>
+            <p class="lead hero-lead">체크아웃부터 체크인 전까지, 숙소에 없어도 실시간으로 진행 상태와 완료 사진을 확인하는 청소 관리 서비스입니다.</p>
+            <p class="hero-subcopy">단순청소가 아닌 배정 → 담당 → 청소 → 검수 시스템으로 관리합니다.</p>
             <div class="button-row hero-actions">
               <a class="btn btn-primary" href="#quote">견적 문의하기</a>
-              <a class="btn btn-secondary" href="#results">실적 보기</a>
+              <a class="btn btn-secondary" href="#showcase">시스템 화면 보기</a>
             </div>
           </div>
-          <div class="hero-visual" aria-label="블랙골드 랜딩페이지 임시 비주얼">
+          <div class="hero-visual" aria-label="호스트 청소 관리 시스템 비주얼">
             <div class="visual-orbit visual-orbit-one"></div>
             <div class="visual-orbit visual-orbit-two"></div>
             <div class="visual-card">
-              <span>BLACK · GOLD</span>
-              <strong>Premium</strong>
-              <small>Landing Layout</small>
+              <span>배정 · 담당 · 청소 · 검수</span>
+              <strong>Host Care</strong>
+              <small>실시간 현황 · 사진 증빙 · 투명 정산</small>
             </div>
           </div>
         </div>
@@ -52,10 +55,21 @@
         <div class="section-inner">
           <div class="section-heading">
             <p class="eyebrow">RESULTS</p>
-            <h2 id="results-summary-heading">실적을 불러오는 중입니다.</h2>
-            <p>담당자가 실제 수치와 문구를 교체하기 전까지 사용할 수 있는 기본 실적 카드입니다.</p>
+            <h2>청소가 늦어질까 불안할 때, 숫자와 화면으로 확인합니다</h2>
+            <p>아래 수치는 담당자가 실제 값으로 교체할 수 있는 구조이며, 실시간 누적 청소 건수는 데이터베이스와 연동됩니다.</p>
           </div>
           <div id="result-list" class="result-grid"></div>
+        </div>
+      </section>
+
+      <section id="showcase" class="landing-section showcase-section" data-observe-section>
+        <div class="section-inner">
+          <div class="section-heading">
+            <p class="eyebrow">SHOWCASE</p>
+            <h2>호스트가 직접 확인하는 운영 화면</h2>
+            <p>청소 진행, 정산, 완료 보고, 배담청검 흐름이 화면에 남습니다. 여러 숙소도 한눈에 확인할 수 있습니다.</p>
+          </div>
+          <div id="showcase-list" class="showcase-list"></div>
         </div>
       </section>
 
@@ -63,15 +77,26 @@
         <div class="section-inner">
           <div class="section-heading">
             <p class="eyebrow">STRENGTHS</p>
-            <h2>선택해야 하는 이유</h2>
-            <p>서비스 강점은 정적 배열로 관리되어 추후 간단히 수정할 수 있습니다.</p>
+            <h2>호스트의 불안을 줄이는 운영 구조</h2>
+            <p>파트별 운영, 검수 체계, 대규모 클리너 풀로 급한 일정과 여러 숙소 운영 부담을 조용히 덜어냅니다.</p>
           </div>
           <div id="strength-list" class="strength-grid"></div>
         </div>
       </section>
 
-      <section id="faq" class="landing-section" data-observe-section>
+      <section id="process" class="landing-section process-section" data-observe-section>
         <div class="section-inner">
+          <div class="section-heading process-heading">
+            <p class="eyebrow">PROCESS</p>
+            <h2>도입 전 운영 조건부터 맞춥니다</h2>
+          </div>
+          <div id="process-timeline" class="process-timeline" aria-label="도입 진행 프로세스"></div>
+          <p class="process-note">정액제/건별제 중 선택 가능하며, 거리·물량·방 크기 등 조건에 따라 견적이 달라집니다.</p>
+        </div>
+      </section>
+
+      <section id="faq" class="landing-section" data-observe-section>
+        <div class="section-inner faq-inner">
           <div class="section-heading">
             <p class="eyebrow">FAQ</p>
             <h2>자주 묻는 질문</h2>
@@ -83,9 +108,9 @@
       <section id="quote" class="landing-section quote-section" data-observe-section>
         <div class="section-inner quote-panel">
           <div class="section-heading">
-            <p class="eyebrow">QUOTE</p>
-            <h2>프로젝트 견적을 문의하세요</h2>
-            <p>현재는 담당자가 상세 내용을 바꾸기 전 첫 커밋용 기본 문의 영역입니다.</p>
+            <p class="eyebrow">문의하기</p>
+            <h2 class="quote-title">60여 명 클리너 풀이 지금도 다음 체크인을 준비하고 있습니다</h2>
+            <p>숙소 수, 위치, 물량, 체크인 일정에 맞춰 운영 방식과 견적을 안내드립니다.</p>
           </div>
           <div class="quote-actions">
             <a class="btn btn-primary" href="mailto:hello@example.com">메일로 문의하기</a>
