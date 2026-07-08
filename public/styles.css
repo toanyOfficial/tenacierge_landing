@@ -121,3 +121,61 @@ a { color: inherit; text-decoration: none; }
   #faq { padding-bottom: 3rem; }
   .quote-section { padding-top: 3rem; padding-bottom: 6rem; }
 }
+
+@media (max-width: 767px) {
+  .floating-nav {
+    top: .5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: min(100% - 1rem, 38rem);
+    min-height: 52px;
+    max-height: 56px;
+    margin-top: .5rem;
+    padding: .4rem .55rem;
+    border-radius: 999px;
+  }
+
+  .floating-nav .brand {
+    min-width: 0;
+    gap: .5rem;
+    padding: 0;
+  }
+
+  .floating-nav .brand-mark {
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 auto;
+  }
+
+  .floating-nav .brand span:last-child {
+    max-width: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .floating-nav .desktop-nav {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0;
+    margin-left: .5rem;
+  }
+
+  .floating-nav .desktop-nav .nav-link:not(.nav-cta) {
+    display: none;
+  }
+
+  .floating-nav .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.25rem;
+    padding: 0 .85rem;
+    color: #161106;
+    background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+    border-color: transparent;
+    font-size: .86rem;
+  }
+}
