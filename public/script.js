@@ -23,14 +23,14 @@ const IMAGE_SOURCES = {
 };
 
 const resultMetrics = [
-  { value: "120+", label: "운영 숙소", body: "여러 숙소의 일정과 청소 기록을 한 흐름으로 관리합니다." },
-  { value: "98%", label: "보고 확인율", body: "완료 사진과 체크리스트를 남겨 확인 공백을 줄입니다." },
-  { value: "60명", label: "상시 클리너 풀", body: "예약이 몰리는 날에도 배정 가능한 인력을 확보합니다." },
+  { value: "120+", label: "관리 숙소", body: "숙소별 현장 업무를 분리해 기록하고 관리합니다." },
+  { value: "60여 명", label: "상시 클리너 풀", body: "일정 변동에도 대응할 수 있는 인력 기반을 유지합니다." },
+  { value: "98%", label: "보고 확인율", body: "완료 사진과 체크리스트 확인을 운영 기록으로 남깁니다." },
 ];
 
 const laundryHighlight = {
   title: "직영 세탁공장 운영",
-  body: "세탁, 수거, 특수오염처리까지 외부 조율 없이 이어집니다.",
+  body: "외주에만 의존하지 않고 침구 품질과 회전율을 직접 관리합니다.",
 };
 
 const showcaseItems = [
@@ -61,11 +61,11 @@ const showcaseItems = [
   {
     key: "butlerTasks",
     title: "업무 지시서 목록 화면",
-    caption: "물품 준비부터 청소, 검수까지 업무 흐름을 정리합니다.",
-    description: "여러 숙소의 업무가 겹쳐도 같은 기준으로 진행됩니다.",
+    caption: "침구 배급, 클리닝, 검수까지 업무 흐름을 정리합니다.",
+    description: "여러 숙소의 업무가 겹쳐도 같은 기준으로 확인합니다.",
     instruction: "이 자리에 버틀러 과업지시서 목록 캡처 이미지를 넣으세요 (배정·담당·청소·검수 단계가 섞인 화면 권장)",
     tooltip: "권장 비율 16:9 · 배정·담당·청소·검수 단계 혼합 화면 권장 · IMAGE_SOURCES.butlerTasks 경로만 교체하면 반영됩니다",
-    bullets: ["담당자 배정", "업무 단계 관리", "검수 상태 확인"],
+    bullets: ["침구 배급 확인", "클리닝 단계 관리", "검수 상태 확인"],
   },
 ];
 
@@ -83,43 +83,44 @@ const strengthIcons = {
   people: `<svg viewBox="0 0 48 48" focusable="false"><circle cx="18" cy="17" r="5"></circle><circle cx="31" cy="18" r="4"></circle><path d="M9 37c1.8-7 15.2-7 18 0"></path><path d="M26 34c2.7-3.8 10.9-3.2 13 2"></path></svg>`,
 };
 
-const processSteps = ["운영 상담", "숙소 조건 확인", "청소·세탁 동선 설계", "운영 방식 확정"];
+const processSteps = ["일정 확인", "침구 준비 및 배급", "클리닝", "검수", "보고 및 정리"];
 
 const faqItems = [
-  ["여러 숙소를 동시에 맡길 수 있나요?", "가능합니다. 숙소별 일정, 청소 상태, 정산 내역을 분리해 관리합니다."],
-  ["세탁도 함께 처리되나요?", "직영 세탁공장을 통해 침구와 수건 세탁, 수거, 특수오염처리까지 함께 운영합니다."],
-  ["청소 완료는 어떻게 확인하나요?", "완료 사진과 체크리스트를 남깁니다. 다만 핵심은 사진보다 청소 전후의 운영 절차입니다."],
-  ["요금은 어떻게 책정되나요?", "정액제와 건별제 중 선택 가능하며, 거리·물량·방 크기 등에 따라 달라집니다. 정확한 견적은 상담으로 안내드립니다."],
+  ["어떤 숙소가 이용할 수 있나요?", "에어비앤비, 부킹닷컴 등에서 단기 숙박을 운영하며 입실 전 현장 품질 관리가 필요한 숙소에 적합합니다."],
+  ["청소 외에 어떤 현장 업무를 지원하나요?", "침구 배급, 세탁 연계, 시설 확인, 비품 확인, 검수 기록 등 입실 전 현장 업무를 지원합니다."],
+  ["침구 세탁은 어떻게 진행되나요?", "세탁 대상 수거부터 세탁, 재배급까지 현장 업무 흐름에 맞춰 관리합니다."],
+  ["청소 완료 후 확인은 어떻게 하나요?", "완료 사진과 체크리스트를 남기고, 검수 단계에서 누락 여부를 확인합니다."],
+  ["비용은 어떻게 산정되나요?", "정액제와 건별제 중 선택 가능하며, 거리·물량·방 크기 등에 따라 달라집니다. 정확한 견적은 상담으로 안내드립니다."],
 ];
 
 const resultList = document.querySelector("#result-list");
 if (resultList) {
   resultList.innerHTML = `
     <section class="result-counter-panel" aria-labelledby="result-count-summary">
-      <p id="result-count-summary" class="result-count-summary">${todayText} 현재까지 총 <span id="result-count-inline">0</span>건의 업무를 완료했습니다.</p>
+      <p id="result-count-summary" class="result-count-summary">${todayText} 현재까지 총 <span id="result-count-inline">0</span>건의 현장 업무를 완료했습니다.</p>
       <strong id="live-cleaning-count" class="result-count-number" data-target="0">0</strong>
-      <div class="result-badge-row">
-        ${resultMetrics.map((item) => `<article class="result-badge"><strong>${escapeHtml(item.value)}</strong><span>${escapeHtml(item.label)}</span><p>${escapeHtml(item.body)}</p></article>`).join("")}
-      </div>
     </section>
-    <article class="laundry-highlight">
+    <div class="result-badge-row proof-badges">
+      ${resultMetrics.map((item) => `<article class="result-badge"><strong>${escapeHtml(item.value)}</strong><span>${escapeHtml(item.label)}</span><p>${escapeHtml(item.body)}</p></article>`).join("")}
+    </div>`;
+}
+
+const strengthList = document.querySelector("#strength-list");
+if (strengthList) {
+  const [laundryItem, ...operationItems] = strengthItems;
+  strengthList.innerHTML = `
+    <article class="laundry-highlight feature-primary">
       <div class="laundry-icon" aria-hidden="true">
-        <svg viewBox="0 0 48 48" focusable="false">
-          <rect x="10" y="6" width="28" height="36" rx="5"></rect>
-          <path d="M16 14h10"></path>
-          <circle cx="31" cy="14" r="2"></circle>
-          <circle cx="24" cy="28" r="9"></circle>
-          <path d="M17 29c4 3 9 3 14 0"></path>
-        </svg>
+        ${strengthIcons[laundryItem.icon] ?? ""}
       </div>
       <div class="laundry-copy">
-        <span>직영 후공정</span>
-        <h3>${escapeHtml(laundryHighlight.title)}</h3>
-        <p>${escapeHtml(laundryHighlight.body)}</p>
+        <span>핵심 근거</span>
+        <h3>${escapeHtml(laundryItem.title)}</h3>
+        <p>${escapeHtml(laundryItem.proof)} ${escapeHtml(laundryItem.effect)}</p>
       </div>
     </article>
-    <div class="strength-grid operations-grid">
-      ${strengthItems.map((item) => `<article class="strength-card"><div class="strength-card-head"><span class="strength-icon" aria-hidden="true">${strengthIcons[item.icon] ?? ""}</span><h3>${escapeHtml(item.title)}</h3></div><div class="strength-card-body"><p><b>운영 근거</b>${escapeHtml(item.proof)}</p><p><b>호스트 입장</b>${escapeHtml(item.effect)}</p></div></article>`).join("")}
+    <div class="strength-grid feature-secondary">
+      ${operationItems.map((item) => `<article class="strength-card"><div class="strength-card-head"><span class="strength-icon" aria-hidden="true">${strengthIcons[item.icon] ?? ""}</span><h3>${escapeHtml(item.title)}</h3></div><div class="strength-card-body"><p><b>근거</b>${escapeHtml(item.proof)}</p><p><b>의미</b>${escapeHtml(item.effect)}</p></div></article>`).join("")}
     </div>`;
 }
 
