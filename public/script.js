@@ -113,7 +113,12 @@ const showcaseItems = [
   },
 ];
 
-const strengthItems = [
+const laundryHighlight = {
+  title: "직영 세탁공장으로 후공정까지",
+  body: "세탁, 수거, 특수오염처리까지 한 번에 이어집니다.",
+};
+
+const showcaseItems = [
   {
     title: "역할을 나눈 7개 운영 파트",
     body: "데스크, 배달팀, 배급팀, 세탁팀, 클리너, 관리감독, 수거팀이 역할을 나누어 움직입니다.",

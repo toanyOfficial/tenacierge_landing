@@ -15,7 +15,6 @@
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
   --radius: 1.5rem;
 }
-
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
