@@ -1,22 +1,18 @@
 import "dotenv/config";
 import { MissingDatabaseEnvironmentError, getPool } from "../lib/db.js";
 
-const query = `SELECT
-  id,
-  name
-FROM some_table
-ORDER BY id ASC
-LIMIT 20`;
-
 try {
-  const [rows] = await getPool().query(query);
+  const [rows] = await getPool().query(
+    `SELECT COUNT(*) AS totalCount
+     FROM tenaCierge.order_header`,
+  );
 
   console.log(
     JSON.stringify(
       {
         ok: true,
-        count: rows.length,
-        sample: rows,
+        totalCount: Number(rows[0]?.totalCount ?? 0),
+        items: [],
       },
       null,
       2,
