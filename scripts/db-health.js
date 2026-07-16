@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { MissingDatabaseEnvironmentError, checkDatabaseConnection } from "../lib/db.js";
 
 try {

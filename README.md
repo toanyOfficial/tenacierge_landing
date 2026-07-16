@@ -1,15 +1,13 @@
 # Tenacierge Landing
 
-Bun + Express 기반의 정적 랜딩페이지와 얇은 MySQL 조회 API 리포지토리입니다.
+Next.js App Router 기반의 컨시어지강남 랜딩페이지와 MySQL 조회 API 리포지토리입니다.
 
 ## Architecture
 
-- Runtime: Bun
-- Server: Express
-- Static files: `public/`
-- Landing page: `public/index.html`
-- Styles: `public/styles.css`
-- Browser scripts: `public/script.js`, `public/data.js`
+- Runtime: Bun + Next.js
+- App Router: `app/`
+- Components: `components/`
+- Static assets: `public/`
 - Database module: `lib/db.js`
 - Utility scripts: `scripts/`
 - Database client: `mysql2/promise`
@@ -19,7 +17,7 @@ Bun + Express 기반의 정적 랜딩페이지와 얇은 MySQL 조회 API 리포
 Copy `.env.example` to `.env` in the runtime environment and set real values there. Do not commit `.env`.
 
 ```env
-PORT=3000
+PORT=3300
 DB_HOST=127.0.0.1
 DB_USER=example_user
 DB_PASSWORD=example_password
@@ -33,29 +31,22 @@ DATA_API_DEBUG=false
 
 ```bash
 bun install
-npm run build
-npm run dev
-npm run db:health
-npm run data:query
+bun run dev
+bun run build
+PORT=3300 bun run start
+bun run db:health
+bun run data:query
 ```
 
-## API
+## Routes
 
+- `GET /` renders the landing page.
+- `GET /data` renders a small API result viewer.
 - `GET /api/health` returns service health.
 - `GET /api/db-health` checks MySQL connectivity.
-- `GET /api/data?limit=20` reads `id` and `name` from `some_table`.
+- `GET /api/results-summary` returns `totalCount` from `tenaCierge.order_header` and `items: []`.
+- `GET /api/data` returns `totalCount` from `tenaCierge.order_header` and `items: []`.
 
 ## Deployment
 
-This app is designed to run behind Caddy.
-
-The app itself listens on `PORT` and serves static files plus a small set of `/api/*` routes.
-
-Example Caddyfile:
-
-```caddyfile
-tenacierge.example.com {
-  encode zstd gzip
-  reverse_proxy 127.0.0.1:3000
-}
-```
+The project is intended for `runtime=nextjs_bun` style deployment. `bun run build` must generate `.next`, and `PORT=3300 bun run start` should run the Next.js server using the provided `PORT` environment variable.
