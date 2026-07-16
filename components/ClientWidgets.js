@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
-  const links = [["#results","실적"],["#problems","문제"],["#scope","범위"],["#showcase","화면"],["#process","프로세스"],["#faq","FAQ"]];
+  const links = [["#results","기록"],["#problems","고민"],["#scope","서비스"],["#showcase","시스템"],["#process","절차"],["#faq","FAQ"]];
   return <>
     <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="primary-nav" onClick={() => setOpen(!open)}><span/><span className="sr-only">메뉴 열기</span></button>
-    <nav id="primary-nav" className={`desktop-nav ${open ? "is-open" : ""}`} aria-label="주요 섹션 이동">
+    <nav id="primary-nav" className={`desktop-nav ${open ? "is-open" : ""}`} aria-label="Tenacierge 주요 섹션 이동">
       {links.map(([href,label]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
       <a className="nav-cta" href="#quote" onClick={() => setOpen(false)}>상담하기</a>
     </nav>
@@ -26,5 +26,6 @@ export function CleaningCounter() {
     return () => { active = false; };
   }, []);
   const today = new Intl.DateTimeFormat("ko-KR", { dateStyle: "medium" }).format(new Date());
-  return <section className="metric-card" aria-live="polite"><span>시스템 기준 누적 청소</span><strong>{state.status === "ready" ? state.count.toLocaleString("ko-KR") : "집계 중"}</strong><p>{today} 기준 · API 오류 시 0건으로 표시하지 않습니다.</p></section>;
+  const isReady = state.status === "ready";
+  return <section className={`metric-card ${isReady ? "" : "is-pending"}`} aria-live="polite"><span>누적 청소 완료 건수</span><strong>{isReady ? `${state.count.toLocaleString("ko-KR")}건` : "집계 중"}</strong><p>{today} 기준</p></section>;
 }
