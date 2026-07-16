@@ -4,15 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "echo build-complete",
-    "start": "bun run server.js",
-    "dev": "bun run server.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "db:health": "bun run scripts/db-health.js",
     "data:query": "bun run scripts/data-query.js"
   },
   "dependencies": {
     "dotenv": "^16",
-    "express": "^4",
-    "mysql2": "^3"
+    "mysql2": "^3",
+    "next": "^15.4.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }
