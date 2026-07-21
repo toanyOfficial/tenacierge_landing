@@ -37,14 +37,17 @@ const faqs = [
 ];
 
 const showcaseImages = {
-  dashboard: "/assets/images/landing/dashboard.jpg",
   cleanerReport: "/assets/images/landing/cleaner-report.jpg",
   butlerTasks: "/assets/images/landing/butler-tasks.jpg",
   settlement: "/assets/images/landing/settlement.jpg",
 };
 
 function ShowcaseImage({ type, title }) {
-  return <img className="showcase-image" src={showcaseImages[type]} alt={`${title} 화면 예시`} />;
+  if (type === "dashboard") {
+    return <div className="showcase-media"><div className="showcase-placeholder">대시보드 화면 준비 중</div></div>;
+  }
+
+  return <div className="showcase-media"><img className="showcase-image" src={showcaseImages[type]} alt={`${title} 화면 예시`} /></div>;
 }
 
 export default function Home() {

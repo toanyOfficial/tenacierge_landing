@@ -90,7 +90,9 @@ h3 { margin: .7rem 0 .45rem; font-size: 1.22rem; }
 .service-card p { margin: 0; color: #5f5342; }
 .showcase-grid { display: grid; gap: 1rem; margin-top: 2rem; }
 .showcase { display: grid; grid-template-columns: 1.05fr .95fr; gap: 1.25rem; align-items: center; padding: 1rem; }
-.showcase-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid #f3d99126; border-radius: 1rem; background: #100e0a; }
+.showcase-media { display: flex; min-width: 0; align-items: center; justify-content: center; overflow: hidden; padding: 1rem; border: 1px solid #f3d99126; border-radius: 1rem; background: #100e0a; }
+.showcase-image { display: block; width: 100%; height: auto; max-height: 520px; object-fit: contain; }
+.showcase-placeholder { display: grid; width: 100%; min-height: 12rem; place-items: center; border: 1px dashed #f3d99133; border-radius: .85rem; color: var(--muted); font-weight: 900; background: #ffffff06; }
 .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; counter-reset: step; padding: 0; margin: 2rem 0 0; list-style: none; }
 .timeline li { counter-increment: step; padding: 1.25rem; border: 1px solid var(--line); border-radius: 1.25rem; background: #ffffff08; }
 .timeline li:before { content: counter(step); display: grid; width: 2rem; height: 2rem; margin-bottom: .8rem; place-items: center; border-radius: 50%; color: #17130c; background: var(--gold); font-weight: 950; }
@@ -112,6 +114,7 @@ h3 { margin: .7rem 0 .45rem; font-size: 1.22rem; }
 }
 @media (max-width: 900px) {
   .hero, .two, .showcase { grid-template-columns: 1fr; }
+  .showcase-media { width: 100%; }
   .grid, .cards { grid-template-columns: repeat(2, 1fr); }
   .service-grid { grid-template-columns: repeat(3, 1fr); }
   .timeline { grid-template-columns: 1fr 1fr; }
