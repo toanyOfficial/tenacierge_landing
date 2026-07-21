@@ -26,11 +26,6 @@ const processSteps = [
   ["현장 기준 정리", "객실별 작업 방식과 완료 기준, 특이사항을 조율합니다."],
   ["담당자 배정 및 운영 시작", "일정과 작업자를 배정하고 시스템을 통해 운영을 시작합니다."],
 ];
-const records = [
-  ["checklist", "완료 기록", "청소 완료 시각, 사진, 체크리스트를 남깁니다."],
-  ["alert", "이슈 기록", "비품 부족, 오염, 파손, 시설 문제를 객실별로 기록합니다."],
-  ["receipt", "비용 기록", "숙소별 업무 건수와 비용 내역을 확인할 수 있습니다."],
-];
 const faqs = [
   ["어떤 숙소를 관리할 수 있나요?", "숙소 수, 위치, 객실 구조, 체크인·체크아웃 일정에 따라 관리 가능 여부를 확인합니다. 여러 객실을 운영하는 호스트도 상담 가능합니다."],
   ["청소 완료 여부는 어떻게 확인하나요?", "객실별 완료 상태와 작업 사진, 체크리스트, 특이사항을 시스템 기록으로 확인할 수 있습니다."],
@@ -41,11 +36,18 @@ const faqs = [
   ["비용은 어떻게 정해지나요?", "숙소 수, 위치, 객실 구조, 청소 범위, 침구 운영 방식, 일정 조건에 따라 상담 후 안내합니다."],
 ];
 
-function ShowcaseMock({ type }) {
-  if (type === "dashboard") return <div className="mock-ui dashboard-mock" aria-hidden="true"><span>오늘 청소 예정<strong>18</strong></span><span>진행 중<strong>6</strong></span><span>완료<strong>12</strong></span><span>체크인 임박<strong>3</strong></span></div>;
-  if (type === "cleanerReport") return <div className="mock-ui report-mock" aria-hidden="true"><div className="thumb-row"><i/><i/><i/></div><span>체크리스트 완료율 <strong>완료</strong></span><span>특이사항 <strong>침구 교체 완료</strong></span><span>검수 상태 <strong>확인 완료</strong></span></div>;
-  if (type === "butlerTasks") return <div className="mock-ui task-mock" aria-hidden="true"><span>객실번호 <strong>1203</strong></span><span>작업자 <strong>김OO</strong></span><span>예정 시간 <strong>13:30</strong></span><span>진행 상태 <strong>검수 대기</strong></span></div>;
-  return <div className="mock-ui settlement-mock" aria-hidden="true"><span>객실명 <strong>강남 A</strong></span><span>업무 항목 <strong>청소·침구</strong></span><span>작업 건수 <strong>24건</strong></span><span>금액 <strong>확인 중</strong></span></div>;
+const showcaseImages = {
+  cleanerReport: "/assets/images/landing/cleaner-report.jpg",
+  butlerTasks: "/assets/images/landing/butler-tasks.jpg",
+  settlement: "/assets/images/landing/settlement.jpg",
+};
+
+function ShowcaseImage({ type, title }) {
+  if (type === "dashboard") {
+    return <div className="showcase-media"><div className="showcase-placeholder">대시보드 화면 준비 중</div></div>;
+  }
+
+  return <div className="showcase-media"><img className="showcase-image" src={showcaseImages[type]} alt={`${title} 화면 예시`} /></div>;
 }
 
 export default function Home() {
@@ -54,11 +56,10 @@ export default function Home() {
     <main>
       <section id="hero" className="section hero"><div><p className="eyebrow">숙소 현장 운영 관리</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 관리합니다.</h1><p className="lead">청소, 침구, 검수, 비품 확인, 시설 이슈까지 다음 체크인을 위한 현장 업무를 하나의 흐름으로 관리합니다.</p><div className="actions"><a className="btn primary" href="#quote">우리 숙소도 관리 가능한지 확인하기</a><a className="btn" href="#process">운영 방식 살펴보기</a></div></div><div className="hero-card"><Icon name="key"/><strong>Cleaning · Linen · Inspection · Report</strong><p>호스트가 직접 방문하지 않아도 객실 상태와 작업 결과를 확인할 수 있도록 현장 업무를 연결합니다.</p></div></section>
       <section id="results" className="section two"><div><p className="eyebrow">Operation Records</p><h2>현장 업무 기록을 한눈에 확인하세요</h2><p>청소 완료 여부부터 사진, 체크리스트, 특이사항까지 객실별 작업 기록을 체계적으로 관리합니다.</p></div><CleaningCounter /></section>
-      <section id="problems" className="section"><p className="eyebrow">Host Pain Points</p><h2>호스트가 직접 가지 않으면 놓치기 쉬운 일들이 있습니다.</h2><div className="cards">{problems.map(([icon,title,body]) => <article className="card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div></section>
-      <section id="scope" className="section"><p className="eyebrow">서비스 범위</p><h2>다음 체크인을 위한 현장 흐름을 함께 관리합니다.</h2><div className="grid service-grid">{scopes.map(([icon,title,body]) => <article className="card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div></section>
-      <section id="showcase" className="section"><p className="eyebrow">System</p><h2>현장 업무가 말로만 끝나지 않도록 기록합니다.</h2><p>객실별 일정, 작업 상태, 완료 사진, 체크리스트, 특이사항을 시스템에서 확인할 수 있습니다.</p><div className="showcase-grid">{showcases.map(([key,title,body]) => <article className="showcase" key={key} data-image-key={key}><ShowcaseMock type={key}/><div><h3>{title}</h3><p>{body}</p></div></article>)}</div>{/* 실제 화면 이미지는 dashboard, cleanerReport, butlerTasks, settlement 키를 유지해 교체 */}</section>
+      <section id="problems" className="section pain-section"><p className="eyebrow">Host Pain Points</p><h2>호스트가 직접 가지 않으면 놓치기 쉬운 일들이 있습니다.</h2><div className="pain-list">{problems.map(([icon,title,body], index) => <article className="pain-item" key={title}><span className="pain-number">{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{body}</p></div><Icon name={icon}/></article>)}</div></section>
+      <section id="scope" className="section service-section"><p className="eyebrow">Service Scope</p><h2>다음 체크인을 위한 현장 흐름을 함께 관리합니다.</h2><div className="grid service-grid">{scopes.map(([icon,title,body]) => <article className="service-card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div></section>
+      <section id="showcase" className="section"><p className="eyebrow">System</p><h2>완료 기록부터 현장 이슈와 비용까지 시스템에서 확인합니다.</h2><p>객실별 일정, 작업 상태, 완료 사진, 체크리스트, 비품 부족, 오염·파손·시설 이슈와 비용 내역을 한 흐름으로 확인할 수 있습니다.</p><div className="showcase-grid">{showcases.map(([key,title,body]) => <article className="showcase" key={key} data-image-key={key}><ShowcaseImage type={key} title={title}/><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
       <section id="process" className="section"><p className="eyebrow">Process</p><h2>운영 조건을 먼저 확인한 뒤 시작합니다.</h2><ol className="timeline">{processSteps.map(([title,body]) => <li key={title}><strong>{title}</strong><p>{body}</p></li>)}</ol></section>
-      <section className="section"><p className="eyebrow">Records & Reports</p><h2>객실별 기록이 쌓이면 운영이 더 단순해집니다.</h2><p>청소 및 검수 상태, 완료 사진, 체크리스트, 비품 부족, 오염·파손·시설 이슈와 후속 조치 내역을 객실별로 관리합니다.</p><div className="cards">{records.map(([icon,title,body]) => <article className="card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div></section>
       <section id="faq" className="section"><p className="eyebrow">FAQ</p><h2>문의 전 자주 확인하는 내용</h2>{faqs.map(([q,a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</section>
       <section id="quote" className="section quote"><p className="eyebrow">Contact</p><h2>우리 숙소도 관리 가능한지 확인해 보세요.</h2><p>숙소 수, 위치, 객실 구조, 운영 일정을 알려주시면 가능한 업무 범위와 비용 기준을 안내해 드립니다.</p><div className="actions">{/* TODO: 실제 카카오채널 URL과 문의 채널이 확정되면 버튼 연결 */}<button className="btn primary" type="button" disabled>카카오톡으로 상담하기 · 준비 중</button><button className="btn" type="button" disabled>관리 가능 여부 문의하기 · 준비 중</button></div></section>
     </main>
