@@ -59,31 +59,30 @@ h3 { margin: .7rem 0 .45rem; font-size: 1.22rem; }
 .btn { display: inline-flex; min-height: 3.1rem; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 999px; padding: 0 1.25rem; color: var(--ink); background: #ffffff08; font-weight: 950; transition: transform .18s ease, background .18s ease; }
 .btn:hover:not(:disabled), .btn:focus-visible { transform: translateY(-1px); background: #ffffff12; outline: 3px solid #f3d99144; outline-offset: 3px; }
 .primary { border-color: transparent; color: #17130c; background: linear-gradient(135deg, var(--gold2), var(--gold)); }
-.hero-card, .card, .showcase, .faq, .quote, .data-panel, .data-card, .service-card { border: 1px solid var(--line); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
-.hero-card { display: grid; gap: 1rem; padding: clamp(1.6rem, 4vw, 2.5rem); background: linear-gradient(145deg, #f3d99122, transparent 45%), #15110c; }
-.hero-card strong { font-size: clamp(1.7rem, 3.4vw, 3rem); line-height: 1.08; }
-.hero-room-scene { min-height: clamp(29rem, 38vw, 35rem); margin: 0; border: 1px solid var(--line); border-radius: 1.5rem; background: radial-gradient(circle at 52% 50%, #f8edd720, transparent 15rem), #15110c; box-shadow: var(--shadow); overflow: hidden; }
+.card, .showcase, .faq, .quote, .data-panel, .data-card, .service-card { border: 1px solid var(--line); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
+/* Hero diorama */
+.hero-room-scene { min-height: clamp(29rem, 38vw, 35rem); margin: 0; border: 1px solid var(--line); border-radius: 1.5rem; background: radial-gradient(circle at 50% 48%, #f8edd724, transparent 16rem), linear-gradient(145deg, #1b150e, #0f0d09 72%); box-shadow: var(--shadow); overflow: hidden; }
 .room-scene-svg { display: block; width: 100%; height: 100%; min-height: clamp(29rem, 38vw, 35rem); }
-.room-backdrop path:first-child { fill: #f8edd714; stroke: #d7b46a78; stroke-width: 2; }
-.room-backdrop path:not(:first-child), .window-group path, .nightstand-group path, .room-docs path { fill: none; stroke: #d7b46a9a; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.room-props path { stroke: #d7b46a9a; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.window-group rect, .nightstand-group rect, .check-doc, .report-doc { fill: #f8edd72e; stroke: #f8edd7b8; stroke-width: 2; stroke-linejoin: round; }
-.curtain { stroke: #d7b46ab0 !important; stroke-width: 3 !important; }
-.bed-base { fill: url(#bedFill); stroke: #d7b46aa8; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
-.bed-front { fill: #fff8e7; stroke: #d7b46aa8; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
-.pillow { fill: #fffdf5; stroke: #d7b46a5c; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
-.blanket { fill: url(#goldFill); opacity: .56; }
-.blanket-shadow { fill: #fff8e74a; stroke: none; }
-.lamp-shade { fill: #f3d99173; stroke: #d7b46ab8; stroke-width: 2; stroke-linejoin: round; }
-.plant-pot { fill: #ead6aa; stroke: #d7b46a99; stroke-linejoin: round; }
-.plant-leaf { fill: #f8edd780; stroke: #d7b46a8c; stroke-linejoin: round; }
-.task-connectors path { fill: none; stroke: #d7b46a78; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4 9; }
-.task-connectors circle { fill: var(--gold2); filter: drop-shadow(0 0 6px #f3d99188); }
-.task-node { animation: status-soften 5.6s ease-in-out infinite; animation-delay: calc(var(--node-index) * 1.1s); }
-.task-node circle { fill: #f8edd71f; stroke: #d7b46ab8; stroke-width: 1.5; }
-.task-node text { fill: var(--ivory); font-size: 15px; font-weight: 850; letter-spacing: -.02em; }
-.node-glyph { fill: none; stroke: var(--gold2); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .room-scene-svg * { vector-effect: non-scaling-stroke; }
+.diorama-shell { filter: drop-shadow(0 24px 34px #0007); }
+.room-wall { fill: url(#roomWall); stroke: #d7b46a78; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.room-floor { fill: #f8edd71f; stroke: #d7b46a68; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.curtain-scene rect, .side-table rect, .clipboard-mark rect, .report-status rect { fill: #f8edd72c; stroke: #f8edd7b5; stroke-width: 1.8; stroke-linejoin: round; }
+.curtain-scene path:not(.curtain-panel), .side-table path:not(.lamp-glow), .clipboard-mark path, .report-status path { fill: none; stroke: #d7b46a9c; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.curtain-panel { fill: none; stroke: #ead6aa; stroke-width: 3; stroke-linecap: round; }
+.bed-head, .bed-body { fill: url(#softBed); stroke: #d7b46aa3; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pillow { fill: #fffdf5; stroke: #d7b46a62; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
+.duvet { fill: url(#softGold); opacity: .62; }
+.duvet-soft { fill: #fff8e75c; stroke: none; }
+.lamp-glow { fill: #f3d99178; stroke: #d7b46aa8; stroke-width: 1.8; stroke-linejoin: round; }
+.plant-pot { fill: #ead6aa; stroke: #d7b46a95; stroke-linecap: round; stroke-linejoin: round; }
+.plant-leaf { fill: #f8edd78c; stroke: #d7b46a82; stroke-linecap: round; stroke-linejoin: round; }
+.status-mark circle, .report-status circle { fill: #fff8e7; stroke: #d7b46aa0; stroke-width: 1.6; }
+.status-mark path, .floor-check { fill: none; stroke: #8a681d; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.status-mark text, .floor-status text, .report-status text, .clipboard-mark text { fill: var(--ivory); font-size: 14px; font-weight: 850; letter-spacing: -.02em; }
+.sparkle { fill: #f3d99180; stroke: #d7b46a8f; stroke-width: 1.5; stroke-linejoin: round; }
+.report-status circle { fill: #15110c; stroke: #f3d991; }
+.short-link { fill: none; stroke: #d7b46a66; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4 8; }
 .icon { width: 3rem; height: 3rem; fill: none; stroke: var(--gold2); stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
 .two { display: grid; grid-template-columns: .85fr 1.15fr; gap: 2rem; align-items: start; }
 .records-section { display: block; }
@@ -288,3 +287,6 @@ button.showcase-media { width: 100%; cursor: zoom-in; font: inherit; }
   .system-section .team-flow span { min-height: 1.65rem; padding: .24rem .5rem; font-size: .78rem; }
 }
 .system-section .team-flow b::before { display: none; content: none; }
+
+body { word-break: keep-all; overflow-wrap: break-word; }
+button, .btn, .brand, .desktop-nav a, .nav-cta, .eyebrow, .menu-toggle, .record-stat span, .team-flow span, .laundry-steps li, .laundry-tags span { white-space: nowrap; }

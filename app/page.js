@@ -52,78 +52,75 @@ const showcaseImages = {
 };
 
 function HeroRoomScene() {
-  return <figure className="hero-room-scene" aria-label="객실을 중심으로 청소, 침구, 검수, 보고가 이어지는 운영 장면">
+  return <figure className="hero-room-scene" aria-label="작은 객실 안에서 청소, 침구, 검수, 보고가 마무리되는 장면">
     <svg className="room-scene-svg" viewBox="0 0 720 560" role="img" aria-labelledby="room-scene-title">
-      <title id="room-scene-title">객실 운영 흐름</title>
+      <title id="room-scene-title">미니어처 객실 운영 완료 장면</title>
       <defs>
-        <linearGradient id="bedFill" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fff8e7"/><stop offset="1" stopColor="#ead6aa"/></linearGradient>
-        <linearGradient id="goldFill" x1="0" x2="1"><stop stopColor="#f3d991"/><stop offset="1" stopColor="#d7b46a"/></linearGradient>
+        <linearGradient id="roomWall" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fff8e7" stopOpacity=".20"/><stop offset="1" stopColor="#d7b46a" stopOpacity=".16"/></linearGradient>
+        <linearGradient id="softBed" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fffaf0"/><stop offset="1" stopColor="#ead6aa"/></linearGradient>
+        <linearGradient id="softGold" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#f3d991"/><stop offset="1" stopColor="#d7b46a"/></linearGradient>
       </defs>
 
-      <g className="room-backdrop" aria-hidden="true">
-        <path d="M210 155H525V405H170V205Z" />
-        <path d="M210 155L170 205" />
-        <path d="M525 155L565 205V405H525" />
+      <g className="diorama-shell" aria-hidden="true">
+        <path className="room-wall" d="M152 164C152 136 174 116 204 116H518C548 116 570 136 570 164V380C570 414 544 438 510 438H210C176 438 152 414 152 380Z" />
+        <path className="room-floor" d="M188 332C238 304 482 304 532 332L574 414C520 454 204 454 150 414Z" />
       </g>
 
-      <g className="window-group" aria-hidden="true">
-        <rect x="404" y="186" width="82" height="64" rx="14" />
-        <path d="M445 184V252M402 218H488" />
-        <path className="curtain" d="M392 178C382 202 382 231 392 258" />
-        <path className="curtain" d="M498 178C508 202 508 231 498 258" />
+      <g className="curtain-scene" aria-hidden="true">
+        <rect x="404" y="146" width="86" height="78" rx="18" />
+        <path d="M447 146V224M404 185H490" />
+        <path className="curtain-panel" d="M386 140C372 166 372 205 386 232" />
+        <path className="curtain-panel" d="M508 140C522 166 522 205 508 232" />
       </g>
 
-      <g className="bed-group" aria-hidden="true">
-        <path className="bed-base" d="M210 338C210 304 238 280 272 280H428C464 280 490 306 490 342V386H210Z" />
-        <path className="bed-front" d="M210 350H490V401C490 424 471 440 448 440H252C228 440 210 424 210 401Z" />
-        <path className="pillow" d="M236 311C238 298 250 292 265 295L292 300C307 303 315 313 312 326C309 340 296 346 281 342L254 337C241 334 234 324 236 311Z" />
-        <path className="pillow" d="M322 311C324 298 336 292 351 295L378 300C393 303 401 313 398 326C395 340 382 346 367 342L340 337C327 334 320 324 322 311Z" />
-        <path className="blanket" d="M381 354C424 346 464 360 490 386V406C490 422 477 435 461 435H334C339 394 356 365 381 354Z" />
-        <path className="blanket-shadow" d="M371 388C405 376 449 382 490 405V414C490 426 480 435 468 435H344C350 415 358 398 371 388Z" />
+      <g className="mini-bed" aria-hidden="true">
+        <path className="bed-head" d="M210 274C210 242 236 218 270 218H438C472 218 498 242 498 276V332H210Z" />
+        <path className="bed-body" d="M206 308H502V394C502 422 480 442 452 442H256C228 442 206 422 206 394Z" />
+        <path className="pillow soft-left" d="M238 246C242 230 257 222 276 226L306 232C324 236 332 249 327 264C322 280 307 287 289 282L258 276C243 273 234 261 238 246Z" />
+        <path className="pillow soft-right" d="M326 246C330 230 345 222 364 226L394 232C412 236 420 249 415 264C410 280 395 287 377 282L346 276C331 273 322 261 326 246Z" />
+        <path className="duvet" d="M336 318C390 300 462 318 502 362V394C502 421 481 442 454 442H292C300 383 314 338 336 318Z" />
+        <path className="duvet-soft" d="M332 368C382 350 454 366 502 406C496 427 478 442 454 442H300C306 410 316 385 332 368Z" />
+        <g className="status-mark bedding-done">
+          <circle cx="425" cy="318" r="17" />
+          <path d="M417 318l6 6 12-14" />
+          <text x="448" y="323">침구 교체</text>
+        </g>
       </g>
 
-      <g className="nightstand-group" aria-hidden="true">
-        <rect x="506" y="350" width="56" height="58" rx="18" />
-        <path d="M518 374H550M534 350V326" />
-        <path className="lamp-shade" d="M516 302C522 292 546 292 552 302L543 326H525Z" />
+      <g className="side-table" aria-hidden="true">
+        <rect x="522" y="318" width="62" height="70" rx="18" />
+        <path d="M536 344H570M553 318V292" />
+        <path className="lamp-glow" d="M532 266C540 254 566 254 574 266L562 294H544Z" />
+        <g className="clipboard-mark">
+          <rect x="532" y="330" width="38" height="48" rx="7" />
+          <path d="M542 346H562M542 359H558" />
+          <path d="M540 337h22" />
+          <text x="474" y="368">객실 검수</text>
+        </g>
       </g>
 
-      <g className="room-props" aria-hidden="true">
-        <path className="plant-pot" d="M158 366H194L188 407H164Z" />
-        <path className="plant-leaf" d="M176 366C156 350 154 331 170 326C185 333 187 350 176 366Z" />
-        <path className="plant-leaf" d="M179 366C198 350 202 331 187 326C173 333 170 350 179 366Z" />
+      <g className="plant-prop" aria-hidden="true">
+        <path className="plant-pot" d="M164 352H202L196 410H170Z" />
+        <path className="plant-leaf" d="M183 352C160 334 159 310 177 306C194 315 196 334 183 352Z" />
+        <path className="plant-leaf" d="M187 352C210 334 212 310 194 306C178 315 176 334 187 352Z" />
       </g>
 
-      <g className="room-docs" aria-hidden="true">
-        <rect className="check-doc" x="178" y="222" width="54" height="70" rx="8" />
-        <path d="M191 244H218M191 262H218M191 280H210" />
-        <rect className="report-doc" x="505" y="258" width="48" height="62" rx="7" />
-        <path d="M516 275H542M516 292H537" />
+      <g className="floor-status" aria-hidden="true">
+        <path className="sparkle" d="M196 316l8 16 16 8-16 8-8 16-8-16-16-8 16-8Z" />
+        <path className="floor-check" d="M238 382l10 10 22-24" />
+        <text x="206" y="418">청소 완료</text>
       </g>
 
-      <g className="task-connectors" aria-hidden="true">
-        <path id="cleanPath" d="M135 160C210 178 224 234 250 292" />
-        <path id="linenPath" d="M585 182C515 220 455 272 386 330" />
-        <path id="inspectPath" d="M116 394C148 338 167 282 205 258" />
-        <path id="reportPath" d="M590 410C556 360 535 318 529 288" />
-        <circle r="5"><animateMotion dur="5.6s" repeatCount="indefinite" begin="0s"><mpath href="#cleanPath" /></animateMotion></circle>
-        <circle r="5"><animateMotion dur="5.6s" repeatCount="indefinite" begin="1.1s"><mpath href="#linenPath" /></animateMotion></circle>
-        <circle r="5"><animateMotion dur="5.6s" repeatCount="indefinite" begin="2.2s"><mpath href="#inspectPath" /></animateMotion></circle>
-        <circle r="5"><animateMotion dur="5.6s" repeatCount="indefinite" begin="3.3s"><mpath href="#reportPath" /></animateMotion></circle>
+      <g className="report-status" aria-hidden="true">
+        <rect x="470" y="236" width="56" height="42" rx="10" />
+        <circle cx="498" cy="257" r="10" />
+        <path d="M482 236l8-12h20l8 12" />
+        <text x="450" y="218">현장 보고</text>
       </g>
 
-      <g className="task-node node-clean" style={{ "--node-index": 0 }}>
-        <circle cx="105" cy="152" r="18" /><path className="node-glyph" d="M96 158l15-15M103 143l9 9M94 160c6 5 13 5 18-1"/><text x="132" y="158">청소 완료</text>
-      </g>
-      <g className="task-node node-linen" style={{ "--node-index": 1 }}>
-        <circle cx="616" cy="170" r="18" /><path className="node-glyph" d="M607 162h18v15h-18zM611 166h10M611 171h10"/><text x="498" y="176">침구 교체</text>
-      </g>
-      <g className="task-node node-inspect" style={{ "--node-index": 2 }}>
-        <circle cx="92" cy="414" r="18" /><path className="node-glyph" d="M84 407h16v15H84zM87 413l3 3 6-7M98 416h2"/><text x="119" y="420">객실 검수</text>
-      </g>
-      <g className="task-node node-report" style={{ "--node-index": 3 }}>
-        <circle cx="615" cy="430" r="18" /><path className="node-glyph" d="M608 421h14v18l-3-2-3 2-3-2-3 2zM611 427h8M611 432h7"/><text x="496" y="436">현장 보고</text>
-      </g>
+      <path className="short-link link-clean" d="M224 368C214 360 204 350 196 340" aria-hidden="true" />
+      <path className="short-link link-inspect" d="M518 358C498 356 482 356 464 360" aria-hidden="true" />
+      <path className="short-link link-report" d="M486 278C466 292 448 305 430 318" aria-hidden="true" />
     </svg>
   </figure>;
 }
