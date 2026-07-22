@@ -60,29 +60,24 @@ h3 { margin: .7rem 0 .45rem; font-size: 1.22rem; }
 .btn:hover:not(:disabled), .btn:focus-visible { transform: translateY(-1px); background: #ffffff12; outline: 3px solid #f3d99144; outline-offset: 3px; }
 .primary { border-color: transparent; color: #17130c; background: linear-gradient(135deg, var(--gold2), var(--gold)); }
 .card, .showcase, .faq, .quote, .data-panel, .data-card, .service-card { border: 1px solid var(--line); border-radius: 1.5rem; background: var(--surface); box-shadow: var(--shadow); }
-/* Hero diorama */
-.hero-room-scene { min-height: clamp(29rem, 38vw, 35rem); margin: 0; border: 1px solid var(--line); border-radius: 1.5rem; background: radial-gradient(circle at 50% 48%, #f8edd724, transparent 16rem), linear-gradient(145deg, #1b150e, #0f0d09 72%); box-shadow: var(--shadow); overflow: hidden; }
-.room-scene-svg { display: block; width: 100%; height: 100%; min-height: clamp(29rem, 38vw, 35rem); }
-.room-scene-svg * { vector-effect: non-scaling-stroke; }
-.diorama-shell { filter: drop-shadow(0 24px 34px #0007); }
-.room-wall { fill: url(#roomWall); stroke: #d7b46a78; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.room-floor { fill: #f8edd71f; stroke: #d7b46a68; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.curtain-scene rect, .side-table rect, .clipboard-mark rect, .report-status rect { fill: #f8edd72c; stroke: #f8edd7b5; stroke-width: 1.8; stroke-linejoin: round; }
-.curtain-scene path:not(.curtain-panel), .side-table path:not(.lamp-glow), .clipboard-mark path, .report-status path { fill: none; stroke: #d7b46a9c; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.curtain-panel { fill: none; stroke: #ead6aa; stroke-width: 3; stroke-linecap: round; }
-.bed-head, .bed-body { fill: url(#softBed); stroke: #d7b46aa3; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.hero-room-diorama { width: 100%; aspect-ratio: 1.08; margin: 0; border: 1px solid var(--line); border-radius: 1.5rem; background: radial-gradient(circle at 50% 48%, #f8edd722, transparent 16rem), linear-gradient(145deg, #1b150e, #0f0d09 72%); box-shadow: var(--shadow); overflow: hidden; }
+.room-diorama-svg { display: block; width: 100%; height: 100%; }
+.room-diorama-svg * { vector-effect: non-scaling-stroke; }
+.diorama-room { filter: drop-shadow(0 24px 34px #0007); }
+.diorama-wall { fill: url(#dioramaWall); stroke: #d7b46a78; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.diorama-floor { fill: #f8edd720; stroke: #d7b46a68; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.window-pane, .stand-body { fill: #f8edd72e; stroke: #f8edd7b5; stroke-width: 1.8; stroke-linejoin: round; }
+.window-line, .stand-detail, .lamp-base, .duvet-curve { fill: none; stroke: #d7b46a9c; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.curtain-soft { fill: none; stroke: #ead6aa; stroke-width: 3.2; stroke-linecap: round; }
+.bed-back, .bed-frame { fill: url(#bedCream); stroke: #d7b46aa3; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .pillow { fill: #fffdf5; stroke: #d7b46a62; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
-.duvet { fill: url(#softGold); opacity: .62; }
-.duvet-soft { fill: #fff8e75c; stroke: none; }
-.lamp-glow { fill: #f3d99178; stroke: #d7b46aa8; stroke-width: 1.8; stroke-linejoin: round; }
+.duvet-main { fill: url(#duvetGold); opacity: .64; }
+.duvet-fold { fill: #fff8e760; stroke: none; }
+.lamp-aura { fill: url(#lampWarm); }
+.lamp-shade-soft { fill: #f3d99178; stroke: #d7b46aa8; stroke-width: 1.8; stroke-linejoin: round; }
 .plant-pot { fill: #ead6aa; stroke: #d7b46a95; stroke-linecap: round; stroke-linejoin: round; }
 .plant-leaf { fill: #f8edd78c; stroke: #d7b46a82; stroke-linecap: round; stroke-linejoin: round; }
-.status-mark circle, .report-status circle { fill: #fff8e7; stroke: #d7b46aa0; stroke-width: 1.6; }
-.status-mark path, .floor-check { fill: none; stroke: #8a681d; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.status-mark text, .floor-status text, .report-status text, .clipboard-mark text { fill: var(--ivory); font-size: 14px; font-weight: 850; letter-spacing: -.02em; }
-.sparkle { fill: #f3d99180; stroke: #d7b46a8f; stroke-width: 1.5; stroke-linejoin: round; }
-.report-status circle { fill: #15110c; stroke: #f3d991; }
-.short-link { fill: none; stroke: #d7b46a66; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4 8; }
+.soft-towels path { fill: #fff8e760; stroke: #d7b46a7a; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .icon { width: 3rem; height: 3rem; fill: none; stroke: var(--gold2); stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
 .two { display: grid; grid-template-columns: .85fr 1.15fr; gap: 2rem; align-items: start; }
 .records-section { display: block; }
@@ -93,10 +88,10 @@ h3 { margin: .7rem 0 .45rem; font-size: 1.22rem; }
 .record-stat + .record-stat { border-left: 1px solid #d7b46a55; padding-left: clamp(1.5rem, 4vw, 3rem); }
 .record-stat span { color: var(--gold2); font-size: .78rem; font-weight: 950; letter-spacing: .12em; text-transform: uppercase; }
 .record-stat h3 { margin: .65rem 0 .8rem; color: var(--ink); font-size: clamp(1.05rem, 1.8vw, 1.35rem); }
-.record-stat strong { display: flex; align-items: baseline; gap: .35rem; color: var(--ivory); line-height: .95; letter-spacing: -.055em; }
-.stat-unit { font-size: .32em; letter-spacing: -.02em; color: var(--muted); }
-.record-stat.legacy strong { font-size: clamp(2.65rem, 6vw, 4.9rem); }
-.record-stat.live strong { font-size: clamp(3.1rem, 7vw, 5.8rem); }
+.record-stat strong { display: flex; align-items: baseline; gap: .35rem; color: var(--ivory); font-weight: 950; line-height: .92; letter-spacing: -.06em; }
+.stat-unit { font-size: .44em; letter-spacing: -.02em; color: var(--muted); }
+.record-stat.legacy strong { font-size: clamp(4rem, 6vw, 4.8rem); }
+.record-stat.live strong { font-size: clamp(4.6rem, 7vw, 5.5rem); }
 .record-stat p { margin: 1rem 0 0; color: var(--muted-soft); font-size: .95rem; line-height: 1.65; }
 .cards, .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
 .service-grid { grid-template-columns: repeat(3, 1fr); }
@@ -179,7 +174,8 @@ button.showcase-media { width: 100%; cursor: zoom-in; font: inherit; }
   .hero, .two, .showcase { grid-template-columns: 1fr; }
   .records-stats { grid-template-columns: 1fr; gap: 1.5rem; }
   .record-stat + .record-stat { border-top: 1px solid #d7b46a55; border-left: 0; padding-top: 1.5rem; padding-left: 0; }
-  .hero-room-scene, .room-scene-svg { min-height: 31rem; }
+  .record-stat.legacy strong { font-size: clamp(3.25rem, 8vw, 4rem); }
+  .record-stat.live strong { font-size: clamp(3.6rem, 9vw, 4.25rem); }
   .operation-panel { grid-template-columns: 1fr; }
   .showcase-media { --thumbnail-base-height: 320px; width: 100%; }
   .grid, .cards { grid-template-columns: repeat(2, 1fr); }
@@ -212,7 +208,6 @@ button.showcase-media { width: 100%; cursor: zoom-in; font: inherit; }
 @media (max-width: 900px) {
   .section { padding-block: clamp(3rem, 8vw, 4.5rem); }
   .hero { min-height: auto; gap: 1.5rem; }
-  .hero-room-scene, .room-scene-svg { min-height: 26rem; }
   .card, .showcase, .faq, .quote, .data-panel, .data-card, .service-card { border-radius: 1.15rem; box-shadow: none; }
   .cards, .grid, .showcase-grid { gap: .8rem; }
   .service-card { min-height: auto; padding: 1.55rem; }
@@ -234,9 +229,9 @@ button.showcase-media { width: 100%; cursor: zoom-in; font: inherit; }
   .brand-mark { width: 1.65rem; height: 1.65rem; }
   .menu-toggle { width: 2.25rem; height: 2.25rem; }
   .section { padding-inline: .7rem; padding-block: 2.6rem; }
-  .hero-room-scene, .room-scene-svg { min-height: 20.5rem; }
-  .hero-room-scene { border-radius: 1rem; }
-  .room-scene-svg { transform: scale(1.12); transform-origin: center; }
+  .hero-room-diorama { border-radius: 1rem; }
+  .record-stat.legacy strong { font-size: clamp(2.75rem, 12vw, 3.25rem); }
+  .record-stat.live strong { font-size: clamp(3rem, 13vw, 3.5rem); }
   .cards, .grid, .service-grid, .timeline, .showcase-grid { gap: .7rem; }
   .card, .showcase, .faq, .quote, .data-panel, .data-card, .service-card { border-radius: .95rem; border-color: #d7b46a24; }
   .card, .showcase, .faq, .service-card { padding: 1.35rem; }

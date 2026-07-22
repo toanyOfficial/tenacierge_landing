@@ -51,76 +51,58 @@ const showcaseImages = {
   settlement: "/assets/images/landing/settlement.jpg",
 };
 
-function HeroRoomScene() {
-  return <figure className="hero-room-scene" aria-label="작은 객실 안에서 청소, 침구, 검수, 보고가 마무리되는 장면">
-    <svg className="room-scene-svg" viewBox="0 0 720 560" role="img" aria-labelledby="room-scene-title">
-      <title id="room-scene-title">미니어처 객실 운영 완료 장면</title>
+function HeroRoomDiorama() {
+  return <figure className="hero-room-diorama" aria-label="따뜻하게 정돈된 숙소 객실 미니어처 일러스트">
+    <svg className="room-diorama-svg" viewBox="0 0 720 560" role="img" aria-labelledby="room-diorama-title">
+      <title id="room-diorama-title">정돈된 숙소 객실 미니어처</title>
       <defs>
-        <linearGradient id="roomWall" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fff8e7" stopOpacity=".20"/><stop offset="1" stopColor="#d7b46a" stopOpacity=".16"/></linearGradient>
-        <linearGradient id="softBed" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fffaf0"/><stop offset="1" stopColor="#ead6aa"/></linearGradient>
-        <linearGradient id="softGold" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#f3d991"/><stop offset="1" stopColor="#d7b46a"/></linearGradient>
+        <linearGradient id="dioramaWall" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fff8e7" stopOpacity=".22"/><stop offset="1" stopColor="#d7b46a" stopOpacity=".14"/></linearGradient>
+        <linearGradient id="bedCream" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fffaf0"/><stop offset="1" stopColor="#ead8b4"/></linearGradient>
+        <linearGradient id="duvetGold" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#f6e0a4"/><stop offset="1" stopColor="#d8b66e"/></linearGradient>
+        <radialGradient id="lampWarm" cx="50%" cy="40%" r="65%"><stop stopColor="#f3d991" stopOpacity=".72"/><stop offset="1" stopColor="#f3d991" stopOpacity="0"/></radialGradient>
       </defs>
 
-      <g className="diorama-shell" aria-hidden="true">
-        <path className="room-wall" d="M152 164C152 136 174 116 204 116H518C548 116 570 136 570 164V380C570 414 544 438 510 438H210C176 438 152 414 152 380Z" />
-        <path className="room-floor" d="M188 332C238 304 482 304 532 332L574 414C520 454 204 454 150 414Z" />
+      <g className="diorama-room" aria-hidden="true">
+        <path className="diorama-wall" d="M142 168C142 134 169 108 204 108H516C551 108 578 134 578 168V378C578 416 549 444 511 444H209C171 444 142 416 142 378Z" />
+        <path className="diorama-floor" d="M178 332C234 302 486 302 542 332L584 420C524 462 196 462 136 420Z" />
       </g>
 
-      <g className="curtain-scene" aria-hidden="true">
-        <rect x="404" y="146" width="86" height="78" rx="18" />
-        <path d="M447 146V224M404 185H490" />
-        <path className="curtain-panel" d="M386 140C372 166 372 205 386 232" />
-        <path className="curtain-panel" d="M508 140C522 166 522 205 508 232" />
+      <g className="window-dressing" aria-hidden="true">
+        <rect className="window-pane" x="420" y="142" width="92" height="82" rx="20" />
+        <path className="window-line" d="M466 144V224M422 184H512" />
+        <path className="curtain-soft" d="M400 136C382 164 382 204 400 234" />
+        <path className="curtain-soft" d="M532 136C550 164 550 204 532 234" />
       </g>
 
-      <g className="mini-bed" aria-hidden="true">
-        <path className="bed-head" d="M210 274C210 242 236 218 270 218H438C472 218 498 242 498 276V332H210Z" />
-        <path className="bed-body" d="M206 308H502V394C502 422 480 442 452 442H256C228 442 206 422 206 394Z" />
-        <path className="pillow soft-left" d="M238 246C242 230 257 222 276 226L306 232C324 236 332 249 327 264C322 280 307 287 289 282L258 276C243 273 234 261 238 246Z" />
-        <path className="pillow soft-right" d="M326 246C330 230 345 222 364 226L394 232C412 236 420 249 415 264C410 280 395 287 377 282L346 276C331 273 322 261 326 246Z" />
-        <path className="duvet" d="M336 318C390 300 462 318 502 362V394C502 421 481 442 454 442H292C300 383 314 338 336 318Z" />
-        <path className="duvet-soft" d="M332 368C382 350 454 366 502 406C496 427 478 442 454 442H300C306 410 316 385 332 368Z" />
-        <g className="status-mark bedding-done">
-          <circle cx="425" cy="318" r="17" />
-          <path d="M417 318l6 6 12-14" />
-          <text x="448" y="323">침구 교체</text>
-        </g>
+      <g className="room-bed" aria-hidden="true">
+        <path className="bed-back" d="M206 276C206 238 237 210 276 210H438C477 210 508 238 508 278V338H206Z" />
+        <path className="bed-frame" d="M200 310H514V392C514 424 489 448 457 448H257C225 448 200 424 200 392Z" />
+        <path className="pillow pillow-one" d="M236 244C242 226 260 218 281 223L309 230C329 235 339 249 333 266C328 283 310 292 290 286L261 279C243 275 231 261 236 244Z" />
+        <path className="pillow pillow-two" d="M330 244C336 226 354 218 375 223L403 230C423 235 433 249 427 266C422 283 404 292 384 286L355 279C337 275 325 261 330 244Z" />
+        <path className="duvet-main" d="M314 320C366 296 462 314 514 366V394C514 425 489 448 458 448H278C286 389 298 340 314 320Z" />
+        <path className="duvet-fold" d="M306 370C362 348 452 366 514 410C506 433 485 448 458 448H286C292 416 298 392 306 370Z" />
+        <path className="duvet-curve" d="M334 326C382 314 444 326 492 360" />
       </g>
 
-      <g className="side-table" aria-hidden="true">
-        <rect x="522" y="318" width="62" height="70" rx="18" />
-        <path d="M536 344H570M553 318V292" />
-        <path className="lamp-glow" d="M532 266C540 254 566 254 574 266L562 294H544Z" />
-        <g className="clipboard-mark">
-          <rect x="532" y="330" width="38" height="48" rx="7" />
-          <path d="M542 346H562M542 359H558" />
-          <path d="M540 337h22" />
-          <text x="474" y="368">객실 검수</text>
-        </g>
+      <g className="nightstand" aria-hidden="true">
+        <rect className="stand-body" x="536" y="318" width="64" height="72" rx="20" />
+        <path className="stand-detail" d="M550 344H586M568 318V294" />
+        <ellipse className="lamp-aura" cx="568" cy="294" rx="58" ry="48" />
+        <path className="lamp-shade-soft" d="M544 266C553 253 583 253 592 266L579 296H557Z" />
+        <path className="lamp-base" d="M568 296V318" />
       </g>
 
-      <g className="plant-prop" aria-hidden="true">
-        <path className="plant-pot" d="M164 352H202L196 410H170Z" />
-        <path className="plant-leaf" d="M183 352C160 334 159 310 177 306C194 315 196 334 183 352Z" />
-        <path className="plant-leaf" d="M187 352C210 334 212 310 194 306C178 315 176 334 187 352Z" />
+      <g className="plant-corner" aria-hidden="true">
+        <path className="plant-pot" d="M158 358H200L194 414H164Z" />
+        <path className="plant-leaf" d="M179 358C154 340 153 314 173 308C191 318 194 338 179 358Z" />
+        <path className="plant-leaf" d="M184 358C210 340 214 314 194 308C176 318 174 338 184 358Z" />
+        <path className="plant-leaf small" d="M182 356C180 330 190 316 206 318C210 336 200 350 182 356Z" />
       </g>
 
-      <g className="floor-status" aria-hidden="true">
-        <path className="sparkle" d="M196 316l8 16 16 8-16 8-8 16-8-16-16-8 16-8Z" />
-        <path className="floor-check" d="M238 382l10 10 22-24" />
-        <text x="206" y="418">청소 완료</text>
+      <g className="soft-towels" aria-hidden="true">
+        <path d="M138 392C154 382 184 382 200 392V414H138Z" />
+        <path d="M148 392C161 386 177 386 190 392" />
       </g>
-
-      <g className="report-status" aria-hidden="true">
-        <rect x="470" y="236" width="56" height="42" rx="10" />
-        <circle cx="498" cy="257" r="10" />
-        <path d="M482 236l8-12h20l8 12" />
-        <text x="450" y="218">현장 보고</text>
-      </g>
-
-      <path className="short-link link-clean" d="M224 368C214 360 204 350 196 340" aria-hidden="true" />
-      <path className="short-link link-inspect" d="M518 358C498 356 482 356 464 360" aria-hidden="true" />
-      <path className="short-link link-report" d="M486 278C466 292 448 305 430 318" aria-hidden="true" />
     </svg>
   </figure>;
 }
@@ -132,7 +114,7 @@ export default function Home() {
   return <>
     <header className="floating-nav" aria-label="Tenacierge 내비게이션"><a className="brand" href="#hero" aria-label="Tenacierge 홈"><span className="brand-mark">T</span>Tenacierge</a><MobileNav /></header>
     <main>
-      <section id="hero" className="section hero"><div><p className="eyebrow">숙소 현장 운영 관리</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 챙깁니다.</h1><p className="lead">청소팀, 침구 배송, 검수 담당자가 객실 일정에 맞춰 움직이고 비품 부족이나 시설 이슈까지 호스트에게 남깁니다.</p><div className="actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="btn" href="#process">시작 절차 살펴보기</a></div></div><HeroRoomScene /></section>
+      <section id="hero" className="section hero"><div><p className="eyebrow">숙소 현장 운영 관리</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 챙깁니다.</h1><p className="lead">청소팀, 침구 배송, 검수 담당자가 객실 일정에 맞춰 움직이고 비품 부족이나 시설 이슈까지 호스트에게 남깁니다.</p><div className="actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="btn" href="#process">시작 절차 살펴보기</a></div></div><HeroRoomDiorama /></section>
       <section id="results" className="section records-section"><div className="records-intro"><p className="eyebrow">Operation Records</p><h2>현장에서 쌓아온 청소 기록</h2><p>시스템을 도입하기 전부터 이어온 현장 경험과 현재 실시간으로 쌓이고 있는 작업 기록을 함께 보여드립니다.</p></div><CleaningCounter /></section>
       <section id="problems" className="section pain-section"><p className="eyebrow">Host Pain Points</p><h2>호스트가 직접 가지 않으면 놓치기 쉬운 일들이 있습니다.</h2><div className="pain-list">{problems.map(([icon,title,body], index) => <article className="pain-item" key={title}><span className="pain-number">{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{body}</p></div><Icon name={icon}/></article>)}</div></section>
       <section id="scope" className="section service-section"><p className="eyebrow">Service Scope</p><h2>다음 체크인을 앞두고 현장에서 맡는 일들입니다.</h2><div className="grid service-grid">{scopes.map(([icon,title,body]) => <article className="service-card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div><div className="laundry-band"><Icon name="laundry"/><div><p className="linen-label">자체 침구 관리 시스템</p><h3>자체 세탁시설과 특수오염 처리 공정</h3><p>객실에서 수거한 침구는 자체 세탁시설로 옮겨 세탁과 분류를 진행하고, 다시 객실 일정에 맞춰 배포합니다. 일반 세탁으로 처리하기 어려운 오염은 별도의 특수오염 처리 공정을 거쳐 상태를 확인합니다.</p><ol className="laundry-steps">{laundrySteps.map(([icon, label]) => <li key={label}><Icon name={icon}/><span>{label}</span></li>)}</ol></div></div></section>
