@@ -98,28 +98,20 @@ export function ShowcaseModalImage({ src, title }) {
   </>;
 }
 
-export function CleaningCounter() {
-  const [state, setState] = useState({ status: "loading", count: null });
-  const [displayCount, setDisplayCount] = useState(0);
-  const cardRef = useRef(null);
+function AnimatedStatNumber({ value, active = true, prominent = false }) {
+  const [displayValue, setDisplayValue] = useState(active ? 0 : value);
+  const ref = useRef(null);
   const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    let active = true;
-    fetch("/api/data").then(async (res) => {
-      const payload = await res.json();
-      if (!res.ok || !payload.ok) throw new Error(payload.message || "집계 실패");
-      if (active) setState({ status: "ready", count: Number(payload.totalCount) });
-    }).catch(() => active && setState({ status: "error", count: null }));
-    return () => { active = false; };
-  }, []);
+    if (!active) {
+      setDisplayValue(value);
+      return undefined;
+    }
 
-  useEffect(() => {
-    if (state.status !== "ready") return undefined;
-    const finalCount = Number(state.count);
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) {
-      setDisplayCount(finalCount);
+      setDisplayValue(value);
       hasAnimatedRef.current = true;
       return undefined;
     }
@@ -127,23 +119,23 @@ export function CleaningCounter() {
     function runCountUp() {
       if (hasAnimatedRef.current) return;
       hasAnimatedRef.current = true;
-      const duration = 1500;
+      const duration = prominent ? 1500 : 1250;
       const start = performance.now();
 
       function tick(now) {
         const progress = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
-        setDisplayCount(Math.round(finalCount * eased));
+        setDisplayValue(Math.round(value * eased));
         if (progress < 1) requestAnimationFrame(tick);
-        else setDisplayCount(finalCount);
+        else setDisplayValue(value);
       }
 
       requestAnimationFrame(tick);
     }
 
-    const node = cardRef.current;
+    const node = ref.current;
     if (!node) {
-      setDisplayCount(finalCount);
+      setDisplayValue(value);
       return undefined;
     }
 
@@ -156,13 +148,29 @@ export function CleaningCounter() {
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [state.status, state.count]);
+  }, [active, prominent, value]);
+
+  return <strong ref={ref}><span className="stat-number">{displayValue.toLocaleString("ko-KR")}</span><span className="stat-unit">건</span></strong>;
+}
+
+export function CleaningCounter() {
+  const [state, setState] = useState({ status: "loading", count: null });
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/data").then(async (res) => {
+      const payload = await res.json();
+      if (!res.ok || !payload.ok) throw new Error(payload.message || "집계 실패");
+      if (active) setState({ status: "ready", count: Number(payload.totalCount) });
+    }).catch(() => active && setState({ status: "error", count: null }));
+    return () => { active = false; };
+  }, []);
 
   const today = new Date().toISOString().slice(0, 10);
   const isReady = state.status === "ready";
 
-  return <div className="records-metrics" aria-live="polite">
-    <p className="legacy-stat">시스템 도입 이전 현장 누적 청소 <strong>{`${LEGACY_CLEANING_COUNT.toLocaleString("ko-KR")}건`}</strong></p>
-    <section ref={cardRef} className={`metric-card ${isReady ? "" : "is-pending"}`}><span>시스템 도입 이후 실시간 누적 청소 건수</span><strong>{isReady ? `${displayCount.toLocaleString("ko-KR")}건` : "집계 중"}</strong><p>{SYSTEM_START_DATE} 시스템 도입 · {today} 기준</p></section>
+  return <div className="records-stats" aria-live="polite">
+    <section className="record-stat legacy"><span>시스템 도입 이전</span><h3>현장 누적 청소 건수</h3><AnimatedStatNumber value={LEGACY_CLEANING_COUNT} active /><p>시스템 도입 전 현장 기록 기준</p></section>
+    <section className={`record-stat live ${isReady ? "" : "is-pending"}`}><span>시스템 도입 이후</span><h3>실시간 누적 청소 건수</h3>{isReady ? <AnimatedStatNumber value={Number(state.count)} active prominent /> : <strong>집계 중</strong>}<p>{SYSTEM_START_DATE} 시스템 도입 · {today} 기준</p></section>
   </div>;
 }
