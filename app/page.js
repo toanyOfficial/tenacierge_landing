@@ -74,23 +74,24 @@ function HeroRoomScene() {
       </g>
 
       <g className="bed-group" aria-hidden="true">
-        <path className="bed-base" d="M210 334C210 304 235 282 265 282H432C464 282 488 306 488 338V386H210Z" />
-        <path className="bed-front" d="M210 352H488V404C488 424 472 438 452 438H246C224 438 210 424 210 404Z" />
-        <path className="pillow" d="M236 310C236 299 246 294 260 296L292 300C304 302 312 309 310 321C308 334 298 340 284 338L252 334C241 332 235 323 236 310Z" />
-        <path className="pillow" d="M322 310C322 299 332 294 346 296L378 300C390 302 398 309 396 321C394 334 384 340 370 338L338 334C327 332 321 323 322 310Z" />
-        <path className="blanket" d="M392 352C430 350 464 362 488 385V407C488 421 477 432 463 432H338C344 392 361 365 392 352Z" />
+        <path className="bed-base" d="M210 338C210 304 238 280 272 280H428C464 280 490 306 490 342V386H210Z" />
+        <path className="bed-front" d="M210 350H490V401C490 424 471 440 448 440H252C228 440 210 424 210 401Z" />
+        <path className="pillow" d="M236 311C238 298 250 292 265 295L292 300C307 303 315 313 312 326C309 340 296 346 281 342L254 337C241 334 234 324 236 311Z" />
+        <path className="pillow" d="M322 311C324 298 336 292 351 295L378 300C393 303 401 313 398 326C395 340 382 346 367 342L340 337C327 334 320 324 322 311Z" />
+        <path className="blanket" d="M381 354C424 346 464 360 490 386V406C490 422 477 435 461 435H334C339 394 356 365 381 354Z" />
+        <path className="blanket-shadow" d="M371 388C405 376 449 382 490 405V414C490 426 480 435 468 435H344C350 415 358 398 371 388Z" />
       </g>
 
       <g className="nightstand-group" aria-hidden="true">
-        <rect x="506" y="350" width="56" height="58" rx="14" />
+        <rect x="506" y="350" width="56" height="58" rx="18" />
         <path d="M518 374H550M534 350V326" />
         <path className="lamp-shade" d="M516 302C522 292 546 292 552 302L543 326H525Z" />
       </g>
 
       <g className="room-props" aria-hidden="true">
-        <path className="plant-pot" d="M286 246H324L318 286H292Z" />
-        <path className="plant-leaf" d="M304 246C284 230 282 211 298 207C312 213 315 229 304 246Z" />
-        <path className="plant-leaf" d="M307 246C326 229 330 211 315 206C302 213 299 230 307 246Z" />
+        <path className="plant-pot" d="M158 366H194L188 407H164Z" />
+        <path className="plant-leaf" d="M176 366C156 350 154 331 170 326C185 333 187 350 176 366Z" />
+        <path className="plant-leaf" d="M179 366C198 350 202 331 187 326C173 333 170 350 179 366Z" />
       </g>
 
       <g className="room-docs" aria-hidden="true">
@@ -138,7 +139,7 @@ export default function Home() {
       <section id="results" className="section records-section"><div className="records-intro"><p className="eyebrow">Operation Records</p><h2>현장에서 쌓아온 청소 기록</h2><p>시스템을 도입하기 전부터 이어온 현장 경험과 현재 실시간으로 쌓이고 있는 작업 기록을 함께 보여드립니다.</p></div><CleaningCounter /></section>
       <section id="problems" className="section pain-section"><p className="eyebrow">Host Pain Points</p><h2>호스트가 직접 가지 않으면 놓치기 쉬운 일들이 있습니다.</h2><div className="pain-list">{problems.map(([icon,title,body], index) => <article className="pain-item" key={title}><span className="pain-number">{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{body}</p></div><Icon name={icon}/></article>)}</div></section>
       <section id="scope" className="section service-section"><p className="eyebrow">Service Scope</p><h2>다음 체크인을 앞두고 현장에서 맡는 일들입니다.</h2><div className="grid service-grid">{scopes.map(([icon,title,body]) => <article className="service-card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div><div className="laundry-band"><Icon name="laundry"/><div><p className="linen-label">자체 침구 관리 시스템</p><h3>자체 세탁시설과 특수오염 처리 공정</h3><p>객실에서 수거한 침구는 자체 세탁시설로 옮겨 세탁과 분류를 진행하고, 다시 객실 일정에 맞춰 배포합니다. 일반 세탁으로 처리하기 어려운 오염은 별도의 특수오염 처리 공정을 거쳐 상태를 확인합니다.</p><ol className="laundry-steps">{laundrySteps.map(([icon, label]) => <li key={label}><Icon name={icon}/><span>{label}</span></li>)}</ol></div></div></section>
-      <section id="showcase" className="section"><p className="eyebrow">System</p><h2>현장에서 확인한 내용이 시스템 기록으로 남습니다.</h2><p>일정, 완료 사진, 체크리스트, 시설 이슈와 비용 내역을 객실별로 남겨 호스트가 필요한 순간에 다시 볼 수 있게 합니다.</p><div className="operation-panel"><div className="operation-copy"><p className="panel-kicker">현장 운영 구조</p><h3>여러 담당자가 각 단계를 나눠 확인합니다.</h3><p>데스크에서 접수한 일정은 침구 배송과 배급, 객실 클리닝, 검수, 수거와 세탁으로 이어집니다. 각 단계의 담당자가 앞뒤 작업을 다시 확인해 누락이나 현장 문제를 빠르게 공유합니다.</p></div><div className="operation-summary"><div><strong>약 60명 규모의 클리너 풀 운영</strong><p>객실 수와 지역, 일정과 작업 난이도를 보고 현장에 맞는 인력을 배정합니다.</p></div><div><strong>배급 → 클리닝 → 검수 단계별 크로스체크</strong><p>침구와 비품 전달, 청소 기준, 추가 공유가 필요한 오염이나 시설 문제를 단계별로 다시 봅니다.</p></div></div><div className="team-flow" aria-label="운영팀 흐름">{operationTeams.map((team, index) => <span key={team}>{team}{index < operationTeams.length - 1 ? <b aria-hidden="true" /> : null}</span>)}</div></div><div className="showcase-grid">{showcases.map(([key,title,body]) => <article className="showcase" key={key} data-image-key={key}><ShowcaseImage type={key} title={title}/><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
+      <section id="showcase" className="section system-section"><p className="eyebrow">System</p><h2>현장에서 확인한 내용이 시스템 기록으로 남습니다.</h2><p>일정, 완료 사진, 체크리스트, 시설 이슈와 비용 내역을 객실별로 남겨 호스트가 필요한 순간에 다시 볼 수 있게 합니다.</p><div className="operation-panel"><div className="operation-copy"><p className="panel-kicker">현장 운영 구조</p><h3>여러 담당자가 각 단계를 나눠 확인합니다.</h3><p>데스크에서 접수한 일정은 침구 배송과 배급, 객실 클리닝, 검수, 수거와 세탁으로 이어집니다. 각 단계의 담당자가 앞뒤 작업을 다시 확인해 누락이나 현장 문제를 빠르게 공유합니다.</p></div><ul className="operation-summary"><li><span aria-hidden="true">•</span><div><strong>약 60명 규모의 클리너 풀 운영</strong><p>객실 수와 지역, 일정과 작업 난이도를 보고 현장에 맞는 인력을 배정합니다.</p></div></li><li><span aria-hidden="true">•</span><div><strong>배급 → 클리닝 → 검수 단계별 크로스체크</strong><p>침구와 비품 전달, 청소 기준, 추가 공유가 필요한 오염이나 시설 문제를 단계별로 다시 봅니다.</p></div></li></ul><ol className="team-flow" aria-label="운영팀 흐름">{operationTeams.map((team, index) => <li key={team}><span>{team}</span>{index < operationTeams.length - 1 ? <b aria-label="다음 단계">→</b> : null}</li>)}</ol></div><div className="showcase-grid">{showcases.map(([key,title,body]) => <article className="showcase" key={key} data-image-key={key}><ShowcaseImage type={key} title={title}/><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
       <section id="process" className="section"><p className="eyebrow">Process</p><h2>충분히 맞춰본 뒤 운영 방식을 확정합니다.</h2><p>숙소마다 객실 구조와 일정이 다르기 때문에 바로 계약부터 진행하지 않습니다. 사전 상담과 업무 범위 논의 후 약 2개월 동안 현장 조건을 조율하고, 서로 맞는 방식이 확인되면 최종 확정합니다.</p><ol className="timeline">{processSteps.map(([title,body]) => <li key={title}><strong>{title}</strong><p>{body}</p></li>)}</ol></section>
       <section id="faq" className="section"><p className="eyebrow">FAQ</p><h2>문의 전 자주 확인하는 내용</h2>{faqs.map(([q,a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</section>
       <section id="quote" className="section quote"><p className="eyebrow">Contact</p><h2>우리 숙소도 맡길 수 있는지 확인해 보세요.</h2><p>숙소 위치와 객실 수, 방 크기, 운영 일정과 필요한 업무를 알려주시면 정액제 또는 건별제 중 적합한 방식과 업무 범위를 함께 확인합니다.</p><div className="actions">{/* TODO: 실제 카카오채널 URL과 문의 채널이 확정되면 버튼 연결 */}<button className="btn primary" type="button" disabled>카카오톡으로 상담하기 · 준비 중</button><button className="btn" type="button" disabled>관리 가능 여부 문의하기 · 준비 중</button></div></section>
