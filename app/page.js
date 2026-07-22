@@ -67,24 +67,30 @@ function HeroRoomScene() {
       </g>
 
       <g className="window-group" aria-hidden="true">
-        <rect x="402" y="184" width="86" height="68" rx="8" />
+        <rect x="404" y="186" width="82" height="64" rx="14" />
         <path d="M445 184V252M402 218H488" />
         <path className="curtain" d="M392 178C382 202 382 231 392 258" />
         <path className="curtain" d="M498 178C508 202 508 231 498 258" />
       </g>
 
       <g className="bed-group" aria-hidden="true">
-        <path className="bed-base" d="M208 330C208 306 228 286 252 286H438C462 286 482 306 482 330V388H208Z" />
-        <path className="bed-front" d="M208 350H482V409C482 421 472 431 460 431H230C218 431 208 421 208 409Z" />
-        <rect className="pillow" x="236" y="302" width="74" height="42" rx="13" />
-        <rect className="pillow" x="320" y="302" width="74" height="42" rx="13" />
-        <path className="blanket" d="M410 349H482V405H342C350 378 372 357 410 349Z" />
+        <path className="bed-base" d="M210 334C210 304 235 282 265 282H432C464 282 488 306 488 338V386H210Z" />
+        <path className="bed-front" d="M210 352H488V404C488 424 472 438 452 438H246C224 438 210 424 210 404Z" />
+        <path className="pillow" d="M236 310C236 299 246 294 260 296L292 300C304 302 312 309 310 321C308 334 298 340 284 338L252 334C241 332 235 323 236 310Z" />
+        <path className="pillow" d="M322 310C322 299 332 294 346 296L378 300C390 302 398 309 396 321C394 334 384 340 370 338L338 334C327 332 321 323 322 310Z" />
+        <path className="blanket" d="M392 352C430 350 464 362 488 385V407C488 421 477 432 463 432H338C344 392 361 365 392 352Z" />
       </g>
 
       <g className="nightstand-group" aria-hidden="true">
-        <rect x="504" y="346" width="58" height="62" rx="8" />
-        <path d="M514 371H552M533 346V324" />
-        <path className="lamp-shade" d="M514 295H552L542 324H524Z" />
+        <rect x="506" y="350" width="56" height="58" rx="14" />
+        <path d="M518 374H550M534 350V326" />
+        <path className="lamp-shade" d="M516 302C522 292 546 292 552 302L543 326H525Z" />
+      </g>
+
+      <g className="room-props" aria-hidden="true">
+        <path className="plant-pot" d="M286 246H324L318 286H292Z" />
+        <path className="plant-leaf" d="M304 246C284 230 282 211 298 207C312 213 315 229 304 246Z" />
+        <path className="plant-leaf" d="M307 246C326 229 330 211 315 206C302 213 299 230 307 246Z" />
       </g>
 
       <g className="room-docs" aria-hidden="true">
