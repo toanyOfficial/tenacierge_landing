@@ -62,7 +62,6 @@ export function ShowcaseModalImage({ src, title }) {
   return <>
     <button className="showcase-media is-expandable" type="button" onClick={openDialog} aria-label={`${title} 전체 화면 보기`}>
       <img className="showcase-image" src={src} alt={`${title} 화면 예시`} />
-      <span className="showcase-more">클릭하여 전체 보기</span>
     </button>
     <dialog className="showcase-dialog" ref={dialogRef} aria-label={`${title} 전체 화면`}>
       <button className="showcase-dialog-close" type="button" onClick={closeDialog}>닫기</button>
@@ -86,7 +85,7 @@ export function CleaningCounter() {
   const isReady = state.status === "ready";
 
   return <div className="records-metrics" aria-live="polite">
-    <section className="metric-card"><span>시스템 도입 이전 누적 청소 건수</span><strong>{`${LEGACY_CLEANING_COUNT.toLocaleString("ko-KR")}건`}</strong></section>
+    <p className="legacy-stat">시스템 도입 이전 현장 누적 청소 <strong>{`${LEGACY_CLEANING_COUNT.toLocaleString("ko-KR")}건`}</strong></p>
     <section className={`metric-card ${isReady ? "" : "is-pending"}`}><span>시스템 도입 이후 실시간 누적 청소 건수</span><strong>{isReady ? `${state.count.toLocaleString("ko-KR")}건` : "집계 중"}</strong><p>{SYSTEM_START_DATE} 시스템 도입 · {today} 기준</p></section>
   </div>;
 }
