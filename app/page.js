@@ -26,8 +26,8 @@ const faqs = [
 const showcaseImages = { dashboard: "/assets/images/landing/dashboard.jpg", cleanerReport: "/assets/images/landing/cleaner-report.jpg", butlerTasks: "/assets/images/landing/butler-tasks.jpg", settlement: "/assets/images/landing/settlement.jpg" };
 
 function HeroRoomDiorama() {
-  return <figure className="hero-room-diorama" aria-label="따뜻하게 정돈된 숙소 객실 미니어처 일러스트">
-    <svg className="room-diorama-svg" viewBox="0 0 720 560" role="img" aria-labelledby="room-diorama-title">
+  return <figure className="hero-room-diorama" aria-hidden="true">
+    <svg className="room-diorama-svg" viewBox="0 0 720 560" role="img" aria-labelledby="room-diorama-title" focusable="false">
       <title id="room-diorama-title">정돈된 숙소 객실 미니어처</title>
       <defs>
         <linearGradient id="dioramaWall" x1=".12" x2=".88" y1="0" y2="1"><stop stopColor="#fff8e8" stopOpacity=".3"/><stop offset=".55" stopColor="#d9c39c" stopOpacity=".18"/><stop offset="1" stopColor="#9d7d48" stopOpacity=".1"/></linearGradient>
