@@ -9,7 +9,7 @@ export function MobileNav() {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
   const navRef = useRef(null);
-  const links = [["#results","기록"],["#problems","고민"],["#scope","서비스"],["#showcase","시스템"],["#process","절차"],["#faq","FAQ"]];
+  const links = [["#records","기록"],["#solutions","변화"],["#evidence","관리 화면"],["#services","운영 방식"],["#process","시작 절차"],["#faq","FAQ"]];
   const menuLabel = open ? "메뉴 닫기" : "메뉴 열기";
 
   useEffect(() => {
@@ -170,7 +170,8 @@ export function CleaningCounter() {
   const isReady = state.status === "ready";
 
   return <div className="records-stats" aria-live="polite">
-    <section className="record-stat legacy"><span>시스템 도입 이전</span><h3>현장 누적 청소 건수</h3><AnimatedStatNumber value={LEGACY_CLEANING_COUNT} active /><p>시스템 도입 전 현장 기록 기준</p></section>
-    <section className={`record-stat live ${isReady ? "" : "is-pending"}`}><span>시스템 도입 이후</span><h3>실시간 누적 청소 건수</h3>{isReady ? <AnimatedStatNumber value={Number(state.count)} active prominent /> : <strong>집계 중</strong>}<p>{SYSTEM_START_DATE} 시스템 도입 · {today} 기준</p></section>
+    <section className="record-stat legacy"><span>전산 집계 전</span><AnimatedStatNumber value={LEGACY_CLEANING_COUNT} active /></section>
+    <span className="record-arrow" aria-hidden="true">→</span>
+    <section className={`record-stat live ${isReady ? "" : "is-pending"}`}><span>시스템 도입 후</span>{isReady ? <AnimatedStatNumber value={Number(state.count)} active prominent /> : <strong className="record-loading">집계 중</strong>}<p>{SYSTEM_START_DATE} 시스템 도입 · {today} 기준</p></section>
   </div>;
 }

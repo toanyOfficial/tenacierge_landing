@@ -1,80 +1,63 @@
 import Icon from "../components/Icons.js";
 import { CleaningCounter, MobileNav, ShowcaseModalImage } from "../components/ClientWidgets.js";
 
-const problems = [
-  ["calendar", "일정과 완료 확인", "객실이 늘어날수록 청소 일정, 담당자 배정, 완료 여부를 각각 확인해야 합니다."],
-  ["alert", "늦게 발견되는 현장 문제", "비품 부족, 오염, 파손, 시설 이상이 체크인 직전에 발견되면 대응할 시간이 부족합니다."],
-  ["laundry", "침구와 청소 사이의 누락", "침구 수거·세탁·배포와 청소·검수 일정이 따로 움직이면 누락이 발생하기 쉽습니다."],
+const changes = [
+  ["객실마다 연락해", "일정과 완료 확인", "한 화면에서", "진행 상태 확인"],
+  ["체크인 직전에", "현장 문제 발견", "청소 중", "사진과 이슈 기록"],
+  ["청소와 침구 일정이", "따로 움직임", "같은 체크인 일정에 맞춰", "함께 준비"],
 ];
-const scopes = [
-  ["broom", "객실 청소", "체크아웃 이후 다음 손님을 맞을 수 있도록 객실을 정리하고 완료 상태를 남깁니다."],
-  ["linen", "침구 운영", "객실 일정에 맞춰 침구를 수거하고 세탁, 분류, 배포 일정을 맞춥니다."],
-  ["calendar", "일정·작업자 배정", "여러 객실의 체크아웃 시간을 보고 현장에 들어갈 담당자를 배정합니다."],
-  ["checklist", "사진·체크리스트 기록", "청소 후 사진과 체크리스트로 객실 상태를 남겨 호스트가 바로 볼 수 있게 합니다."],
-  ["supply", "비품·현장 이슈 보고", "부족한 비품, 오염, 파손, 시설 문제를 발견하면 객실별로 공유합니다."],
-  ["receipt", "비용·후속 조치 정리", "숙소별 작업과 비용 내역을 정리하고 전문 수리가 필요하면 AS 일정 조율을 돕습니다."],
+const fieldSteps = [
+  ["calendar", "일정 확인", "확정 일정 반영"],
+  ["linen", "침구 준비", "객실별 수량 준비"],
+  ["broom", "객실 청소", "담당자 현장 투입"],
+  ["checklist", "검수", "완료 상태 확인"],
+  ["receipt", "사진·이슈 공유", "객실별 기록"],
 ];
-const showcases = [
-  ["dashboard", "대시보드", "여러 객실의 청소 일정과 진행 상태를 한눈에 확인합니다."],
-  ["cleanerReport", "완료 보고", "완료 사진, 체크리스트, 오염·파손·시설 이슈를 함께 기록합니다."],
-  ["butlerTasks", "업무 배정", "작업자 배정과 청소·검수 상태를 객실 단위로 관리합니다."],
-  ["settlement", "정산", "숙소별 업무 건수와 비용 내역을 항목별로 확인합니다."],
-];
-const processSteps = [
-  ["사전 상담", "숙소 위치와 객실 수, 현재 운영 방식과 필요한 업무를 확인합니다."],
-  ["업무 범위 논의", "청소, 침구, 비품, 검수, 수거와 시설 대응 중 필요한 범위를 정리합니다."],
-  ["현장 조율", "약 2개월 동안 실제 일정과 작업 기준, 객실별 특이사항을 맞춰봅니다."],
-  ["최종 확정", "현장에서 조율한 업무 범위와 작업 기준, 비용 조건을 확인한 뒤 운영 방식을 확정합니다."],
-];
-const laundrySteps = [
-  ["linen", "침구 수거"],
-  ["laundry", "자체 세탁"],
-  ["checklist", "분류 및 보관"],
-  ["calendar", "객실별 재배포"],
-  ["alert", "특수오염 처리"],
-];
-const operationTeams = ["데스크", "배달팀", "배급팀", "클리너", "관리감독", "수거팀", "세탁팀"];
+const operationFacts = [["약 60명", "일정에 맞춘 인력 배정"], ["자체 세탁시설", "세탁실·세탁공장 운영"], ["객실별 기록", "완료 사진·이상 내용·비용 내역"]];
+const laundrySteps = [["linen", "수거"], ["laundry", "세탁실·세탁공장"], ["checklist", "분류·보관"], ["calendar", "객실별 재배포"]];
+const processSteps = [["상담", "위치·객실 수·운영 일정 확인"], ["범위 협의", "청소·침구·검수 범위 결정"], ["현장 조율", "실제 일정과 담당자 동선 조율"], ["운영 확정", "확인된 기준으로 시작"]];
 const faqs = [
-  ["어떤 숙소를 관리할 수 있나요?", "숙소 수, 위치, 객실 구조, 체크인·체크아웃 일정에 따라 관리 가능 여부를 확인합니다. 여러 객실을 운영하는 호스트도 상담 가능합니다."],
-  ["청소 완료 여부는 어떻게 확인하나요?", "객실별 완료 상태와 작업 사진, 체크리스트, 특이사항을 시스템 기록으로 확인할 수 있습니다."],
-  ["침구도 함께 관리하나요?", "객실 일정에 맞춰 침구 수거, 세탁, 배포 흐름을 관리합니다. 운영 방식은 숙소별 조건에 따라 협의합니다."],
-  ["비품이 부족하면 어떻게 하나요?", "현장에서 부족한 비품과 소모품을 확인해 호스트에게 전달합니다. 구매 및 발주는 호스트가 직접 진행합니다."],
-  ["시설 문제가 발견되면 어떻게 하나요?", "현장에서 가능한 간단한 조치는 상황에 따라 대응하며, 전문 수리가 필요한 경우 AS 접수와 일정 조율을 지원합니다."],
-  ["일정 변경이나 긴급 요청도 가능한가요?", "확정된 작업 일정과 현장 상황에 따라 가능한 범위를 확인해 안내합니다. 긴급 이슈는 담당 책임자가 상황을 확인한 뒤 대응 방법을 안내합니다."],
-  ["비용은 어떻게 정해지나요?", "운영 방식에 따라 정액제 또는 건별제로 협의할 수 있습니다. 숙소까지의 거리, 객실 수와 작업 물량, 방 크기와 구조, 청소와 침구 운영 범위, 일정 조건을 확인한 뒤 비용을 안내합니다. 숙소마다 조건이 달라 별도의 고정 요금표는 게시하지 않습니다."],
+  ["어떤 숙소를 맡길 수 있나요?", "숙소 위치, 객실 수, 구조와 운영 일정을 확인한 뒤 안내합니다. 여러 객실을 운영하는 호스트도 상담할 수 있습니다."],
+  ["청소가 끝났는지는 어떻게 확인하나요?", "관리 화면에서 객실별 완료 상태, 사진과 체크리스트를 확인할 수 있습니다."],
+  ["비품이나 시설 문제가 발견되면 어떻게 하나요?", "발견 내용을 사진과 기록으로 공유합니다. 필요한 경우 가능한 현장 조치나 AS 일정 조율 범위를 안내합니다."],
+  ["일정이 변경되면 대응할 수 있나요?", "변경 일정과 현장 인력 상황을 확인한 뒤 가능한 범위를 안내합니다. 모든 변경에 즉시 대응하는 것을 보장하지는 않습니다."],
+  ["비용은 어떻게 정해지나요?", "숙소 위치, 객실 수와 구조, 작업 범위와 일정에 따라 정액제 또는 건별제로 협의합니다."],
 ];
-
-const showcaseImages = {
-  dashboard: "/assets/images/landing/dashboard.jpg",
-  cleanerReport: "/assets/images/landing/cleaner-report.jpg",
-  butlerTasks: "/assets/images/landing/butler-tasks.jpg",
-  settlement: "/assets/images/landing/settlement.jpg",
-};
+const showcaseImages = { dashboard: "/assets/images/landing/dashboard.jpg", cleanerReport: "/assets/images/landing/cleaner-report.jpg", butlerTasks: "/assets/images/landing/butler-tasks.jpg", settlement: "/assets/images/landing/settlement.jpg" };
 
 function HeroRoomDiorama() {
-  return <figure className="hero-room-diorama" aria-label="따뜻하게 정돈된 숙소 객실 미니어처 일러스트">
-    <svg className="room-diorama-svg" viewBox="0 0 720 560" role="img" aria-labelledby="room-diorama-title">
+  return <figure className="hero-room-diorama" aria-hidden="true">
+    <svg className="room-diorama-svg" viewBox="0 0 720 560" role="img" aria-labelledby="room-diorama-title" focusable="false">
       <title id="room-diorama-title">정돈된 숙소 객실 미니어처</title>
       <defs>
-        <linearGradient id="dioramaWall" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fff8e7" stopOpacity=".22"/><stop offset="1" stopColor="#d7b46a" stopOpacity=".14"/></linearGradient>
-        <linearGradient id="bedCream" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fffaf0"/><stop offset="1" stopColor="#ead8b4"/></linearGradient>
-        <linearGradient id="duvetGold" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#f6e0a4"/><stop offset="1" stopColor="#d8b66e"/></linearGradient>
-        <radialGradient id="lampWarm" cx="50%" cy="40%" r="65%"><stop stopColor="#f3d991" stopOpacity=".72"/><stop offset="1" stopColor="#f3d991" stopOpacity="0"/></radialGradient>
+        <linearGradient id="dioramaWall" x1=".12" x2=".88" y1="0" y2="1"><stop stopColor="#fff8e8" stopOpacity=".3"/><stop offset=".55" stopColor="#d9c39c" stopOpacity=".18"/><stop offset="1" stopColor="#9d7d48" stopOpacity=".1"/></linearGradient>
+        <linearGradient id="dioramaFloor" x1=".5" x2=".5" y1="0" y2="1"><stop stopColor="#d8c6a4" stopOpacity=".18"/><stop offset="1" stopColor="#725b38" stopOpacity=".26"/></linearGradient>
+        <linearGradient id="windowGlass" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#f7ead0" stopOpacity=".32"/><stop offset="1" stopColor="#887d68" stopOpacity=".14"/></linearGradient>
+        <linearGradient id="bedCream" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#fffdf6"/><stop offset=".58" stopColor="#eee0c6"/><stop offset="1" stopColor="#c9ae7c"/></linearGradient>
+        <linearGradient id="duvetGold" x1=".1" x2=".9" y1="0" y2="1"><stop stopColor="#fff4d4"/><stop offset=".5" stopColor="#e5c98d"/><stop offset="1" stopColor="#b88c4e"/></linearGradient>
+        <radialGradient id="roomLight" cx="78%" cy="43%" r="64%"><stop stopColor="#f3d998" stopOpacity=".22"/><stop offset=".55" stopColor="#d6b46e" stopOpacity=".07"/><stop offset="1" stopColor="#d6b46e" stopOpacity="0"/></radialGradient>
+        <radialGradient id="lampWarm" cx="50%" cy="42%" r="65%"><stop stopColor="#ffe9ac" stopOpacity=".78"/><stop offset=".48" stopColor="#e6bd66" stopOpacity=".3"/><stop offset="1" stopColor="#d29d3e" stopOpacity="0"/></radialGradient>
+        <filter id="softRoomShadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="14" stdDeviation="13" floodColor="#050504" floodOpacity=".3"/></filter>
       </defs>
 
       <g className="diorama-room" aria-hidden="true">
         <path className="diorama-wall" d="M142 168C142 134 169 108 204 108H516C551 108 578 134 578 168V378C578 416 549 444 511 444H209C171 444 142 416 142 378Z" />
         <path className="diorama-floor" d="M178 332C234 302 486 302 542 332L584 420C524 462 196 462 136 420Z" />
+        <ellipse className="room-light-wash" cx="454" cy="277" rx="218" ry="184" />
+        <path className="floor-depth-line" d="M165 369C253 337 467 337 555 369" />
       </g>
 
       <g className="window-dressing" aria-hidden="true">
+        <rect className="window-frame" x="414" y="136" width="104" height="94" rx="24" />
         <rect className="window-pane" x="420" y="142" width="92" height="82" rx="20" />
         <path className="window-line" d="M466 144V224M422 184H512" />
-        <path className="curtain-soft" d="M400 136C382 164 382 204 400 234" />
-        <path className="curtain-soft" d="M532 136C550 164 550 204 532 234" />
+        <path className="curtain-panel curtain-left" d="M402 132C383 154 378 202 399 240L417 226C405 196 405 163 416 139Z" />
+        <path className="curtain-panel curtain-right" d="M530 132C549 154 554 202 533 240L515 226C527 196 527 163 516 139Z" />
+        <path className="curtain-fold" d="M401 140C390 166 390 205 401 230M531 140C542 166 542 205 531 230" />
       </g>
 
       <g className="room-bed" aria-hidden="true">
+        <ellipse className="bed-ground-shadow" cx="359" cy="433" rx="174" ry="28" />
         <path className="bed-back" d="M206 276C206 238 237 210 276 210H438C477 210 508 238 508 278V338H206Z" />
         <path className="bed-frame" d="M200 310H514V392C514 424 489 448 457 448H257C225 448 200 424 200 392Z" />
         <path className="pillow pillow-one" d="M236 244C242 226 260 218 281 223L309 230C329 235 339 249 333 266C328 283 310 292 290 286L261 279C243 275 231 261 236 244Z" />
@@ -82,12 +65,14 @@ function HeroRoomDiorama() {
         <path className="duvet-main" d="M314 320C366 296 462 314 514 366V394C514 425 489 448 458 448H278C286 389 298 340 314 320Z" />
         <path className="duvet-fold" d="M306 370C362 348 452 366 514 410C506 433 485 448 458 448H286C292 416 298 392 306 370Z" />
         <path className="duvet-curve" d="M334 326C382 314 444 326 492 360" />
+        <path className="duvet-highlight" d="M340 334C386 324 439 335 478 359" />
       </g>
 
       <g className="nightstand" aria-hidden="true">
         <rect className="stand-body" x="536" y="318" width="64" height="72" rx="20" />
         <path className="stand-detail" d="M550 344H586M568 318V294" />
-        <ellipse className="lamp-aura" cx="568" cy="294" rx="58" ry="48" />
+        <ellipse className="lamp-aura" cx="568" cy="288" rx="94" ry="82" />
+        <ellipse className="lamp-core" cx="568" cy="280" rx="42" ry="36" />
         <path className="lamp-shade-soft" d="M544 266C553 253 583 253 592 266L579 296H557Z" />
         <path className="lamp-base" d="M568 296V318" />
       </g>
@@ -112,16 +97,16 @@ function ShowcaseImage({ type, title }) {
 
 export default function Home() {
   return <>
-    <header className="floating-nav" aria-label="Tenacierge 내비게이션"><a className="brand" href="#hero" aria-label="Tenacierge 홈"><span className="brand-mark">T</span>Tenacierge</a><MobileNav /></header>
+    <header className="site-header"><div className="header-inner"><a className="brand" href="#hero" aria-label="Tenacierge 홈"><span className="brand-mark">T</span>Tenacierge</a><MobileNav /></div></header>
     <main>
-      <section id="hero" className="section hero"><div><p className="eyebrow">숙소 현장 운영 관리</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 챙깁니다.</h1><p className="lead">청소팀, 침구 배송, 검수 담당자가 객실 일정에 맞춰 움직이고 비품 부족이나 시설 이슈까지 호스트에게 남깁니다.</p><div className="actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="btn" href="#process">시작 절차 살펴보기</a></div></div><HeroRoomDiorama /></section>
-      <section id="results" className="section records-section"><div className="records-intro"><p className="eyebrow">Operation Records</p><h2>현장에서 쌓아온 청소 기록</h2><p>시스템을 도입하기 전부터 이어온 현장 경험과 현재 실시간으로 쌓이고 있는 작업 기록을 함께 보여드립니다.</p></div><CleaningCounter /></section>
-      <section id="problems" className="section pain-section"><p className="eyebrow">Host Pain Points</p><h2>호스트가 직접 가지 않으면 놓치기 쉬운 일들이 있습니다.</h2><div className="pain-list">{problems.map(([icon,title,body], index) => <article className="pain-item" key={title}><span className="pain-number">{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{body}</p></div><Icon name={icon}/></article>)}</div></section>
-      <section id="scope" className="section service-section"><p className="eyebrow">Service Scope</p><h2>다음 체크인을 앞두고 현장에서 맡는 일들입니다.</h2><div className="grid service-grid">{scopes.map(([icon,title,body]) => <article className="service-card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div><div className="laundry-band"><Icon name="laundry"/><div><p className="linen-label">자체 침구 관리 시스템</p><h3>자체 세탁시설과 특수오염 처리 공정</h3><p>객실에서 수거한 침구는 자체 세탁시설로 옮겨 세탁과 분류를 진행하고, 다시 객실 일정에 맞춰 배포합니다. 일반 세탁으로 처리하기 어려운 오염은 별도의 특수오염 처리 공정을 거쳐 상태를 확인합니다.</p><ol className="laundry-steps">{laundrySteps.map(([icon, label]) => <li key={label}><Icon name={icon}/><span>{label}</span></li>)}</ol></div></div></section>
-      <section id="showcase" className="section system-section"><p className="eyebrow">System</p><h2>현장에서 확인한 내용이 시스템 기록으로 남습니다.</h2><p>일정, 완료 사진, 체크리스트, 시설 이슈와 비용 내역을 객실별로 남겨 호스트가 필요한 순간에 다시 볼 수 있게 합니다.</p><div className="operation-panel"><div className="operation-copy"><p className="panel-kicker">현장 운영 구조</p><h3>여러 담당자가 각 단계를 나눠 확인합니다.</h3><p>데스크에서 접수한 일정은 침구 배송과 배급, 객실 클리닝, 검수, 수거와 세탁으로 이어집니다. 각 단계의 담당자가 앞뒤 작업을 다시 확인해 누락이나 현장 문제를 빠르게 공유합니다.</p></div><ul className="operation-summary"><li><span aria-hidden="true">•</span><div><strong>약 60명 규모의 클리너 풀 운영</strong><p>객실 수와 지역, 일정과 작업 난이도를 보고 현장에 맞는 인력을 배정합니다.</p></div></li><li><span aria-hidden="true">•</span><div><strong>배급 → 클리닝 → 검수 단계별 크로스체크</strong><p>침구와 비품 전달, 청소 기준, 추가 공유가 필요한 오염이나 시설 문제를 단계별로 다시 봅니다.</p></div></li></ul><ol className="team-flow" aria-label="운영팀 흐름">{operationTeams.map((team, index) => <li key={team}><span>{team}</span>{index < operationTeams.length - 1 ? <b aria-label="다음 단계">→</b> : null}</li>)}</ol></div><div className="showcase-grid">{showcases.map(([key,title,body]) => <article className="showcase" key={key} data-image-key={key}><ShowcaseImage type={key} title={title}/><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
-      <section id="process" className="section"><p className="eyebrow">Process</p><h2>충분히 맞춰본 뒤 운영 방식을 확정합니다.</h2><p>숙소마다 객실 구조와 일정이 다르기 때문에 바로 계약부터 진행하지 않습니다. 사전 상담과 업무 범위 논의 후 약 2개월 동안 현장 조건을 조율하고, 서로 맞는 방식이 확인되면 최종 확정합니다.</p><ol className="timeline">{processSteps.map(([title,body]) => <li key={title}><strong>{title}</strong><p>{body}</p></li>)}</ol></section>
-      <section id="faq" className="section"><p className="eyebrow">FAQ</p><h2>문의 전 자주 확인하는 내용</h2>{faqs.map(([q,a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</section>
-      <section id="quote" className="section quote"><p className="eyebrow">Contact</p><h2>우리 숙소도 맡길 수 있는지 확인해 보세요.</h2><p>숙소 위치와 객실 수, 방 크기, 운영 일정과 필요한 업무를 알려주시면 정액제 또는 건별제 중 적합한 방식과 업무 범위를 함께 확인합니다.</p><div className="actions">{/* TODO: 실제 카카오채널 URL과 문의 채널이 확정되면 버튼 연결 */}<button className="btn primary" type="button" disabled>카카오톡으로 상담하기 · 준비 중</button><button className="btn" type="button" disabled>관리 가능 여부 문의하기 · 준비 중</button></div></section>
+      <section id="hero" className="full-band hero-band"><div className="section-inner hero"><div className="hero-copy"><p className="hero-audience">단기숙박 숙소 현장 운영</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 대신 챙깁니다.</h1><p className="hero-lead">청소·침구·검수·현장 이슈를 한 흐름으로 처리하고,<br className="desktop-break" /> 진행 상황은 기록으로 남깁니다.</p><div className="hero-actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="text-link" href="#evidence">실제 관리 화면 보기 <span aria-hidden="true">→</span></a></div></div><HeroRoomDiorama /></div></section>
+      <section id="records" className="full-band records-band"><div className="section-inner records-section"><p className="section-label dark-label">현장 업무 기록</p><CleaningCounter /></div></section>
+      <section id="solutions" className="full-band changes-band"><div className="section-inner compact-section"><h2>호스트가 직접 확인하던 일이<br />이렇게 줄어듭니다.</h2><div className="change-list">{changes.map(([beforeTop, beforeBottom, afterTop, afterBottom], index) => <article className="change-row" key={beforeTop}><span className="row-index">0{index + 1}</span><p className="change-before">{beforeTop}<br /><strong>{beforeBottom}</strong></p><span className="change-arrow" aria-hidden="true">→</span><p className="change-after">{afterTop}<br /><strong>{afterBottom}</strong></p></article>)}</div></div></section>
+      <section id="evidence" className="full-band evidence-band"><div className="section-inner evidence-section"><p className="section-label">실제 관리 화면</p><h2>숙소에 가지 않아도,<br />여기까지 확인됩니다.</h2><p className="section-copy">일정·완료 사진·검수·비용 내역이 객실별로 남습니다.</p><div className="evidence-layout"><figure className="evidence-figure evidence-dashboard"><ShowcaseImage type="dashboard" title="객실별 일정과 진행 상태"/><figcaption>객실별 일정과 진행 상태</figcaption></figure><figure className="evidence-figure evidence-report"><ShowcaseImage type="cleanerReport" title="완료 사진과 체크리스트"/><figcaption>완료 사진과 체크리스트</figcaption></figure><div className="evidence-secondary"><figure className="evidence-figure"><ShowcaseImage type="butlerTasks" title="담당자 배정·청소·검수 상태"/><figcaption>담당자 배정·청소·검수 상태</figcaption></figure><figure className="evidence-figure"><ShowcaseImage type="settlement" title="숙소별 작업·비용 내역"/><figcaption>숙소별 작업·비용 내역</figcaption></figure></div></div></div></section>
+      <section className="full-band workflow-band"><div className="section-inner workflow-section"><div id="services" className="anchor-target"><p className="section-label">현장이 움직이는 순서</p><h2>다음 체크인까지,<br />이 순서로 움직입니다.</h2><ol className="field-flow">{fieldSteps.map(([icon, title, detail]) => <li key={title}><span className="icon-tag"><Icon name={icon}/></span><strong>{title}</strong><small>{detail}</small></li>)}</ol></div><div id="operations" className="anchor-target operation-strip" aria-label="운영 근거">{operationFacts.map(([value, detail]) => <div key={value}><strong>{value}</strong><span>{detail}</span></div>)}</div><div id="laundry" className="anchor-target laundry-strip"><header className="laundry-heading"><p className="section-label">침구 운영</p><h3>수거한 침구를 세탁하고,<br />객실 일정에 맞춰 다시 보냅니다.</h3></header><div className="laundry-process-grid"><div className="standard-laundry"><ol className="laundry-flow">{laundrySteps.map(([icon, title]) => <li key={title}><span className="icon-tag"><Icon name={icon}/></span><strong>{title}</strong></li>)}</ol></div><aside className="stain-process"><p className="laundry-process-label">별도 공정</p><Icon name="laundry"/><h4>특수오염 처리</h4><p>일반 세탁이 어려운 오염은<br />별도 공정으로 확인합니다.</p></aside></div></div></div></section>
+      <section id="process" className="full-band process-band"><div className="section-inner process-section"><p className="section-label">시작 절차</p><h2>바로 계약하지 않고,<br />먼저 현장을 맞춰봅니다.</h2><p className="section-copy">숙소마다 구조와 일정이 달라<br />약 2개월간 실제 흐름을 조율합니다.</p><ol className="timeline">{processSteps.map(([title, body]) => <li key={title}><strong>{title}</strong><span>{body}</span></li>)}</ol></div></section>
+      <section id="faq" className="full-band faq-band"><div className="section-inner faq-section"><h2>자주 묻는 질문</h2><div className="faq-list">{faqs.map(([q, a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
+      <section id="quote" className="full-band quote-band"><div className="section-inner quote"><p className="section-label dark-label">상담</p><h2>우리 숙소도 가능한지<br />확인해 보세요.</h2><p>숙소 위치와 객실 수만 알려주세요.</p><div className="contact-actions"><button type="button" disabled><strong>카카오톡</strong><small>준비 중</small></button><button type="button" disabled><strong>전화</strong><small>준비 중</small></button><button type="button" disabled><strong>이메일</strong><small>준비 중</small></button></div></div></section>
     </main>
   </>;
 }
