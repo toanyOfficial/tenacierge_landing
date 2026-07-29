@@ -1,55 +1,42 @@
 import Icon from "../components/Icons.js";
 import { CleaningCounter, MobileNav, ShowcaseModalImage } from "../components/ClientWidgets.js";
 
-const problems = [
-  ["calendar", "일정과 완료 확인", "객실이 늘어날수록 청소 일정, 담당자 배정, 완료 여부를 각각 확인해야 합니다."],
-  ["alert", "늦게 발견되는 현장 문제", "비품 부족, 오염, 파손, 시설 이상이 체크인 직전에 발견되면 대응할 시간이 부족합니다."],
-  ["laundry", "침구와 청소 사이의 누락", "침구 수거·세탁·배포와 청소·검수 일정이 따로 움직이면 누락이 발생하기 쉽습니다."],
-];
-const scopes = [
-  ["broom", "객실 청소", "체크아웃 이후 다음 손님을 맞을 수 있도록 객실을 정리하고 완료 상태를 남깁니다."],
-  ["linen", "침구 운영", "객실 일정에 맞춰 침구를 수거하고 세탁, 분류, 배포 일정을 맞춥니다."],
-  ["calendar", "일정·작업자 배정", "여러 객실의 체크아웃 시간을 보고 현장에 들어갈 담당자를 배정합니다."],
-  ["checklist", "사진·체크리스트 기록", "청소 후 사진과 체크리스트로 객실 상태를 남겨 호스트가 바로 볼 수 있게 합니다."],
-  ["supply", "비품·현장 이슈 보고", "부족한 비품, 오염, 파손, 시설 문제를 발견하면 객실별로 공유합니다."],
-  ["receipt", "비용·후속 조치 정리", "숙소별 작업과 비용 내역을 정리하고 전문 수리가 필요하면 AS 일정 조율을 돕습니다."],
-];
-const showcases = [
-  ["dashboard", "대시보드", "여러 객실의 청소 일정과 진행 상태를 한눈에 확인합니다."],
-  ["cleanerReport", "완료 보고", "완료 사진, 체크리스트, 오염·파손·시설 이슈를 함께 기록합니다."],
-  ["butlerTasks", "업무 배정", "작업자 배정과 청소·검수 상태를 객실 단위로 관리합니다."],
-  ["settlement", "정산", "숙소별 업무 건수와 비용 내역을 항목별로 확인합니다."],
-];
-const processSteps = [
-  ["사전 상담", "숙소 위치와 객실 수, 현재 운영 방식과 필요한 업무를 확인합니다."],
-  ["업무 범위 논의", "청소, 침구, 비품, 검수, 수거와 시설 대응 중 필요한 범위를 정리합니다."],
-  ["현장 조율", "약 2개월 동안 실제 일정과 작업 기준, 객실별 특이사항을 맞춰봅니다."],
-  ["최종 확정", "현장에서 조율한 업무 범위와 작업 기준, 비용 조건을 확인한 뒤 운영 방식을 확정합니다."],
-];
-const laundrySteps = [
-  ["linen", "침구 수거"],
-  ["laundry", "자체 세탁"],
-  ["checklist", "분류 및 보관"],
-  ["calendar", "객실별 재배포"],
-  ["alert", "특수오염 처리"],
-];
-const operationTeams = ["데스크", "배달팀", "배급팀", "클리너", "관리감독", "수거팀", "세탁팀"];
-const faqs = [
-  ["어떤 숙소를 관리할 수 있나요?", "숙소 수, 위치, 객실 구조, 체크인·체크아웃 일정에 따라 관리 가능 여부를 확인합니다. 여러 객실을 운영하는 호스트도 상담 가능합니다."],
-  ["청소 완료 여부는 어떻게 확인하나요?", "객실별 완료 상태와 작업 사진, 체크리스트, 특이사항을 시스템 기록으로 확인할 수 있습니다."],
-  ["침구도 함께 관리하나요?", "객실 일정에 맞춰 침구 수거, 세탁, 배포 흐름을 관리합니다. 운영 방식은 숙소별 조건에 따라 협의합니다."],
-  ["비품이 부족하면 어떻게 하나요?", "현장에서 부족한 비품과 소모품을 확인해 호스트에게 전달합니다. 구매 및 발주는 호스트가 직접 진행합니다."],
-  ["시설 문제가 발견되면 어떻게 하나요?", "현장에서 가능한 간단한 조치는 상황에 따라 대응하며, 전문 수리가 필요한 경우 AS 접수와 일정 조율을 지원합니다."],
-  ["일정 변경이나 긴급 요청도 가능한가요?", "확정된 작업 일정과 현장 상황에 따라 가능한 범위를 확인해 안내합니다. 긴급 이슈는 담당 책임자가 상황을 확인한 뒤 대응 방법을 안내합니다."],
-  ["비용은 어떻게 정해지나요?", "운영 방식에 따라 정액제 또는 건별제로 협의할 수 있습니다. 숙소까지의 거리, 객실 수와 작업 물량, 방 크기와 구조, 청소와 침구 운영 범위, 일정 조건을 확인한 뒤 비용을 안내합니다. 숙소마다 조건이 달라 별도의 고정 요금표는 게시하지 않습니다."],
+const problemSolutions = [
+  { icon: "calendar", title: "청소 일정과 완료 여부를 매번 확인해야 할 때", problem: "여러 객실의 일정, 담당자와 완료 여부를 각각 확인해야 합니다.", response: "객실별 일정과 진행 상태를 기록합니다.", result: "여러 객실의 상황을 한 화면에서 확인할 수 있습니다." },
+  { icon: "alert", title: "체크인 직전에 현장 문제가 발견될 때", problem: "비품 부족, 오염이나 시설 이상이 다음 손님 입실 직전에 발견되기도 합니다.", response: "청소 과정에서 사진, 체크리스트와 현장 이슈를 남깁니다.", result: "발견된 내용을 객실별로 확인할 수 있습니다." },
+  { icon: "laundry", title: "침구와 청소 일정이 따로 움직일 때", problem: "수거, 세탁, 배포와 청소 일정이 따로 움직이면 준비가 빠질 수 있습니다.", response: "침구 준비와 현장 일정을 함께 연결합니다.", result: "다음 체크인 일정에 맞춰 필요한 침구를 준비합니다." },
 ];
 
-const showcaseImages = {
-  dashboard: "/assets/images/landing/dashboard.jpg",
-  cleanerReport: "/assets/images/landing/cleaner-report.jpg",
-  butlerTasks: "/assets/images/landing/butler-tasks.jpg",
-  settlement: "/assets/images/landing/settlement.jpg",
-};
+const serviceGroups = [
+  { icon: "calendar", title: "일정에 맞춘 현장 투입", items: ["확정된 숙박 일정에 따른 청소 진행", "객실과 일정에 맞춘 작업자 배정", "일정 변경 시 현장 인력과 동선 조정"] },
+  { icon: "linen", title: "청소·침구·물품 준비", items: ["객실 클리닝", "침구와 수건 세탁", "침구와 물품 준비 및 배급", "세탁물과 사용 물품 수거"] },
+  { icon: "checklist", title: "검수·기록·이상 보고", items: ["청소 결과 검수", "완료 사진과 체크리스트 기록", "비품 상태와 시설 이상 확인", "이상 상황 공유", "숙소별 작업 및 정산 내역 제공"] },
+];
+
+const unsupportedServices = ["예약 접수 및 관리", "숙박 플랫폼 계정 운영", "숙박 요금 조정", "전체 게스트 메시지 응대", "숙소 사업 전체 운영 대행"];
+const processSteps = [
+  ["사전 상담", "숙소 위치, 객실 수, 운영 일정과 필요한 업무를 확인합니다."],
+  ["업무 범위 논의", "청소, 침구, 검수와 현장 확인 범위를 숙소에 맞게 정리합니다."],
+  ["현장 조율", "약 2개월간 실제 일정에 맞춰 작업 방식과 담당자 간 동선을 조율합니다."],
+  ["최종 확정", "확인된 범위와 기준을 바탕으로 업무 방식을 확정합니다."],
+];
+const laundrySteps = [["linen", "침구 수거"], ["laundry", "자체 세탁"], ["checklist", "분류 및 보관"], ["calendar", "객실별 재배포"]];
+const operationTeams = ["준비·배급", "클리닝·검수", "수거·세탁"];
+const faqs = [
+  ["어떤 숙소를 맡길 수 있나요?", "숙소 위치, 객실 수와 구조, 체크인·체크아웃 일정을 확인한 뒤 안내합니다. 여러 객실을 운영하는 호스트도 상담할 수 있습니다."],
+  ["청소 완료 여부는 어떻게 확인하나요?", "관리 화면에서 객실별 완료 상태를 확인할 수 있습니다. 작업 사진, 체크리스트와 특이사항도 함께 남깁니다."],
+  ["침구와 수건도 함께 관리하나요?", "가능합니다. 객실 일정에 맞춰 침구와 수건을 수거하고 세탁·분류한 뒤 다시 배포합니다."],
+  ["비품이 부족하면 어떻게 하나요?", "부족한 비품과 소모품을 현장에서 확인해 공유합니다. 구매와 발주는 호스트가 직접 진행합니다."],
+  ["시설 문제가 발견되면 어떻게 하나요?", "발견한 시설 이상을 사진과 기록으로 공유합니다. 간단한 현장 조치는 상황에 따라 진행하며, 전문 수리가 필요하면 AS 접수와 일정 조율을 지원합니다."],
+  ["일정이 변경되면 대응할 수 있나요?", "변경된 일정과 현장 인력 상황을 확인한 뒤 가능한 범위를 안내합니다. 모든 변경에 즉시 대응할 수 있는 것은 아닙니다."],
+  ["비용은 어떻게 정해지나요?", "숙소 조건과 맡길 업무 범위를 확인한 뒤 안내합니다. 거리, 객실 수와 구조, 작업 물량, 청소·침구 범위와 일정에 따라 정액제 또는 건별제로 협의합니다."],
+];
+const showcaseImages = { dashboard: "/assets/images/landing/dashboard.jpg", cleanerReport: "/assets/images/landing/cleaner-report.jpg", butlerTasks: "/assets/images/landing/butler-tasks.jpg", settlement: "/assets/images/landing/settlement.jpg" };
+const contactChannels = [
+  { type: "kakao", label: "카카오톡 상담", description: "숙소 정보와 필요한 업무를 메시지로 남길 수 있습니다.", href: null, status: "준비 중", priority: "primary" },
+  { type: "phone", label: "전화 상담", description: "업무 범위와 운영 일정에 대해 통화로 상담할 수 있습니다.", href: null, status: "준비 중", priority: "secondary" },
+  { type: "email", label: "이메일 문의", description: "객실 정보와 요청 사항을 정리해 전달할 수 있습니다.", href: null, status: "준비 중", priority: "secondary" },
+];
 
 function HeroRoomDiorama() {
   return <figure className="hero-room-diorama" aria-label="따뜻하게 정돈된 숙소 객실 미니어처 일러스트">
@@ -114,14 +101,16 @@ export default function Home() {
   return <>
     <header className="floating-nav" aria-label="Tenacierge 내비게이션"><a className="brand" href="#hero" aria-label="Tenacierge 홈"><span className="brand-mark">T</span>Tenacierge</a><MobileNav /></header>
     <main>
-      <section id="hero" className="section hero"><div><p className="eyebrow">숙소 현장 운영 관리</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 챙깁니다.</h1><p className="lead">청소팀, 침구 배송, 검수 담당자가 객실 일정에 맞춰 움직이고 비품 부족이나 시설 이슈까지 호스트에게 남깁니다.</p><div className="actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="btn" href="#process">시작 절차 살펴보기</a></div></div><HeroRoomDiorama /></section>
-      <section id="results" className="section records-section"><div className="records-intro"><p className="eyebrow">Operation Records</p><h2>현장에서 쌓아온 청소 기록</h2><p>시스템을 도입하기 전부터 이어온 현장 경험과 현재 실시간으로 쌓이고 있는 작업 기록을 함께 보여드립니다.</p></div><CleaningCounter /></section>
-      <section id="problems" className="section pain-section"><p className="eyebrow">Host Pain Points</p><h2>호스트가 직접 가지 않으면 놓치기 쉬운 일들이 있습니다.</h2><div className="pain-list">{problems.map(([icon,title,body], index) => <article className="pain-item" key={title}><span className="pain-number">{String(index + 1).padStart(2, "0")}</span><div><h3>{title}</h3><p>{body}</p></div><Icon name={icon}/></article>)}</div></section>
-      <section id="scope" className="section service-section"><p className="eyebrow">Service Scope</p><h2>다음 체크인을 앞두고 현장에서 맡는 일들입니다.</h2><div className="grid service-grid">{scopes.map(([icon,title,body]) => <article className="service-card" key={title}><Icon name={icon}/><h3>{title}</h3><p>{body}</p></article>)}</div><div className="laundry-band"><Icon name="laundry"/><div><p className="linen-label">자체 침구 관리 시스템</p><h3>자체 세탁시설과 특수오염 처리 공정</h3><p>객실에서 수거한 침구는 자체 세탁시설로 옮겨 세탁과 분류를 진행하고, 다시 객실 일정에 맞춰 배포합니다. 일반 세탁으로 처리하기 어려운 오염은 별도의 특수오염 처리 공정을 거쳐 상태를 확인합니다.</p><ol className="laundry-steps">{laundrySteps.map(([icon, label]) => <li key={label}><Icon name={icon}/><span>{label}</span></li>)}</ol></div></div></section>
-      <section id="showcase" className="section system-section"><p className="eyebrow">System</p><h2>현장에서 확인한 내용이 시스템 기록으로 남습니다.</h2><p>일정, 완료 사진, 체크리스트, 시설 이슈와 비용 내역을 객실별로 남겨 호스트가 필요한 순간에 다시 볼 수 있게 합니다.</p><div className="operation-panel"><div className="operation-copy"><p className="panel-kicker">현장 운영 구조</p><h3>여러 담당자가 각 단계를 나눠 확인합니다.</h3><p>데스크에서 접수한 일정은 침구 배송과 배급, 객실 클리닝, 검수, 수거와 세탁으로 이어집니다. 각 단계의 담당자가 앞뒤 작업을 다시 확인해 누락이나 현장 문제를 빠르게 공유합니다.</p></div><ul className="operation-summary"><li><span aria-hidden="true">•</span><div><strong>약 60명 규모의 클리너 풀 운영</strong><p>객실 수와 지역, 일정과 작업 난이도를 보고 현장에 맞는 인력을 배정합니다.</p></div></li><li><span aria-hidden="true">•</span><div><strong>배급 → 클리닝 → 검수 단계별 크로스체크</strong><p>침구와 비품 전달, 청소 기준, 추가 공유가 필요한 오염이나 시설 문제를 단계별로 다시 봅니다.</p></div></li></ul><ol className="team-flow" aria-label="운영팀 흐름">{operationTeams.map((team, index) => <li key={team}><span>{team}</span>{index < operationTeams.length - 1 ? <b aria-label="다음 단계">→</b> : null}</li>)}</ol></div><div className="showcase-grid">{showcases.map(([key,title,body]) => <article className="showcase" key={key} data-image-key={key}><ShowcaseImage type={key} title={title}/><div><h3>{title}</h3><p>{body}</p></div></article>)}</div></section>
-      <section id="process" className="section"><p className="eyebrow">Process</p><h2>충분히 맞춰본 뒤 운영 방식을 확정합니다.</h2><p>숙소마다 객실 구조와 일정이 다르기 때문에 바로 계약부터 진행하지 않습니다. 사전 상담과 업무 범위 논의 후 약 2개월 동안 현장 조건을 조율하고, 서로 맞는 방식이 확인되면 최종 확정합니다.</p><ol className="timeline">{processSteps.map(([title,body]) => <li key={title}><strong>{title}</strong><p>{body}</p></li>)}</ol></section>
-      <section id="faq" className="section"><p className="eyebrow">FAQ</p><h2>문의 전 자주 확인하는 내용</h2>{faqs.map(([q,a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</section>
-      <section id="quote" className="section quote"><p className="eyebrow">Contact</p><h2>우리 숙소도 맡길 수 있는지 확인해 보세요.</h2><p>숙소 위치와 객실 수, 방 크기, 운영 일정과 필요한 업무를 알려주시면 정액제 또는 건별제 중 적합한 방식과 업무 범위를 함께 확인합니다.</p><div className="actions">{/* TODO: 실제 카카오채널 URL과 문의 채널이 확정되면 버튼 연결 */}<button className="btn primary" type="button" disabled>카카오톡으로 상담하기 · 준비 중</button><button className="btn" type="button" disabled>관리 가능 여부 문의하기 · 준비 중</button></div></section>
+      <section id="hero" className="section hero dark-section"><div className="hero-copy"><p className="hero-audience">단기숙박 객실을 운영하는 호스트를 위한 현장 관리</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 챙깁니다.</h1><div className="lead"><p>확정된 숙박 일정에 맞춰 청소, 침구와 검수를 진행합니다.</p><p>일정과 완료 여부를 여러 담당자에게 따로 확인하는 부담을 줄입니다.</p></div><div className="actions"><a className="btn primary" href="#quote">관리 가능 여부 확인하기</a><a className="btn secondary" href="#evidence">실제 관리 화면 보기</a></div></div><HeroRoomDiorama /></section>
+      <section id="records" className="records-band dark-section"><div className="section records-section"><div className="records-intro"><p className="eyebrow">현장 업무 기록</p><h2>현장 업무 기록을 숫자로 확인합니다.</h2><p>시스템 도입 전후의 전산 집계 기준을 구분해 표시합니다.</p></div><CleaningCounter /></div></section>
+      <section id="solutions" className="light-band"><div className="section"><p className="eyebrow">호스트가 놓치기 쉬운 일</p><h2>호스트가 직접 확인하던 일을 현장에서 이어서 처리합니다.</h2><p className="section-intro">일정 확인, 현장 문제, 침구 누락처럼 반복되는 업무를 발견 단계에서 기록하고 연결합니다.</p><div className="solution-list">{problemSolutions.map((item, index) => <article className="solution-row" key={item.title}><div className="solution-title"><span>{String(index + 1).padStart(2, "0")}</span><Icon name={item.icon}/><h3>{item.title}</h3></div><div><b>호스트의 문제</b><p>{item.problem}</p></div><div><b>현장 대응</b><p>{item.response}</p></div><div className="solution-result"><b>확인 결과</b><p>{item.result}</p></div></article>)}</div></div></section>
+      <section id="evidence" className="neutral-band"><div className="section evidence-section"><p className="eyebrow">실제 관리 화면</p><h2>숙소에 가지 않아도 진행 상황을 확인할 수 있습니다.</h2><p>객실 일정, 완료 사진, 체크리스트, 작업 상태와 비용 내역을 관리 화면에서 확인합니다.</p><div className="evidence-layout"><figure className="evidence-figure evidence-dashboard"><ShowcaseImage type="dashboard" title="여러 객실의 일정과 진행 상태"/><figcaption><strong>여러 객실의 일정과 진행 상태</strong><span>객실별 청소 일정, 담당자와 현재 진행 상태를 확인합니다.</span></figcaption></figure><figure className="evidence-figure evidence-report"><ShowcaseImage type="cleanerReport" title="완료 사진과 체크리스트"/><figcaption><strong>완료 사진과 체크리스트</strong><span>청소 결과, 비품 상태와 현장에서 발견한 내용을 객실별로 남깁니다.</span></figcaption></figure><p className="evidence-scroll-hint">옆으로 넘겨 다른 관리 화면도 확인하세요.</p><div className="evidence-secondary" aria-label="추가 관리 화면"><figure className="evidence-figure"><ShowcaseImage type="butlerTasks" title="작업자 배정과 청소·검수 상태"/><figcaption><strong>작업자 배정과 청소·검수 상태</strong><span>담당자 배정부터 청소와 검수 진행 여부까지 확인합니다.</span></figcaption></figure><figure className="evidence-figure"><ShowcaseImage type="settlement" title="숙소별 작업 건수와 비용 내역"/><figcaption><strong>숙소별 작업 건수와 비용 내역</strong><span>기간별 작업 내역과 비용 근거를 숙소별로 확인합니다.</span></figcaption></figure></div></div></div></section>
+      <section id="services" className="light-band service-band"><div className="section"><p className="eyebrow">맡는 업무</p><h2>다음 체크인을 앞두고, 이 업무들을 맡습니다.</h2><p className="section-intro">확정된 숙박 일정 이후의 현장 업무를 세 가지 범위로 나누어 진행합니다.</p><div className="service-groups">{serviceGroups.map((group, index) => <article className="service-group" key={group.title}><div className="service-heading"><span>0{index + 1}</span><Icon name={group.icon}/><h3>{group.title}</h3></div><ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul></article>)}</div><aside className="scope-note"><strong>다음 업무는 포함하지 않습니다.</strong><ul>{unsupportedServices.map(item => <li key={item}>{item}</li>)}</ul></aside></div></section>
+      <section id="operations" className="neutral-band"><div className="section operations-section"><div className="operations-message"><p className="eyebrow">현장이 움직이는 방식</p><h2>여러 담당자를 호스트가 직접 조율하지 않아도 됩니다.</h2><p>역할별 담당자가 준비, 청소, 검수와 수거를 이어서 진행하고 현장 상황을 공유합니다.</p><div className="team-note" aria-label="현장 역할">{operationTeams.map(team => <span key={team}>{team}</span>)}</div></div><div className="fact-list"><article><strong>약 60명</strong><h3>일정에 맞춘 인력 배정</h3><p>일정과 객실 조건에 맞춰 배정할 수 있는 클리너 인력을 운영합니다.</p></article><article><strong>단계별 확인</strong><h3>배급 → 클리닝 → 검수</h3><p>배급, 클리닝과 검수 단계에서 앞뒤 작업을 다시 확인합니다.</p></article><article><strong>객실별 공유</strong><h3>사진과 기록으로 전달</h3><p>비품 부족이나 시설 이상 등 발견된 내용을 사진과 기록으로 남깁니다.</p></article></div></div></section>
+      <section id="laundry" className="laundry-section neutral-band"><div className="section laundry-layout"><div><p className="eyebrow">침구 운영</p><h2>침구 수거부터 세탁·재배포까지 이어서 진행합니다.</h2><div className="laundry-copy"><p>수거한 침구를 자체 세탁시설에서 세탁하고 분류합니다.</p><p>객실별 일정에 맞춰 필요한 침구를 다시 준비합니다.</p></div><aside className="stain-note"><Icon name="alert"/><span>일반 세탁으로 처리하기 어려운 오염은 필요 시 별도 공정으로 확인합니다.</span></aside></div><ol className="laundry-flow">{laundrySteps.map(([icon, label], index) => <li key={label}><span>{index + 1}</span><Icon name={icon}/><strong>{label}</strong></li>)}</ol></div></section>
+      <section id="process" className="light-band"><div className="section"><p className="eyebrow">시작 절차</p><h2>숙소별 조건을 확인한 뒤 업무 범위를 정합니다.</h2><p>객실 구조와 운영 일정이 다르기 때문에 바로 계약하기보다, 실제 업무 범위와 현장 동선을 먼저 확인합니다.</p><ol className="timeline">{processSteps.map(([title, body]) => <li key={title}><strong>{title}</strong><p>{body}</p></li>)}</ol></div></section>
+      <section id="faq" className="light-band faq-band"><div className="section"><p className="eyebrow">자주 묻는 질문</p><h2>문의 전 자주 확인하는 내용</h2><div className="faq-list">{faqs.map(([q, a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
+      <section id="quote" className="quote-band dark-section"><div className="section quote"><p className="eyebrow">상담 안내</p><h2>우리 숙소도 맡길 수 있는지 확인해 보세요.</h2><p>숙소 위치, 객실 수, 운영 일정과 필요한 업무를 알려주시면 관리 가능 범위와 상담 방법을 안내합니다.</p><p className="contact-status">문의 채널을 준비하고 있습니다. 연결 정보는 추후 업데이트됩니다.</p><div className="contact-grid">{contactChannels.map(channel => <article className={`contact-channel ${channel.priority}`} key={channel.type}><div><span>{channel.status}</span><h3>{channel.label}</h3><p>{channel.description}</p></div>{channel.href ? <a className="btn" href={channel.href}>{channel.label}</a> : <button className="btn" type="button" disabled>연결 준비 중</button>}</article>)}</div></div></section>
     </main>
   </>;
 }
