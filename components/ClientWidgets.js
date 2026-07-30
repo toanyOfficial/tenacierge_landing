@@ -154,10 +154,11 @@ function AnimatedStatNumber({ value, active = true, prominent = false }) {
 
 function RecentOperationList({ operations, duplicate = false }) {
   return <ul className="record-conveyor-list" aria-hidden={duplicate || undefined}>
-    {operations.map((operation) => <li className="record-operation" key={`${duplicate ? "copy-" : ""}${operation.publicId}`}>
-      <span>{operation.label}</span>
+    {operations.map((operation, index) => <li className="record-operation" key={`${duplicate ? "copy-" : ""}${operation.roomAlias}-${operation.workDate}-${index}`}>
+      <span>{operation.status}</span>
       <strong>{operation.roomAlias}</strong>
-      <time dateTime={operation.workDate}>{operation.primaryTime}</time>
+      <time dateTime={operation.workDate}>{operation.workDate}</time>
+      <small>{[operation.checkoutTime && `${operation.checkoutTime} 체크아웃`, operation.completedTime && `${operation.completedTime} 완료`].filter(Boolean).join(" · ") || "—"}</small>
     </li>)}
   </ul>;
 }
@@ -208,7 +209,9 @@ export function CleaningCounter() {
 
   const isReady = state.status === "ready" && state.data;
   const recordCount = state.data?.recordCount;
-  const recentOperations = state.data?.recentOperations ?? [];
+  const recentOperations = Array.isArray(state.data?.recentOperations)
+    ? state.data.recentOperations
+    : state.data?.items ?? [];
 
   return <div className="records-stats" data-system-start-date={SYSTEM_START_DATE}>
     <h2 className="sr-only">누적 업무 기록</h2>
