@@ -152,14 +152,22 @@ function AnimatedStatNumber({ value, active = true, prominent = false }) {
   return <strong ref={ref} aria-hidden="true"><span className="stat-number">{displayValue.toLocaleString("ko-KR")}</span><span className="stat-unit">건</span></strong>;
 }
 
-function RecentOperationList({ operations, duplicate = false }) {
+function getOperationStatusClass(status) {
+  if (status === "검수 완료") return "is-supervised";
+  if (status === "청소 완료") return "is-cleaned";
+  return "is-progress";
+}
+
+function RecentOperationList({ operations, duplicate = false, sourceLength = operations.length }) {
   return <ul className="record-conveyor-list" aria-hidden={duplicate || undefined}>
-    {operations.map((operation, index) => <li className="record-operation" key={`${duplicate ? "copy-" : ""}${operation.roomAlias}-${operation.workDate}-${index}`}>
-      <span>{operation.status}</span>
+    {operations.map((operation, index) => {
+      const timeDetails = [operation.checkoutTime && `체크아웃 ${operation.checkoutTime}`, operation.completedTime && `완료 ${operation.completedTime}`].filter(Boolean).join(" · ");
+      return <li className={`record-operation ${getOperationStatusClass(operation.status)}`} data-status={operation.status} aria-hidden={!duplicate && index >= sourceLength ? "true" : undefined} key={`${duplicate ? "copy-" : ""}${operation.roomAlias}-${operation.workDate}-${index}`}>
+      <span className="record-operation-status">{operation.status}</span>
       <strong>{operation.roomAlias}</strong>
-      <time dateTime={operation.workDate}>{operation.workDate}</time>
-      <small>{[operation.checkoutTime && `${operation.checkoutTime} 체크아웃`, operation.completedTime && `${operation.completedTime} 완료`].filter(Boolean).join(" · ") || "—"}</small>
-    </li>)}
+      {operation.workDate ? <time dateTime={operation.workDate}>{operation.workDate}</time> : null}
+      {timeDetails ? <small>{timeDetails}</small> : null}
+    </li>})}
   </ul>;
 }
 
@@ -212,14 +220,15 @@ export function CleaningCounter() {
   const recentOperations = Array.isArray(state.data?.recentOperations)
     ? state.data.recentOperations
     : state.data?.items ?? [];
+  const conveyorOperations = recentOperations.length > 0
+    ? Array.from({ length: Math.max(1, Math.ceil(6 / recentOperations.length)) }, () => recentOperations).flat()
+    : [];
 
   return <div className="records-stats" data-system-start-date={SYSTEM_START_DATE}>
     <h2 className="sr-only">누적 업무 기록</h2>
     <div className="record-meta"><span>{recordCount ? `시스템 도입 이전 기록 ${Number(recordCount.preSystem).toLocaleString("ko-KR")}건` : "시스템 도입 이전 기록 집계 중"}</span>{state.data?.asOfDate ? <time dateTime={state.data.asOfDate}>{state.data.asOfDate} 기준</time> : <span>기준일 확인 중</span>}</div>
-    <div className={`record-total ${isReady ? "" : "is-pending"}`}>{isReady ? <AnimatedStatNumber value={Number(recordCount.total)} active prominent /> : <strong className="record-loading" aria-hidden="true">집계 중</strong>}</div>
-    <p className="record-caption">누적 업무 기록</p>
-    <p className="record-scope">운영 DB의 기록이 자동으로 반영됩니다.</p>
-    {isReady && recentOperations.length > 0 ? <div className="record-conveyor" aria-label="최근 업무 기록"><div className="record-conveyor-track"><RecentOperationList operations={recentOperations}/><RecentOperationList operations={recentOperations} duplicate /></div></div> : null}
+    <div className="record-summary"><p className="record-caption">누적 업무 기록</p><div className={`record-total ${isReady ? "" : "is-pending"}`}>{isReady ? <AnimatedStatNumber value={Number(recordCount.total)} active prominent /> : <strong className="record-loading" aria-hidden="true">집계 중</strong>}</div><p className="record-scope">실시간 반영</p></div>
+    {isReady && recentOperations.length > 0 ? <div className="record-conveyor-group"><h3>최근 반영된 객실 기록</h3><div className="record-conveyor" aria-label="최근 업무 기록"><div className="record-conveyor-track"><RecentOperationList operations={conveyorOperations} sourceLength={recentOperations.length}/><RecentOperationList operations={conveyorOperations} duplicate /></div></div></div> : null}
     {isReady && recentOperations.length === 0 ? <p className="record-empty">표시할 최근 업무가 없습니다.</p> : null}
     {state.status === "error" ? <p className="record-empty">최근 운영 기록을 불러오지 못했습니다.</p> : null}
     <p className="sr-only" aria-live="polite">{isReady ? `누적 업무 기록 ${Number(recordCount.total).toLocaleString("ko-KR")}건` : "누적 업무 기록 집계 중"}</p>
