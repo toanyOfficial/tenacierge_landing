@@ -185,7 +185,7 @@ export function CleaningCounter() {
     <div className="record-meta"><span>시스템 도입 이전 기록 {LEGACY_CLEANING_COUNT}건</span><time dateTime={today}>{today} 기준</time></div>
     <div className={`record-total ${isReady ? "" : "is-pending"}`}>{isReady ? <AnimatedStatNumber value={Number(state.count)} active prominent /> : <strong className="record-loading" aria-hidden="true">집계 중</strong>}</div>
     <p className="record-caption">누적 업무 기록</p>
-    <p className="record-scope">청소 <span aria-hidden="true">·</span> 상태 확인 <span aria-hidden="true">·</span> 이상 내용 <span aria-hidden="true">·</span> 비용 내역</p>
+    <p className="record-scope">API 연동 기준으로 누적 기록이 자동 갱신됩니다.</p>
     <p className="sr-only" aria-live="polite">{isReady ? `누적 업무 기록 ${Number(state.count).toLocaleString("ko-KR")}건` : "누적 업무 기록 집계 중"}</p>
   </div>;
 }
