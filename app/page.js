@@ -102,21 +102,9 @@ function ShowcaseImage({ type, title }) {
 
 function ProductScreen({ type, title, label, className = "" }) {
   return <figure className={`product-screen screen-${className}`}>
-    <span className="screen-label">{label}</span>
+    {label && <span className="screen-label">{label}</span>}
     <div className="product-screen-frame"><ShowcaseImage type={type} title={title}/></div>
   </figure>;
-}
-
-function EvidenceModule({ eyebrow, title, body, keywords, type, imageTitle, imageLabel, imageModifier, imageFirst = false }) {
-  return <section className={`evidence-module${imageFirst ? " image-first" : ""}`}>
-    <div className="story-copy">
-      <p className="section-label">{eyebrow}</p>
-      <h3>{title}</h3>
-      <p>{body}</p>
-      {keywords && <p className="verification-rail">{keywords}</p>}
-    </div>
-    <ProductScreen type={type} title={imageTitle} label={imageLabel} className={imageModifier} />
-  </section>;
 }
 
 export default function Home() {
@@ -126,46 +114,32 @@ export default function Home() {
       <section id="hero" className="full-band hero-band"><div className="section-inner hero"><div className="hero-copy"><p className="hero-audience">단기숙박 숙소 현장 운영</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 대신 챙깁니다.</h1><p className="hero-lead">청소·침구·검수·현장 이슈를 한 흐름으로 처리하고,<br className="desktop-break" /> 진행 상황은 기록으로 남깁니다.</p><div className="hero-actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="text-link" href="#evidence">실제 관리 화면 보기 <span aria-hidden="true">→</span></a></div></div><HeroRoomDiorama /></div></section>
       <section id="records" className="full-band records-band"><div className="section-inner records-section"><CleaningCounter /></div></section>
       <section id="solutions" className="full-band changes-band"><div className="section-inner compact-section"><h2>호스트가 직접 확인하던 일이<br />이렇게 줄어듭니다.</h2><div className="change-list">{changes.map(([beforeTop, beforeBottom, afterTop, afterBottom], index) => <article className="change-row" key={beforeTop}><span className="row-index">0{index + 1}</span><p className="change-before">{beforeTop}<br /><strong>{beforeBottom}</strong></p><span className="change-arrow" aria-hidden="true">→</span><p className="change-after">{afterTop}<br /><strong>{afterBottom}</strong></p></article>)}</div></div></section>
-      <section id="evidence" className="full-band operations-story">
-        <div className="section-inner story-section">
-          <section className="operations-chapter operations-flow" aria-labelledby="operations-flow-title">
-            <div className="operations-intro">
-              <div className="story-copy">
+      <section id="evidence" className="full-band operations-story"><div className="section-inner story-section">
+          <section className="scene scene-organization" aria-labelledby="operations-flow-title">
+            <div className="scene-a-lead"><div className="scene-copy">
                 <p className="section-label">객실 운영의 한 흐름</p>
-                <h2 id="operations-flow-title">객실 하나의 준비부터 검수까지, 7개의 역할이 함께 움직입니다.</h2>
+                <h2 id="operations-flow-title">객실 하나의 준비부터 검수까지,<br />7개의 역할이 함께 움직입니다.</h2>
                 <p>일정 확인, 물품 준비, 객실 정비, 완료 검수와 침구 관리까지 업무별 전담 인력이 하나의 흐름으로 운영하며, 호스트도 객실별 진행 상태를 확인할 수 있습니다.</p>
-              </div>
-              <ProductScreen type="dashboard" title="객실별 일정과 진행 상태" label="객실 일정·진행 현황" className="overview" />
-            </div>
-            <div id="services" className="anchor-target role-overview">
-              <div className="role-grid">{operationRoles.map(([icon, role, detail]) => <article className="role-item" key={role}><Icon name={icon}/><div><strong>{role}</strong><p>{detail}</p></div></article>)}</div>
-              <div className="crosscheck-summary"><h3>배급 → 클리닝 → 검수까지 크로스체크합니다.</h3><p>배급 확인 · 클리닝 완료 · 관리감독 검수</p></div>
-            </div>
+              </div><ProductScreen type="dashboard" title="객실별 일정과 진행 상태" label="객실 일정·진행 현황" className="overview" /></div>
+            <div id="services" className="anchor-target role-ribbon">{operationRoles.map(([icon, role, detail]) => <div className="role-ribbon-item" key={role}><Icon name={icon}/><strong>{role}</strong><span>{detail}</span></div>)}</div>
+            <div className="crosscheck-statement"><strong>배급 → 클리닝 → 검수</strong><span>세 단계에서 같은 객실을 다시 확인합니다.</span></div>
           </section>
-
-          <section className="operations-chapter verification-chapter" aria-label="확인 기준과 기록">
-            <EvidenceModule eyebrow="객실별 진행 관리" title="일정만 등록하는 것으로 끝나지 않습니다." body="객실별 배급 상태와 담당자를 지정하고, 청소와 검수가 완료될 때까지 진행 상황을 관리합니다." keywords="배급 상태 · 담당자 배정 · 청소 진행 · 검수 완료" type="butlerTasks" imageTitle="담당자 배정·청소·검수 상태" imageLabel="객실별 업무 상태" imageModifier="progress" />
-            <EvidenceModule eyebrow="완료 확인" title="완료 사진과 객실 상태를 다시 확인합니다." body="침구와 비품 준비 상태, 청소 완료 사진, 객실 상태를 다시 확인하고 결과를 객실별 기록으로 남깁니다." keywords="배급 확인 · 클리닝 완료 · 관리감독 검수" type="cleanerReport" imageTitle="완료 사진과 체크리스트" imageLabel="완료 사진·체크리스트" imageModifier="checklist" imageFirst />
+          <section className="scene control-board" aria-labelledby="control-board-title">
+            <div className="control-intro"><p className="section-label">업무 확인</p><h2 id="control-board-title">배정부터 완료 확인까지,<br />객실별 진행 상황을 놓치지 않습니다.</h2><p>배급 상태와 담당자를 지정하고 청소와 검수가 완료될 때까지 관리하며, 완료 사진과 객실 상태를 다시 확인해 기록으로 남깁니다.</p></div>
+            <div className="control-screens"><ProductScreen type="butlerTasks" title="담당자 배정·청소·검수 상태" label="객실별 업무 상태" className="progress" /><div className="control-side"><ProductScreen type="cleanerReport" title="완료 사진과 체크리스트" label="완료 사진·체크리스트" className="checklist" /><ul>{["배급 상태 · 담당자 배정","청소 진행 · 검수 완료","완료 사진 · 객실 상태 확인"].map(item=><li key={item}>{item}</li>)}</ul></div></div>
           </section>
-
-          <section id="operations" className="anchor-target operations-chapter foundation-editorial" aria-labelledby="foundation-title">
-            <div className="foundation-main">
-              <div className="foundation-copy">
+          <section id="operations" className="anchor-target scene foundation-scene" aria-labelledby="foundation-title">
+            <div className="foundation-top"><div className="foundation-copy">
                 <p className="section-label">운영 기반</p>
-                <h3 id="foundation-title">현장 운영 뒤에는 인력과 세탁 기반이 함께 움직입니다.</h3>
-                <p>역할별 인력 배정, 자체 세탁 기반, 객실별 기록 관리가 함께 돌아가야 운영이 끊기지 않습니다.</p>
-              </div>
-              <aside id="laundry" className="anchor-target laundry-highlight">
-                <span>자체 처리 기반</span>
-                <h4>세탁실 · 세탁공장 · 특수오염처리공정</h4>
+                <h2 id="foundation-title">현장 뒤에서는<br />인력과 세탁, 기록이 함께 움직입니다.</h2>
+                <p>역할별 인력 배정, 자체 세탁 기반과 객실별 기록 관리가 함께 돌아가야 운영이 끊기지 않습니다.</p>
+              </div><div className="workforce"><strong>약 60명</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></div>
+              <aside id="laundry" className="anchor-target laundry-field"><span>자체 처리 기반</span><h3>세탁실 · 세탁공장 ·<br />특수오염처리공정</h3>
                 <p>수거한 침구는 자체 세탁실 또는 세탁공장에서 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리해 확인·처리합니다.</p>
-              </aside>
-            </div>
-            <div className="foundation-support"><article><strong>약 60명의 운영 인력</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></article><article><strong>객실별 운영 기록</strong><p>완료 사진, 특이사항과 이상 내용, 이용 내역과 비용 내역을 객실별로 기록합니다.</p></article></div>
-            <EvidenceModule eyebrow="기록으로 남는 운영" title="작업 내용과 비용은 객실별로 확인됩니다." body="일정, 완료 사진, 검수, 이용 내역과 비용 내역이 같은 객실 기록 안에 남습니다." type="settlement" imageTitle="숙소별 작업·비용 내역" imageLabel="작업·이용·비용 내역" imageModifier="billing" />
+              </aside></div>
+            <div className="record-proof"><ProductScreen type="settlement" title="숙소별 작업·비용 내역" label="작업·이용·비용 내역" className="billing" /><div><p className="section-label">객실별 운영 기록</p><h3>작업 내용과 비용이<br />하나의 객실 기록에 남습니다.</h3><p>일정, 완료 사진, 검수, 특이사항과 이상 내용, 이용 내역과 비용 내역을 객실별로 확인할 수 있습니다.</p></div></div>
           </section>
-        </div>
-      </section>
+        </div></section>
       <section id="process" className="full-band process-band"><div className="section-inner process-section"><p className="section-label">시작 절차</p><h2>도입 전 운영 조건부터 맞춥니다.</h2><p className="section-copy">숙소마다 구조와 운영 방식이 달라, 시작 전 실제 현장 흐름과 업무 범위를 먼저 조율합니다.</p><ol className="process-steps">{processSteps.map(([title, body, note], index) => <li key={title}><span className="process-number" aria-hidden="true">{index + 1}</span><div><strong><span className="sr-only">{index + 1}단계 </span>{title}</strong>{note && <small>{note}</small>}<p>{body}</p></div></li>)}</ol><div className="pricing-note"><span className="pricing-note-label">요금 기준</span><p>정액제 또는 건별제로 운영하며, 거리·물량·방 크기 등에 따라 비용이 달라집니다.</p></div></div></section>
       <section id="faq" className="full-band faq-band"><div className="section-inner faq-section"><h2>자주 묻는 질문</h2><div className="faq-list">{faqs.map(([q, a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
       <section id="quote" className="full-band quote-band"><div className="section-inner quote"><p className="section-label dark-label">상담 안내</p><h2>우리 숙소도 맡길 수 있는지<br />확인해 보세요.</h2><p>숙소 위치와 객실 수만 알려주시면 가능 범위를 빠르게 안내드립니다.</p><div className="quote-actions"><button className="quote-action primary" type="button" disabled>카카오톡 문의</button><button className="quote-action secondary" type="button" disabled>전화 문의</button></div></div></section>
