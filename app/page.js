@@ -7,13 +7,13 @@ const changes = [
   ["청소와 침구 일정이", "따로 움직임", "같은 체크인 일정에 맞춰", "함께 준비"],
 ];
 const operationRoles = [
-  ["calendar", "데스크", "일정과 요청사항 확인"],
-  ["supply", "배달팀", "침구와 물품 이동"],
-  ["linen", "배급팀", "객실별 침구와 비품 준비"],
-  ["broom", "클리너", "객실 정비와 상태 확인"],
-  ["checklist", "관리감독", "완료 상태와 사진 검수"],
+  ["calendar", "데스크", "일정·요청 확인"],
+  ["supply", "배달팀", "침구·물품 이동"],
+  ["linen", "배급팀", "객실별 준비"],
+  ["broom", "클리너", "객실 정비"],
+  ["checklist", "관리감독", "완료 검수"],
   ["receipt", "수거팀", "사용 침구 회수"],
-  ["laundry", "세탁팀", "세탁·분류 후 다음 일정 준비"],
+  ["laundry", "세탁팀", "세탁·재준비"],
 ];
 const processSteps = [
   ["사전 상담", "현재 운영 방식과 필요한 업무 확인"],
@@ -114,31 +114,19 @@ export default function Home() {
       <section id="hero" className="full-band hero-band"><div className="section-inner hero"><div className="hero-copy"><p className="hero-audience">단기숙박 숙소 현장 운영</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 대신 챙깁니다.</h1><p className="hero-lead">청소·침구·검수·현장 이슈를 한 흐름으로 처리하고,<br className="desktop-break" /> 진행 상황은 기록으로 남깁니다.</p><div className="hero-actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="text-link" href="#evidence">실제 관리 화면 보기 <span aria-hidden="true">→</span></a></div></div><HeroRoomDiorama /></div></section>
       <section id="records" className="full-band records-band"><div className="section-inner records-section"><CleaningCounter /></div></section>
       <section id="solutions" className="full-band changes-band"><div className="section-inner compact-section"><h2>호스트가 직접 확인하던 일이<br />이렇게 줄어듭니다.</h2><div className="change-list">{changes.map(([beforeTop, beforeBottom, afterTop, afterBottom], index) => <article className="change-row" key={beforeTop}><span className="row-index">0{index + 1}</span><p className="change-before">{beforeTop}<br /><strong>{beforeBottom}</strong></p><span className="change-arrow" aria-hidden="true">→</span><p className="change-after">{afterTop}<br /><strong>{afterBottom}</strong></p></article>)}</div></div></section>
-      <section id="evidence" className="full-band operations-story"><div className="section-inner story-section">
-          <section className="scene scene-organization" aria-labelledby="operations-flow-title">
-            <div className="scene-a-lead"><div className="scene-copy">
+      <section id="evidence" className="full-band operations-story"><div className="section-inner operations-showcase">
+          <div className="operations-hero" aria-labelledby="operations-title"><div className="operations-copy">
                 <p className="section-label">객실 운영의 한 흐름</p>
-                <h2 id="operations-flow-title">객실 하나의 준비부터 검수까지,<br />7개의 역할이 함께 움직입니다.</h2>
+                <h2 id="operations-title">객실 하나의 준비부터 검수까지,<br />7개의 역할이 함께 움직입니다.</h2>
                 <p>일정 확인, 물품 준비, 객실 정비, 완료 검수와 침구 관리까지 업무별 전담 인력이 하나의 흐름으로 운영하며, 호스트도 객실별 진행 상태를 확인할 수 있습니다.</p>
               </div><ProductScreen type="dashboard" title="객실별 일정과 진행 상태" label="객실 일정·진행 현황" className="overview" /></div>
-            <div id="services" className="anchor-target role-ribbon">{operationRoles.map(([icon, role, detail]) => <div className="role-ribbon-item" key={role}><Icon name={icon}/><strong>{role}</strong><span>{detail}</span></div>)}</div>
-            <div className="crosscheck-statement"><strong>배급 → 클리닝 → 검수</strong><span>세 단계에서 같은 객실을 다시 확인합니다.</span></div>
-          </section>
-          <section className="scene control-board" aria-labelledby="control-board-title">
-            <div className="control-intro"><p className="section-label">업무 확인</p><h2 id="control-board-title">배정부터 완료 확인까지,<br />객실별 진행 상황을 놓치지 않습니다.</h2><p>배급 상태와 담당자를 지정하고 청소와 검수가 완료될 때까지 관리하며, 완료 사진과 객실 상태를 다시 확인해 기록으로 남깁니다.</p></div>
-            <div className="control-screens"><ProductScreen type="butlerTasks" title="담당자 배정·청소·검수 상태" label="객실별 업무 상태" className="progress" /><div className="control-side"><ProductScreen type="cleanerReport" title="완료 사진과 체크리스트" label="완료 사진·체크리스트" className="checklist" /><ul>{["배급 상태 · 담당자 배정","청소 진행 · 검수 완료","완료 사진 · 객실 상태 확인"].map(item=><li key={item}>{item}</li>)}</ul></div></div>
-          </section>
-          <section id="operations" className="anchor-target scene foundation-scene" aria-labelledby="foundation-title">
-            <div className="foundation-top"><div className="foundation-copy">
-                <p className="section-label">운영 기반</p>
-                <h2 id="foundation-title">현장 뒤에서는<br />인력과 세탁, 기록이 함께 움직입니다.</h2>
-                <p>역할별 인력 배정, 자체 세탁 기반과 객실별 기록 관리가 함께 돌아가야 운영이 끊기지 않습니다.</p>
-              </div><div className="workforce"><strong>약 60명</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></div>
-              <aside id="laundry" className="anchor-target laundry-field"><span>자체 처리 기반</span><h3>세탁실 · 세탁공장 ·<br />특수오염처리공정</h3>
-                <p>수거한 침구는 자체 세탁실 또는 세탁공장에서 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리해 확인·처리합니다.</p>
-              </aside></div>
-            <div className="record-proof"><ProductScreen type="settlement" title="숙소별 작업·비용 내역" label="작업·이용·비용 내역" className="billing" /><div><p className="section-label">객실별 운영 기록</p><h3>작업 내용과 비용이<br />하나의 객실 기록에 남습니다.</h3><p>일정, 완료 사진, 검수, 특이사항과 이상 내용, 이용 내역과 비용 내역을 객실별로 확인할 수 있습니다.</p></div></div>
-          </section>
+          <div id="services" className="anchor-target roles-block"><div className="role-ribbon">{operationRoles.map(([icon, role, detail]) => <div className="role-ribbon-item" key={role}><Icon name={icon}/><strong>{role}</strong><span>{detail}</span></div>)}</div><div className="crosscheck-bar"><strong>배급 → 클리닝 → 검수</strong><span>세 단계에서 같은 객실을 다시 확인합니다.</span></div></div>
+          <div className="control-board" aria-labelledby="control-board-title">
+            <div className="control-intro"><p className="section-label">업무 확인</p><h3 id="control-board-title">배정부터 완료 확인까지,<br />객실별 진행 상황을 놓치지 않습니다.</h3><p>배급 상태와 담당자를 지정하고 청소와 검수가 완료될 때까지 관리하며, 완료 사진과 객실 상태를 다시 확인해 기록으로 남깁니다.</p></div>
+            <div className="control-screens"><ProductScreen type="butlerTasks" title="담당자 배정·청소·검수 상태" label="객실별 업무 상태" className="progress" /><div className="control-side"><ProductScreen type="cleanerReport" title="완료 사진과 체크리스트" label="완료 사진·체크리스트" className="checklist" /><ul>{["배급 상태와 담당자 배정","청소 진행과 검수 완료","완료 사진과 객실 상태 확인"].map(item=><li key={item}>{item}</li>)}</ul></div></div>
+          </div>
+          <div id="operations" className="anchor-target foundation-block"><div className="foundation-intro"><p className="section-label">운영 기반</p><h3>현장 뒤에서는 인력과 세탁, 기록이 함께 움직입니다.</h3></div><div className="foundation-ribbon"><div><strong>약 60명</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></div><div id="laundry" className="anchor-target"><strong>세탁실 · 세탁공장 · 특수오염처리공정</strong><p>자체 세탁실 또는 세탁공장에서 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리합니다.</p></div><div><strong>객실별 기록</strong><p>완료 사진, 특이사항, 이용 내역과 비용 내역을 객실별로 남깁니다.</p></div></div></div>
+          <div className="record-proof"><ProductScreen type="settlement" title="숙소별 작업·비용 내역" label="작업·이용·비용 내역" className="billing" /><div><p className="section-label">객실별 운영 기록</p><h3>작업 내용과 비용이<br />하나의 객실 기록에 남습니다.</h3><p>일정, 완료 사진, 검수, 특이사항과 이상 내용, 이용 내역과 비용 내역을 객실별로 확인할 수 있습니다.</p></div></div>
         </div></section>
       <section id="process" className="full-band process-band"><div className="section-inner process-section"><p className="section-label">시작 절차</p><h2>도입 전 운영 조건부터 맞춥니다.</h2><p className="section-copy">숙소마다 구조와 운영 방식이 달라, 시작 전 실제 현장 흐름과 업무 범위를 먼저 조율합니다.</p><ol className="process-steps">{processSteps.map(([title, body, note], index) => <li key={title}><span className="process-number" aria-hidden="true">{index + 1}</span><div><strong><span className="sr-only">{index + 1}단계 </span>{title}</strong>{note && <small>{note}</small>}<p>{body}</p></div></li>)}</ol><div className="pricing-note"><span className="pricing-note-label">요금 기준</span><p>정액제 또는 건별제로 운영하며, 거리·물량·방 크기 등에 따라 비용이 달라집니다.</p></div></div></section>
       <section id="faq" className="full-band faq-band"><div className="section-inner faq-section"><h2>자주 묻는 질문</h2><div className="faq-list">{faqs.map(([q, a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
