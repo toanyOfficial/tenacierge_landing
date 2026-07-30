@@ -2,14 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const LEGACY_CLEANING_COUNT = 0;
 const SYSTEM_START_DATE = "2026-07-21";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
   const navRef = useRef(null);
-  const links = [["#results","기록"],["#problems","고민"],["#scope","서비스"],["#showcase","시스템"],["#process","절차"],["#faq","FAQ"]];
+  const links = [["#records","기록"],["#solutions","변화"],["#evidence","관리 화면"],["#services","운영 방식"],["#process","시작 절차"],["#faq","FAQ"]];
   const menuLabel = open ? "메뉴 닫기" : "메뉴 열기";
 
   useEffect(() => {
@@ -104,7 +103,7 @@ function AnimatedStatNumber({ value, active = true, prominent = false }) {
   const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    if (!active) {
+    if (!active || hasAnimatedRef.current) {
       setDisplayValue(value);
       return undefined;
     }
@@ -150,27 +149,76 @@ function AnimatedStatNumber({ value, active = true, prominent = false }) {
     return () => observer.disconnect();
   }, [active, prominent, value]);
 
-  return <strong ref={ref}><span className="stat-number">{displayValue.toLocaleString("ko-KR")}</span><span className="stat-unit">건</span></strong>;
+  return <strong ref={ref} aria-hidden="true"><span className="stat-number">{displayValue.toLocaleString("ko-KR")}</span><span className="stat-unit">건</span></strong>;
+}
+
+function RecentOperationList({ operations, duplicate = false }) {
+  return <ul className="record-conveyor-list" aria-hidden={duplicate || undefined}>
+    {operations.map((operation) => <li className="record-operation" key={`${duplicate ? "copy-" : ""}${operation.publicId}`}>
+      <span>{operation.label}</span>
+      <strong>{operation.roomAlias}</strong>
+      <time dateTime={operation.workDate}>{operation.primaryTime}</time>
+    </li>)}
+  </ul>;
 }
 
 export function CleaningCounter() {
-  const [state, setState] = useState({ status: "loading", count: null });
+  const [state, setState] = useState({ status: "loading", data: null });
+  const requestInFlightRef = useRef(false);
 
   useEffect(() => {
     let active = true;
-    fetch("/api/data").then(async (res) => {
-      const payload = await res.json();
-      if (!res.ok || !payload.ok) throw new Error(payload.message || "집계 실패");
-      if (active) setState({ status: "ready", count: Number(payload.totalCount) });
-    }).catch(() => active && setState({ status: "error", count: null }));
-    return () => { active = false; };
+    let intervalId;
+
+    async function loadRecords() {
+      if (requestInFlightRef.current) return;
+      requestInFlightRef.current = true;
+      try {
+        const res = await fetch("/api/data", { cache: "no-store" });
+        const payload = await res.json();
+        if (!res.ok || !payload.ok) throw new Error(payload.message || "집계 실패");
+        if (active) setState({ status: "ready", data: payload });
+      } catch {
+        if (active) setState((current) => current.data ? current : { status: "error", data: null });
+      } finally {
+        requestInFlightRef.current = false;
+      }
+    }
+
+    function startPolling() {
+      window.clearInterval(intervalId);
+      if (document.visibilityState !== "visible") return;
+      loadRecords();
+      intervalId = window.setInterval(loadRecords, 60_000);
+    }
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === "visible") startPolling();
+      else window.clearInterval(intervalId);
+    }
+
+    startPolling();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      active = false;
+      window.clearInterval(intervalId);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
-  const today = new Date().toISOString().slice(0, 10);
-  const isReady = state.status === "ready";
+  const isReady = state.status === "ready" && state.data;
+  const recordCount = state.data?.recordCount;
+  const recentOperations = state.data?.recentOperations ?? [];
 
-  return <div className="records-stats" aria-live="polite">
-    <section className="record-stat legacy"><span>시스템 도입 이전</span><h3>현장 누적 청소 건수</h3><AnimatedStatNumber value={LEGACY_CLEANING_COUNT} active /><p>시스템 도입 전 현장 기록 기준</p></section>
-    <section className={`record-stat live ${isReady ? "" : "is-pending"}`}><span>시스템 도입 이후</span><h3>실시간 누적 청소 건수</h3>{isReady ? <AnimatedStatNumber value={Number(state.count)} active prominent /> : <strong>집계 중</strong>}<p>{SYSTEM_START_DATE} 시스템 도입 · {today} 기준</p></section>
+  return <div className="records-stats" data-system-start-date={SYSTEM_START_DATE}>
+    <h2 className="sr-only">누적 업무 기록</h2>
+    <div className="record-meta"><span>{recordCount ? `시스템 도입 이전 기록 ${Number(recordCount.preSystem).toLocaleString("ko-KR")}건` : "시스템 도입 이전 기록 집계 중"}</span>{state.data?.asOfDate ? <time dateTime={state.data.asOfDate}>{state.data.asOfDate} 기준</time> : <span>기준일 확인 중</span>}</div>
+    <div className={`record-total ${isReady ? "" : "is-pending"}`}>{isReady ? <AnimatedStatNumber value={Number(recordCount.total)} active prominent /> : <strong className="record-loading" aria-hidden="true">집계 중</strong>}</div>
+    <p className="record-caption">누적 업무 기록</p>
+    <p className="record-scope">운영 DB의 기록이 자동으로 반영됩니다.</p>
+    {isReady && recentOperations.length > 0 ? <div className="record-conveyor" aria-label="최근 업무 기록"><div className="record-conveyor-track"><RecentOperationList operations={recentOperations}/><RecentOperationList operations={recentOperations} duplicate /></div></div> : null}
+    {isReady && recentOperations.length === 0 ? <p className="record-empty">표시할 최근 업무가 없습니다.</p> : null}
+    {state.status === "error" ? <p className="record-empty">최근 운영 기록을 불러오지 못했습니다.</p> : null}
+    <p className="sr-only" aria-live="polite">{isReady ? `누적 업무 기록 ${Number(recordCount.total).toLocaleString("ko-KR")}건` : "누적 업무 기록 집계 중"}</p>
   </div>;
 }
