@@ -9,7 +9,7 @@ export function MobileNav() {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
   const navRef = useRef(null);
-  const links = [["#results","기록"],["#problems","고민"],["#scope","서비스"],["#showcase","시스템"],["#process","절차"],["#faq","FAQ"]];
+  const links = [["#records","기록"],["#solutions","변화"],["#evidence","관리 화면"],["#services","운영 방식"],["#process","시작 절차"],["#faq","FAQ"]];
   const menuLabel = open ? "메뉴 닫기" : "메뉴 열기";
 
   useEffect(() => {
@@ -150,7 +150,18 @@ function AnimatedStatNumber({ value, active = true, prominent = false }) {
     return () => observer.disconnect();
   }, [active, prominent, value]);
 
-  return <strong ref={ref}><span className="stat-number">{displayValue.toLocaleString("ko-KR")}</span><span className="stat-unit">건</span></strong>;
+  return <strong ref={ref} aria-hidden="true"><span className="stat-number">{displayValue.toLocaleString("ko-KR")}</span><span className="stat-unit">건</span></strong>;
+}
+
+function getSeoulDate(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return `${values.year}-${values.month}-${values.day}`;
 }
 
 export function CleaningCounter() {
@@ -166,11 +177,15 @@ export function CleaningCounter() {
     return () => { active = false; };
   }, []);
 
-  const today = new Date().toISOString().slice(0, 10);
+  const today = getSeoulDate();
   const isReady = state.status === "ready";
 
-  return <div className="records-stats" aria-live="polite">
-    <section className="record-stat legacy"><span>시스템 도입 이전</span><h3>현장 누적 청소 건수</h3><AnimatedStatNumber value={LEGACY_CLEANING_COUNT} active /><p>시스템 도입 전 현장 기록 기준</p></section>
-    <section className={`record-stat live ${isReady ? "" : "is-pending"}`}><span>시스템 도입 이후</span><h3>실시간 누적 청소 건수</h3>{isReady ? <AnimatedStatNumber value={Number(state.count)} active prominent /> : <strong>집계 중</strong>}<p>{SYSTEM_START_DATE} 시스템 도입 · {today} 기준</p></section>
+  return <div className="records-stats" data-system-start-date={SYSTEM_START_DATE}>
+    <h2 className="sr-only">누적 업무 기록</h2>
+    <div className="record-meta"><span>시스템 도입 이전 기록 {LEGACY_CLEANING_COUNT}건</span><time dateTime={today}>{today} 기준</time></div>
+    <div className={`record-total ${isReady ? "" : "is-pending"}`}>{isReady ? <AnimatedStatNumber value={Number(state.count)} active prominent /> : <strong className="record-loading" aria-hidden="true">집계 중</strong>}</div>
+    <p className="record-caption">누적 업무 기록</p>
+    <p className="record-scope">청소 <span aria-hidden="true">·</span> 상태 확인 <span aria-hidden="true">·</span> 이상 내용 <span aria-hidden="true">·</span> 비용 내역</p>
+    <p className="sr-only" aria-live="polite">{isReady ? `누적 업무 기록 ${Number(state.count).toLocaleString("ko-KR")}건` : "누적 업무 기록 집계 중"}</p>
   </div>;
 }
