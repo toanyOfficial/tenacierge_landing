@@ -7,15 +7,20 @@ const changes = [
   ["청소와 침구 일정이", "따로 움직임", "같은 체크인 일정에 맞춰", "함께 준비"],
 ];
 const operationRoles = [
-  ["calendar", "일정 관리", "데스크", "체크인 일정과 요청사항 확인"],
-  ["supply", "물품 이동", "배달팀", "필요한 침구와 물품 이동"],
-  ["linen", "객실별 배급", "배급팀", "객실 일정에 맞춰 침구와 비품 준비"],
-  ["broom", "객실 정비", "클리너", "객실 청소와 상태 확인"],
-  ["checklist", "완료 검수", "관리감독", "완료 사진과 객실 상태 재확인"],
-  ["receipt", "침구 회수", "수거팀", "사용한 침구를 객실별로 수거"],
-  ["laundry", "세탁·재준비", "세탁팀", "세탁, 분류, 보관 후 다음 일정 준비"],
+  ["calendar", "데스크", "일정과 요청사항 확인"],
+  ["supply", "배달팀", "침구와 물품 이동"],
+  ["linen", "배급팀", "객실별 침구와 비품 준비"],
+  ["broom", "클리너", "객실 정비와 상태 확인"],
+  ["checklist", "관리감독", "완료 상태와 사진 검수"],
+  ["receipt", "수거팀", "사용 침구 회수"],
+  ["laundry", "세탁팀", "세탁·분류 후 다음 일정 준비"],
 ];
-const processSteps = [["상담", "위치·객실 수·운영 일정 확인"], ["범위 협의", "청소·침구·검수 범위 결정"], ["현장 조율", "실제 일정과 담당자 동선 조율"], ["운영 확정", "확인된 기준으로 시작"]];
+const processSteps = [
+  ["사전 상담", "현재 운영 방식과 필요한 업무 확인"],
+  ["업무 범위 논의", "객실 수, 일정, 업무 범위와 요청사항 조율"],
+  ["현장 조율", "실제 현장 흐름과 인력 배치 조정", "약 2개월 소요"],
+  ["최종 확정 및 운영 시작", "운영 조건과 계약 내용을 확정한 뒤 시작"],
+];
 const faqs = [
   ["어떤 숙소를 맡길 수 있나요?", "숙소 위치, 객실 수, 구조와 운영 일정을 확인한 뒤 안내합니다. 여러 객실을 운영하는 호스트도 상담할 수 있습니다."],
   ["청소가 끝났는지는 어떻게 확인하나요?", "관리 화면에서 객실별 완료 상태, 사진과 체크리스트를 확인할 수 있습니다."],
@@ -98,8 +103,20 @@ function ShowcaseImage({ type, title }) {
 function ProductScreen({ type, title, label, className = "" }) {
   return <figure className={`product-screen screen-${className}`}>
     <span className="screen-label">{label}</span>
-    <ShowcaseImage type={type} title={title}/>
+    <div className="product-screen-frame"><ShowcaseImage type={type} title={title}/></div>
   </figure>;
+}
+
+function EvidenceModule({ eyebrow, title, body, keywords, type, imageTitle, imageLabel, imageModifier, imageFirst = false }) {
+  return <section className={`evidence-module${imageFirst ? " image-first" : ""}`}>
+    <div className="story-copy">
+      <p className="section-label">{eyebrow}</p>
+      <h3>{title}</h3>
+      <p>{body}</p>
+      {keywords && <p className="verification-rail">{keywords}</p>}
+    </div>
+    <ProductScreen type={type} title={imageTitle} label={imageLabel} className={imageModifier} />
+  </section>;
 }
 
 export default function Home() {
@@ -111,41 +128,27 @@ export default function Home() {
       <section id="solutions" className="full-band changes-band"><div className="section-inner compact-section"><h2>호스트가 직접 확인하던 일이<br />이렇게 줄어듭니다.</h2><div className="change-list">{changes.map(([beforeTop, beforeBottom, afterTop, afterBottom], index) => <article className="change-row" key={beforeTop}><span className="row-index">0{index + 1}</span><p className="change-before">{beforeTop}<br /><strong>{beforeBottom}</strong></p><span className="change-arrow" aria-hidden="true">→</span><p className="change-after">{afterTop}<br /><strong>{afterBottom}</strong></p></article>)}</div></div></section>
       <section id="evidence" className="full-band operations-story">
         <div className="section-inner story-section">
-          <section className="operations-scene operations-overview">
-            <div className="story-copy">
-              <p className="section-label">객실 운영의 한 흐름</p>
-              <h2>객실 하나의 준비부터 검수까지, 7개의 역할이 함께 움직입니다.</h2>
-              <p>일정 확인, 물품 준비, 객실 정비, 완료 검수와 침구 관리까지 업무별 전담 인력이 하나의 흐름으로 운영하며, 호스트도 같은 화면에서 객실별 진행 상태를 확인할 수 있습니다.</p>
+          <section className="operations-chapter operations-flow" aria-labelledby="operations-flow-title">
+            <div className="operations-intro">
+              <div className="story-copy">
+                <p className="section-label">객실 운영의 한 흐름</p>
+                <h2 id="operations-flow-title">객실 하나의 준비부터 검수까지, 7개의 역할이 함께 움직입니다.</h2>
+                <p>일정 확인, 물품 준비, 객실 정비, 완료 검수와 침구 관리까지 업무별 전담 인력이 하나의 흐름으로 운영하며, 호스트도 객실별 진행 상태를 확인할 수 있습니다.</p>
+              </div>
+              <ProductScreen type="dashboard" title="객실별 일정과 진행 상태" label="객실 일정·진행 현황" className="overview" />
             </div>
-            <ProductScreen type="dashboard" title="객실별 일정과 진행 상태" label="객실 일정·진행 현황" className="overview" />
-            <section id="services" className="anchor-target role-journey" aria-labelledby="role-journey-title">
-              <p className="section-label">현장이 움직이는 순서</p>
-              <h3 id="role-journey-title">일정 접수부터 침구 재준비까지 이어집니다.</h3>
-              <ol>{operationRoles.map(([icon, task, role, detail], index) => <li key={role}><span className="journey-number">{String(index + 1).padStart(2, "0")}</span><Icon name={icon}/><div><strong>{task}</strong><span>담당 · {role}</span><p>{detail}</p></div></li>)}</ol>
-            </section>
+            <div id="services" className="anchor-target role-overview">
+              <div className="role-grid">{operationRoles.map(([icon, role, detail]) => <article className="role-item" key={role}><Icon name={icon}/><div><strong>{role}</strong><p>{detail}</p></div></article>)}</div>
+              <div className="crosscheck-summary"><h3>배급 → 클리닝 → 검수까지 크로스체크합니다.</h3><p>배급 확인 · 클리닝 완료 · 관리감독 검수</p></div>
+            </div>
           </section>
 
-          <section className="operations-scene evidence-row operations-management">
-            <div className="story-copy">
-              <p className="section-label">객실별 진행 관리</p>
-              <h3>일정만 등록하는 것으로 끝나지 않습니다.</h3>
-              <p>객실별 배급 상태와 담당자를 지정하고, 청소와 검수가 완료될 때까지 진행 상황을 관리합니다.</p>
-              <p className="verification-rail">배급 상태 · 담당자 배정 · 청소 진행 · 검수 완료</p>
-            </div>
-            <ProductScreen type="butlerTasks" title="담당자 배정·청소·검수 상태" label="객실별 업무 상태" className="operations" />
+          <section className="operations-chapter verification-chapter" aria-label="확인 기준과 기록">
+            <EvidenceModule eyebrow="객실별 진행 관리" title="일정만 등록하는 것으로 끝나지 않습니다." body="객실별 배급 상태와 담당자를 지정하고, 청소와 검수가 완료될 때까지 진행 상황을 관리합니다." keywords="배급 상태 · 담당자 배정 · 청소 진행 · 검수 완료" type="butlerTasks" imageTitle="담당자 배정·청소·검수 상태" imageLabel="객실별 업무 상태" imageModifier="progress" />
+            <EvidenceModule eyebrow="완료 확인" title="완료 사진과 객실 상태를 다시 확인합니다." body="침구와 비품 준비 상태, 청소 완료 사진, 객실 상태를 다시 확인하고 결과를 객실별 기록으로 남깁니다." keywords="배급 확인 · 클리닝 완료 · 관리감독 검수" type="cleanerReport" imageTitle="완료 사진과 체크리스트" imageLabel="완료 사진·체크리스트" imageModifier="checklist" imageFirst />
           </section>
 
-          <section className="operations-scene evidence-row image-first crosscheck-editorial">
-            <div className="story-copy">
-              <p className="section-label">완료 확인</p>
-              <h3>배급 → 클리닝 → 검수까지 크로스체크합니다.</h3>
-              <p>침구와 비품 준비 상태, 청소 완료 사진, 객실 상태를 다시 확인하고 결과를 객실별 기록으로 남깁니다.</p>
-              <p className="verification-rail">배급 확인 · 클리닝 완료 · 관리감독 검수</p>
-            </div>
-            <ProductScreen type="cleanerReport" title="완료 사진과 체크리스트" label="완료 사진·체크리스트" className="checklist" />
-          </section>
-
-          <section id="operations" className="anchor-target operations-scene foundation-editorial" aria-labelledby="foundation-title">
+          <section id="operations" className="anchor-target operations-chapter foundation-editorial" aria-labelledby="foundation-title">
             <div className="foundation-main">
               <div className="foundation-copy">
                 <p className="section-label">운영 기반</p>
@@ -159,14 +162,11 @@ export default function Home() {
               </aside>
             </div>
             <div className="foundation-support"><article><strong>약 60명의 운영 인력</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></article><article><strong>객실별 운영 기록</strong><p>완료 사진, 특이사항과 이상 내용, 이용 내역과 비용 내역을 객실별로 기록합니다.</p></article></div>
-            <div className="evidence-row record-proof">
-              <div className="story-copy"><p className="section-label">기록으로 남는 운영</p><h3>작업 내용과 비용은 객실별로 확인됩니다.</h3><p>일정, 완료 사진, 검수, 이용 내역과 비용 내역이 같은 객실 기록 안에 남습니다.</p></div>
-              <ProductScreen type="settlement" title="숙소별 작업·비용 내역" label="작업·이용·비용 내역" className="billing" />
-            </div>
+            <EvidenceModule eyebrow="기록으로 남는 운영" title="작업 내용과 비용은 객실별로 확인됩니다." body="일정, 완료 사진, 검수, 이용 내역과 비용 내역이 같은 객실 기록 안에 남습니다." type="settlement" imageTitle="숙소별 작업·비용 내역" imageLabel="작업·이용·비용 내역" imageModifier="billing" />
           </section>
         </div>
       </section>
-      <section id="process" className="full-band process-band"><div className="section-inner process-section"><p className="section-label">시작 절차</p><h2>바로 계약하지 않고,<br />먼저 현장을 맞춰봅니다.</h2><p className="section-copy">숙소마다 구조와 일정이 달라<br />약 2개월간 실제 흐름을 조율합니다.</p><ol className="timeline">{processSteps.map(([title, body]) => <li key={title}><strong>{title}</strong><span>{body}</span></li>)}</ol><div className="pricing-note"><span className="pricing-note-label">요금 기준</span><p>정액제 또는 건별제로 운영하며,<br />거리·물량·방 크기 등에 따라 비용이 달라집니다.</p></div></div></section>
+      <section id="process" className="full-band process-band"><div className="section-inner process-section"><p className="section-label">시작 절차</p><h2>도입 전 운영 조건부터 맞춥니다.</h2><p className="section-copy">숙소마다 구조와 운영 방식이 달라, 시작 전 실제 현장 흐름과 업무 범위를 먼저 조율합니다.</p><ol className="process-steps">{processSteps.map(([title, body, note], index) => <li key={title}><span className="process-number" aria-hidden="true">{index + 1}</span><div><strong><span className="sr-only">{index + 1}단계 </span>{title}</strong>{note && <small>{note}</small>}<p>{body}</p></div></li>)}</ol><div className="pricing-note"><span className="pricing-note-label">요금 기준</span><p>정액제 또는 건별제로 운영하며, 거리·물량·방 크기 등에 따라 비용이 달라집니다.</p></div></div></section>
       <section id="faq" className="full-band faq-band"><div className="section-inner faq-section"><h2>자주 묻는 질문</h2><div className="faq-list">{faqs.map(([q, a]) => <details className="faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</div></div></section>
       <section id="quote" className="full-band quote-band"><div className="section-inner quote"><p className="section-label dark-label">상담 안내</p><h2>우리 숙소도 맡길 수 있는지<br />확인해 보세요.</h2><p>숙소 위치와 객실 수만 알려주시면 가능 범위를 빠르게 안내드립니다.</p><div className="quote-actions"><button className="quote-action primary" type="button" disabled>카카오톡 문의</button><button className="quote-action secondary" type="button" disabled>전화 문의</button></div></div></section>
     </main>
