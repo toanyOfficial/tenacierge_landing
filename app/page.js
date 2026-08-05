@@ -148,13 +148,22 @@ export default function Home() {
             <div className="tracking-screens"><ProductScreen type="butlerTasks" title="담당자 배정·청소·검수 상태" label="객실별 업무 상태" className="progress" /><ProductScreen type="cleanerReport" title="완료 사진과 체크리스트" label="완료 사진·체크리스트" className="checklist" /></div>
           </section>
 
-          <section id="operations" className="anchor-target operation-section records-proof-section" aria-labelledby="records-proof-title">
+          <section id="operations" className="anchor-target operation-section infrastructure-section" aria-labelledby="infrastructure-title">
             <div className="operation-heading">
-              <p className="section-label">기록으로 남는 운영</p>
+              <p className="section-label">운영 인프라</p>
+              <h2 id="infrastructure-title">현장 운영을 받치는<br />인력과 세탁 기반</h2>
+              <p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정하고, 침구 처리까지 내부 운영 기반으로 관리합니다.</p>
+            </div>
+            <div className="infrastructure-ribbon"><div><strong>약 60명의 운영 인력</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></div><div id="laundry" className="anchor-target"><strong>세탁실 · 세탁공장 · 특수오염처리공정</strong><p>수거한 침구는 자체 세탁실 또는 세탁공장에서 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리해 확인·처리합니다.</p></div></div>
+          </section>
+
+          <section className="operation-section records-proof-section" aria-labelledby="records-proof-title">
+            <div className="operation-heading">
+              <p className="section-label">객실별 운영 기록</p>
               <h2 id="records-proof-title">작업 내용과 비용이<br />하나의 객실 기록에 남습니다.</h2>
               <p>일정, 완료 사진, 검수, 특이사항과 이상 내용, 이용 내역과 비용 내역을 객실별로 확인할 수 있습니다.</p>
             </div>
-            <div className="foundation-ribbon"><div><strong>약 60명의 운영 인력</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></div><div id="laundry" className="anchor-target"><strong>세탁실 · 세탁공장 · 특수오염처리공정</strong><p>수거한 침구는 자체 세탁실 또는 세탁공장에서 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리해 확인·처리합니다.</p></div><div><strong>객실별 기록</strong><p>완료 사진, 특이사항과 이상 내용, 이용 내역과 비용 내역을 객실별로 남깁니다.</p></div></div>
+            <ul className="record-points">{["일정", "완료 사진", "검수", "특이사항과 이상 내용", "이용 내역", "비용 내역"].map(item => <li key={item}>{item}</li>)}</ul>
             <div className="settlement-proof"><ProductScreen type="settlement" title="숙소별 작업·비용 내역" label="작업·이용·비용 내역" className="billing" /></div>
           </section>
         </div>
