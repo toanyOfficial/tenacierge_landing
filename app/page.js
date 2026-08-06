@@ -7,19 +7,19 @@ const changes = [
   ["청소와 침구 일정이", "따로 움직임", "같은 체크인 일정에 맞춰", "함께 준비"],
 ];
 const operationRoles = [
-  ["calendar", "데스크", "일정·요청"],
-  ["supply", "배달팀", "물품 이동"],
-  ["linen", "배급팀", "객실 준비"],
+  ["calendar", "데스크", "일정·요청 확인"],
+  ["supply", "배달팀", "침구·물품 이동"],
+  ["linen", "배급팀", "객실 침구·비품 준비"],
   ["broom", "클리너", "객실 정비"],
-  ["checklist", "관리감독", "완료 검수"],
-  ["receipt", "수거팀", "침구 회수"],
-  ["laundry", "세탁팀", "세탁·재준비"],
+  ["checklist", "관리감독", "완료 상태·사진 검수"],
+  ["receipt", "수거팀", "사용 침구 회수"],
+  ["laundry", "세탁팀", "세탁·분류·재준비"],
 ];
 const processSteps = [
   ["사전 상담", "현재 운영 방식과 필요한 업무 확인"],
-  ["업무 범위 논의", "객실 수, 일정, 업무 범위와 요청사항 조율"],
-  ["현장 조율", "실제 현장 흐름과 인력 배치 조정", "약 2개월 소요"],
-  ["최종 확정 및 운영 시작", "운영 조건과 계약 내용을 확정한 뒤 시작"],
+  ["업무 범위 논의", "객실 수와 일정, 요청사항 조율"],
+  ["현장 조율", "현장 흐름과 인력 배치 조정", "약 2개월 소요"],
+  ["최종 확정 및 운영 시작", "운영 조건 확정 후 시작"],
 ];
 const faqs = [
   ["어떤 숙소를 맡길 수 있나요?", "숙소 위치, 객실 수, 구조와 운영 일정을 확인한 뒤 안내합니다. 여러 객실을 운영하는 호스트도 상담할 수 있습니다."],
@@ -120,29 +120,36 @@ export default function Home() {
           <div className="story-scene opening-scene">
             <div className="opening-copy">
               <p className="section-label">운영 프로세스</p>
-              <h2>준비한 사람이 끝내지 않습니다.<br />다음 역할이 같은 객실을 다시 확인합니다.</h2>
+              <h2>준비한 사람이<br />끝내지 않습니다.<br />다음 역할이 같은<br />객실을 다시<br />확인합니다.</h2>
+              <p>침구와 비품 준비 상태부터 청소 완료와 최종 검수까지, 세 역할이 같은 객실을 이어서 확인합니다.</p>
             </div>
-            <div className="process-rail" aria-label="배급에서 클리닝, 검수까지 이어지는 운영 흐름">
-              {[["supply", "배급"], ["broom", "클리닝"], ["checklist", "검수"]].map(([icon, label], index) => <span className="process-rail-step" key={label}><Icon name={icon}/><strong>{label}</strong>{index < 2 ? <i aria-hidden="true">→</i> : null}</span>)}
+            <div className="opening-flow">
+              <div className="process-rail" aria-label="배급에서 클리닝, 검수까지 이어지는 운영 흐름">
+                {[["supply", "배급"], ["broom", "클리닝"], ["checklist", "검수"]].map(([icon, label], index) => <span className="process-rail-step" key={label}><Icon name={icon}/><strong>{label}</strong>{index < 2 ? <i aria-hidden="true">→</i> : null}</span>)}
+              </div>
+              <p className="rail-note">한 번의 완료 표시로 끝내지 않고 단계별로 확인합니다.</p>
             </div>
-            <p className="opening-note">침구와 비품 준비 상태부터 청소 완료와 최종 검수까지, 세 역할이 같은 객실을 이어서 확인합니다.</p>
           </div>
 
           <div id="services" className="anchor-target story-scene handoff-scene">
             <div className="handoff-copy">
               <p className="section-label">역할을 나눈 운영 조직</p>
-              <h2>7개의 역할이<br />한 객실을 이어받습니다.</h2>
+              <h2>7개의 역할이<br />한 객실을<br />이어받습니다.</h2>
               <p>일정 확인부터 침구 재준비까지, 업무별 전담 인력이 다음 역할에 객실을 인계합니다.</p>
             </div>
             <div className="dashboard-composition">
               <ProductScreen type="dashboard" title="객실별 일정과 진행 상태" className="overview" />
-              <p className="dashboard-note">호스트도 객실별 진행 상태를 확인할 수 있습니다.</p>
+              <p className="dashboard-note">호스트도 객실별 진행 현황을 확인할 수 있습니다.</p>
               <div className="role-rail">{operationRoles.map(([icon, role, detail]) => <span className="role-rail-item" key={role}><Icon name={icon}/><strong>{role}</strong><em>{detail}</em></span>)}</div>
             </div>
           </div>
 
           <div className="story-scene control-room-scene">
-            <h3>누가 맡았고,<br />어디까지 끝났는지,<br />사진까지 이어서 봅니다.</h3>
+            <div className="control-copy">
+              <p className="section-label">실시간 진행 관리</p>
+              <h3>누가 맡았고,<br />어디까지<br />끝났는지,<br />사진까지 이어서<br />봅니다.</h3>
+              <p>객실별 배급 상태와 담당자를 지정하고, 청소와 검수가 완료될 때까지 진행 상태를 관리합니다.</p>
+            </div>
             <div className="control-collage">
               <ProductScreen type="butlerTasks" title="담당자 배정·청소·검수 상태" className="progress" />
               <ProductScreen type="cleanerReport" title="완료 사진과 체크리스트" className="checklist" />
@@ -154,12 +161,12 @@ export default function Home() {
 
           <div id="operations" className="anchor-target story-scene final-scene">
             <div className="infrastructure-strip">
-              <p>현장을 받치는 두 가지</p>
+              <p className="section-label">현장을 받치는 두 가지</p>
               <div className="infrastructure-pair"><div><strong>약 60명</strong><span>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</span></div><div id="laundry" className="anchor-target"><strong>세탁실 · 세탁공장 ·<br />특수오염처리공정</strong><span>수거한 침구를 자체 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리합니다.</span></div></div>
             </div>
             <div className="record-proof-composition">
               <ProductScreen type="settlement" title="숙소별 작업·비용 내역" className="billing" />
-              <div className="record-proof-copy"><h3>운영은 객실별 기록으로 남습니다.</h3><p>일정, 완료 사진, 검수, 특이사항, 이용 내역과 비용 내역을 한 객실의 기록에서 확인합니다.</p></div>
+              <div className="record-proof-copy"><p className="section-label">객실 운영 기록</p><h3>운영은 객실별<br />기록으로<br />남습니다.</h3><p>일정, 완료 사진, 검수, 특이사항, 이용 내역과 비용 내역을 한 객실의 기록에서 확인합니다.</p></div>
             </div>
           </div>
         </div>
