@@ -121,7 +121,7 @@ export default function Home() {
             <div className="operations-intro">
               <div className="operations-intro-copy">
                 <p className="section-label">운영 방식</p>
-                <h2>한 객실을 7개의 역할이 이어받아,<br />배급부터 검수까지 확인합니다.</h2>
+                <h2>한 객실을 7개의 역할이 이어받아, 배급부터 검수까지 확인합니다.</h2>
                 <p>일정 확인부터 침구 재준비까지 업무별 담당자가 다음 역할에 객실을 인계하며, 호스트도 객실별 진행 현황을 확인할 수 있습니다.</p>
               </div>
               <div className="operations-flow">
@@ -132,7 +132,6 @@ export default function Home() {
               </div>
             </div>
             <div className="dashboard-composition">
-              <p className="dashboard-note">호스트도 객실별 진행 현황을 확인할 수 있습니다.</p>
               <ProductScreen type="dashboard" title="객실별 일정과 진행 상태" className="overview" />
               <div className="role-rail">{operationRoles.map(([icon, role, detail]) => <span className="role-rail-item" key={role}><Icon name={icon}/><strong>{role}</strong><em>{detail}</em></span>)}</div>
             </div>
@@ -140,19 +139,18 @@ export default function Home() {
 
           <div className="story-scene control-room-scene">
             <div className="control-copy">
-              <p className="section-label">실제 관리 화면</p>
+              <p className="section-label">실시간 진행 관리</p>
               <h3>누가 맡았고 어디까지 끝났는지,<br />완료 사진까지 한눈에 봅니다.</h3>
-              <p>배급 상태·담당자 배정·청소·검수·완료 사진을 하나의 흐름으로 확인합니다.</p>
+              <p>객실별 배급 상태와 담당자를 지정하고, 청소와 검수가 완료될 때까지 진행 상태를 관리합니다.</p>
             </div>
             <div className="control-panel">
               <div className="control-screen control-screen-main">
+                <p className="control-screen-label">담당자 배정 · 청소·검수 상태</p>
                 <ProductScreen type="butlerTasks" title="담당자 배정·청소·검수 상태" className="progress" />
-                <span className="screen-annotation annotation-assignee">담당자 배정</span>
-                <span className="screen-annotation annotation-status">청소·검수 상태</span>
               </div>
               <div className="control-screen control-screen-report">
+                <p className="control-screen-label">완료 사진</p>
                 <ProductScreen type="cleanerReport" title="완료 사진과 체크리스트" className="checklist" />
-                <span className="screen-annotation annotation-photo">완료 사진</span>
               </div>
             </div>
           </div>
