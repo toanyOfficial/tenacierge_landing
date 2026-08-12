@@ -1,5 +1,6 @@
 import Icon from "../components/Icons.js";
-import { CleaningCounter, OperationProcessObserver, ShowcaseModalImage } from "../components/ClientWidgets.js";
+import { CleaningCounter, ShowcaseModalImage } from "../components/ClientWidgets.js";
+import OperationProcessObserver from "../components/OperationProcessObserver.js";
 
 const changes = [
   ["객실마다 연락해", "일정과 완료 확인", "한 화면에서", "진행 상태 확인"],
