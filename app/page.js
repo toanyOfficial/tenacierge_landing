@@ -1,5 +1,5 @@
 import Icon from "../components/Icons.js";
-import { CleaningCounter, MobileNav, OperationProcessObserver, ShowcaseModalImage } from "../components/ClientWidgets.js";
+import { CleaningCounter, OperationProcessObserver, ShowcaseModalImage } from "../components/ClientWidgets.js";
 
 const changes = [
   ["객실마다 연락해", "일정과 완료 확인", "한 화면에서", "진행 상태 확인"],
@@ -109,7 +109,7 @@ function ProductScreen({ type, title, label, className = "" }) {
 
 export default function Home() {
   return <>
-    <header className="site-header"><div className="header-inner"><a className="brand" href="#hero" aria-label="Tenacierge 홈"><span className="brand-mark">T</span>Tenacierge</a><MobileNav /></div></header>
+    <header className="site-header"><div className="header-inner"><a className="brand" href="#hero" aria-label="Tenacierge 홈"><span className="brand-mark">T</span>Tenacierge</a><a className="header-cta" href="#quote">상담하기</a></div></header>
     <main>
       <section id="hero" className="full-band hero-band"><div className="section-inner hero"><div className="hero-copy"><p className="hero-audience">단기숙박 숙소 현장 운영</p><h1>체크아웃 후 다음 체크인까지,<br />숙소 현장을 대신 챙깁니다.</h1><p className="hero-lead">청소·침구·검수·현장 이슈를 한 흐름으로 처리하고,<br className="desktop-break" /> 진행 상황은 기록으로 남깁니다.</p><div className="hero-actions"><a className="btn primary" href="#quote">우리 숙소도 가능한지 확인하기</a><a className="text-link" href="#evidence">실제 관리 화면 보기 <span aria-hidden="true">→</span></a></div></div><HeroRoomDiorama /></div></section>
       <section id="records" className="full-band records-band"><div className="section-inner records-section"><CleaningCounter /></div></section>
@@ -150,7 +150,7 @@ export default function Home() {
           <section id="operations" className="anchor-target foundation-section">
             <p className="section-label">현장을 받치는 두 가지</p>
             <div className="foundation-grid">
-              <article className="foundation-item people-foundation"><strong>약 60명</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></article>
+              <article className="foundation-item people-foundation"><span className="foundation-context">클리너 풀</span><strong>약 60명</strong><p>객실 일정과 업무량에 맞춰 필요한 클리너를 배정합니다.</p></article>
               <article id="laundry" className="anchor-target foundation-item laundry-foundation">
                 <div className="washer-visual" aria-hidden="true"><div className="washer-drum"><i/><i/><i/></div></div>
                 <div><strong>세탁실 · 세탁공장 ·<br />특수오염처리공정</strong><p>수거한 침구를 자체 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리합니다.</p></div>
