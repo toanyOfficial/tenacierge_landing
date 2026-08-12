@@ -128,6 +128,9 @@ export default function Home() {
               <div className="relay-groups" aria-hidden="true"><span>배급</span><span>클리닝</span><span>검수</span></div>
               <div className="relay-roles">{operationRoles.map(([icon, role, detail], index) => <div className="relay-role" key={role}><Icon name={icon}/><strong>{role}</strong><span>{detail}</span>{index < operationRoles.length - 1 && <i aria-hidden="true">→</i>}</div>)}</div>
             </div>
+            <div className="relay-mobile" aria-label="배급, 클리닝, 검수 역할 그룹">
+              {[["배급", operationRoles.slice(0, 3)], ["클리닝", operationRoles.slice(3, 4)], ["검수", operationRoles.slice(4)]].map(([group, roles]) => <div className="relay-mobile-group" key={group}><strong>{group}</strong><div>{roles.map(([icon, role], index) => <span key={role}><Icon name={icon}/><b>{role}</b>{index < roles.length - 1 && <i aria-hidden="true">→</i>}</span>)}</div></div>)}
+            </div>
             <p className="relay-summary">일정 확인부터 침구 재준비까지 업무별 담당자가 다음 역할에 객실을 인계하며, 호스트도 객실별 진행 현황을 확인할 수 있습니다.</p>
 
             <figure className="journey-evidence dashboard-evidence">
@@ -136,20 +139,11 @@ export default function Home() {
             </figure>
 
             <div className="management-proof">
-              <div className="journey-subheading"><p className="section-label">실제 관리 화면</p><h3>누가 맡았고, 어디까지 끝났는지 한눈에 봅니다</h3></div>
-              <div className="task-screen-wrap">
-                <ProductScreen type="butlerTasks" title="객실별 담당자와 진행 상태" className="progress" />
-                <span className="task-pin pin-assignee" aria-hidden="true">1</span>
-                <span className="task-pin pin-status" aria-hidden="true">2</span>
-                <span className="task-pin pin-photo" aria-hidden="true">3</span>
+              <div className="journey-subheading"><p className="section-label">실시간 진행 관리</p><h3>누가 맡았고 어디까지 끝났는지,<br />완료 사진까지 한눈에 봅니다.</h3><p>담당자 배정부터 청소·검수 상태, 완료 사진까지 한 흐름으로 확인합니다.</p></div>
+              <div className="management-screens">
+                <div><p className="screen-context">담당자 배정 · 청소·검수 상태</p><ProductScreen type="butlerTasks" title="객실별 담당자와 진행 상태" className="progress" /></div>
+                <div><p className="screen-context">완료 사진</p><ProductScreen type="cleanerReport" title="완료 사진과 체크리스트 확인 화면" className="completion-report" /></div>
               </div>
-              <ol className="task-callouts"><li><b>담당자를 지정하면</b></li><li><b>상태가 실시간으로 바뀌고</b></li><li><b>완료 사진이 차곡차곡 쌓입니다</b></li></ol>
-            </div>
-
-            <div className="completion-proof">
-              <div className="journey-subheading"><p className="section-label">현장에서 남긴 증거</p><h3>완료는 사진으로 확인합니다</h3></div>
-              <ProductScreen type="cleanerReport" title="완료 사진과 체크리스트 확인 화면" className="completion-report" />
-              <p className="completion-proof-note">완료 사진과 체크리스트가 객실별 검수 근거로 남습니다.</p>
             </div>
           </section>
 
@@ -158,16 +152,15 @@ export default function Home() {
             <div className="foundation-grid">
               <article className="foundation-item people-foundation"><strong>약 60명</strong><p>객실 일정과 업무 종류에 맞춰 역할별 인력을 배정합니다.</p></article>
               <article id="laundry" className="anchor-target foundation-item laundry-foundation">
-                <div className="washer-visual" aria-hidden="true"><div className="washer-drum"><i/><i/><i/></div><span className="washer-alert">✦</span></div>
+                <div className="washer-visual" aria-hidden="true"><div className="washer-drum"><i/><i/><i/></div></div>
                 <div><strong>세탁실 · 세탁공장 ·<br />특수오염처리공정</strong><p>수거한 침구를 자체 처리하고, 일반 세탁이 어려운 오염은 별도 공정으로 분리합니다.</p></div>
               </article>
             </div>
           </section>
 
           <section className="record-conclusion">
-            <header className="journey-heading compact-heading"><p className="section-label">객실 운영 기록</p><h3>진행된 기록은 비용 내역까지 이어집니다</h3><p>담당자와 상태, 사진으로 확인한 현장 흐름이 객실별 비용 기록의 근거가 됩니다.</p></header>
+            <header className="journey-heading compact-heading"><p className="section-label">객실 운영 기록</p><h3>운영은 객실별 기록으로 남습니다.</h3><p>일정, 완료 사진, 검수, 특이사항, 이용 내역과 비용 내역을 한 객실의 기록에서 확인합니다.</p></header>
             <ProductScreen type="settlement" title="숙소별 작업·이용·비용 내역" className="billing" />
-            <p className="record-conclusion-copy">진행된 모든 상태와 사진은 비용 내역과 함께 객실 하나의 기록으로 정리됩니다. 일정, 완료 사진, 검수, 특이사항, 이용 내역과 비용 내역을 한 객실의 기록에서 확인할 수 있습니다.</p>
           </section>
         </div>
       </section>
